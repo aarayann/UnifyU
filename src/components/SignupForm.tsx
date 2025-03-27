@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Google } from "lucide-react";
+import { Mail } from "lucide-react";
 import { toast } from "sonner";
 
 interface SignupFormProps {
@@ -55,7 +55,7 @@ const SignupForm = ({ userType }: SignupFormProps) => {
         onClick={handleGoogleSignup}
         className="w-full flex items-center justify-center gap-2 border-gray-300 hover:bg-gray-50"
       >
-        <Google size={18} />
+        <Mail size={18} />
         <span>Sign up with Google</span>
       </Button>
       
