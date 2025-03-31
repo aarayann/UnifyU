@@ -26,7 +26,7 @@ const Header = () => {
         <div className="flex items-center gap-2">
           {/* Logo will be replaced with actual logo */}
           <div className="flex items-center">
-            <img src="public/logo-placeholder.png" alt="UnifyU Logo" className="h-10 w-auto" />
+            <img src="public/logo-placeholder.png" alt="UnifyU" className="h-10 w-auto" />
             <span className="ml-2 text-sm font-medium text-muted-foreground">Your Campus, Reimagined.</span>
           </div>
         </div>
