@@ -108,7 +108,7 @@ const Header = () => {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
               src="public/logo-unifyu.png" 
               alt="UnifyU" 
-              className="h-20 w-auto relative z-20" 
+              className="h-10 w-auto relative z-10" 
             />
             <motion.span 
               initial={{ opacity: 0, x: -10 }}
