@@ -1,56 +1,210 @@
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Laptop, GraduationCap, Users, Brain } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const Hero = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLHeadingElement>(null);
+  const { scrollY } = useScroll();
+  const [typingComplete, setTypingComplete] = useState(false);
+  const [visibleText, setVisibleText] = useState("");
+  const fullText = "UnifyU combines AI-powered learning, seamless ERP integration, and collaborative tools to revolutionize your academic journey. From smart study recommendations and instant AI assistance to attendance tracking, assignments, and peer discussions, everything you need is in one place.";
+
+  const textOpacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const textY = useTransform(scrollY, [0, 300], [0, 100]);
+  
+  const iconsOpacity = useTransform(scrollY, [0, 150, 300], [0, 1, 0]);
+  const iconsScale = useTransform(scrollY, [0, 150, 300], [0.8, 1, 0.8]);
+
+  // Typewriter effect
+  useEffect(() => {
+    if (visibleText.length < fullText.length) {
+      const timeout = setTimeout(() => {
+        setVisibleText(fullText.substring(0, visibleText.length + 1));
+      }, 20);
+      return () => clearTimeout(timeout);
+    } else {
+      setTypingComplete(true);
+    }
+  }, [visibleText, fullText]);
+
+  // Floating particles
+  const ParticleComponent = () => {
+    return (
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {Array.from({ length: 30 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full bg-[#244855] opacity-10"
+            initial={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+              scale: Math.random() * 0.5 + 0.1,
+            }}
+            animate={{
+              x: [
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerWidth,
+              ],
+              y: [
+                Math.random() * window.innerHeight,
+                Math.random() * window.innerHeight,
+                Math.random() * window.innerHeight,
+              ],
+              opacity: [0.1, 0.3, 0.1],
+            }}
+            transition={{
+              duration: 15 + Math.random() * 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            style={{
+              width: 5 + Math.random() * 10,
+              height: 5 + Math.random() * 10,
+            }}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <section className="container mx-auto py-16 px-4 md:px-6 relative overflow-hidden">
+    <section ref={containerRef} className="container mx-auto py-16 px-4 md:px-6 relative overflow-hidden min-h-[80vh] flex items-center">
+      <ParticleComponent />
+      
       <div className="max-w-4xl mx-auto text-center relative z-10">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-[#244855]">
-          UnifyU – Your Ultimate College Companion 🚀
-        </h1>
-        <p className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
-          UnifyU combines AI-powered learning, seamless ERP integration, and collaborative tools to revolutionize your academic journey. From smart study recommendations and instant AI assistance to attendance tracking, assignments, and peer discussions, everything you need is in one place.
-        </p>
+        <motion.h1 
+          ref={textRef}
+          className="text-4xl md:text-6xl font-bold tracking-tight mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          style={{ opacity: textOpacity, y: textY }}
+        >
+          <motion.span className="inline-block bg-gradient-to-r from-[#244855] to-[#E64833] text-transparent bg-clip-text">
+            UnifyU
+          </motion.span>
+          <motion.span className="inline-block"> – Your Ultimate College Companion </motion.span>
+          <motion.span 
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.8, duration: 0.5, type: "spring" }}
+            className="inline-block ml-2"
+          >
+            🚀
+          </motion.span>
+        </motion.h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-2xl mx-auto mb-12">
-          <div className="flex items-start gap-3">
-            <div className="bg-[#90AEAD] rounded-full p-2 text-white">
-              <GraduationCap size={24} />
-            </div>
-            <p className="text-gray-700"><span className="font-medium">🎓 Learn smarter</span> with AI-driven insights</p>
-          </div>
-          <div className="flex items-start gap-3">
-            <div className="bg-[#E64833] rounded-full p-2 text-white">
-              <Laptop size={24} />
-            </div>
-            <p className="text-gray-700"><span className="font-medium">📚 Stay organized</span> with a powerful LMS & ERP</p>
-          </div>
-          <div className="flex items-start gap-3">
-            <div className="bg-[#874F41] rounded-full p-2 text-white">
-              <Users size={24} />
-            </div>
-            <p className="text-gray-700"><span className="font-medium">🤝 Collaborate</span> effortlessly with mentors & peers</p>
-          </div>
-          <div className="flex items-start gap-3">
-            <div className="bg-[#244855] rounded-full p-2 text-white">
-              <Brain size={24} />
-            </div>
-            <p className="text-gray-700"><span className="font-medium">🏆 Stay motivated</span> with leaderboards & rewards</p>
-          </div>
-        </div>
+        <motion.div
+          className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed min-h-[120px]"
+          style={{ opacity: textOpacity }}
+        >
+          <p>{visibleText}</p>
+        </motion.div>
         
-        <p className="text-lg font-medium text-[#244855]">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-2xl mx-auto mb-12"
+          style={{ 
+            opacity: iconsOpacity,
+            scale: iconsScale
+          }}
+        >
+          {[
+            { 
+              icon: GraduationCap, 
+              color: "#90AEAD", 
+              text: "🎓 Learn smarter", 
+              subtext: "with AI-driven insights"
+            },
+            { 
+              icon: Laptop, 
+              color: "#E64833", 
+              text: "📚 Stay organized", 
+              subtext: "with a powerful LMS & ERP"
+            },
+            { 
+              icon: Users, 
+              color: "#874F41", 
+              text: "🤝 Collaborate", 
+              subtext: "effortlessly with mentors & peers"
+            },
+            { 
+              icon: Brain, 
+              color: "#244855", 
+              text: "🏆 Stay motivated", 
+              subtext: "with leaderboards & rewards"
+            }
+          ].map((item, index) => (
+            <motion.div 
+              key={index}
+              className="flex items-start gap-3"
+              initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+              animate={{ 
+                opacity: typingComplete ? 1 : 0, 
+                x: typingComplete ? 0 : (index % 2 === 0 ? -20 : 20) 
+              }}
+              transition={{ duration: 0.5, delay: 0.8 + (index * 0.1) }}
+              whileHover={{ 
+                scale: 1.03,
+                transition: { duration: 0.2 }
+              }}
+            >
+              <motion.div 
+                className="rounded-full p-2 text-white"
+                style={{ backgroundColor: item.color }}
+                whileHover={{ 
+                  scale: 1.1,
+                  boxShadow: `0 0 12px ${item.color}80`
+                }}
+                initial={{ rotate: 0 }}
+                animate={{ rotate: [0, 10, 0, -10, 0] }}
+                transition={{ 
+                  duration: 4, 
+                  repeat: Infinity,
+                  repeatType: "mirror",
+                  ease: "easeInOut",
+                  delay: index * 0.5
+                }}
+              >
+                <item.icon size={24} />
+              </motion.div>
+              <p className="text-gray-700">
+                <motion.span 
+                  className="font-medium"
+                  initial={{ color: "#000" }}
+                  whileHover={{ color: item.color }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {item.text}
+                </motion.span> {item.subtext}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+        
+        <motion.p 
+          className="text-lg font-medium text-[#244855]"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ 
+            opacity: typingComplete ? 1 : 0, 
+            y: typingComplete ? 0 : 20 
+          }}
+          transition={{ duration: 0.5, delay: 1.3 }}
+          whileHover={{ scale: 1.05 }}
+        >
           Simplify, engage, and excel with UnifyU. Your college life, redefined! 🚀
-        </p>
+        </motion.p>
       </div>
       
-      {/* Floating elements */}
+      {/* Floating elements with enhanced animations */}
       <motion.div 
         className="absolute top-20 -left-16 opacity-15 hidden md:block"
         animate={{ 
           y: [0, 15, 0], 
-          rotate: [0, 5, 0]
+          rotate: [0, 5, 0],
+          filter: ["drop-shadow(0px 0px 0px rgba(36, 72, 85, 0))", "drop-shadow(0px 0px 10px rgba(36, 72, 85, 0.5))", "drop-shadow(0px 0px 0px rgba(36, 72, 85, 0))"]
         }}
         transition={{ 
           duration: 6,
@@ -65,7 +219,8 @@ const Hero = () => {
         className="absolute top-40 -right-10 opacity-15 hidden md:block"
         animate={{ 
           y: [0, 20, 0],
-          rotate: [0, -5, 0]
+          rotate: [0, -5, 0],
+          filter: ["drop-shadow(0px 0px 0px rgba(230, 72, 51, 0))", "drop-shadow(0px 0px 10px rgba(230, 72, 51, 0.5))", "drop-shadow(0px 0px 0px rgba(230, 72, 51, 0))"]
         }}
         transition={{ 
           duration: 7,
@@ -81,7 +236,8 @@ const Hero = () => {
         className="absolute bottom-10 left-16 opacity-15 hidden md:block"
         animate={{ 
           y: [0, 15, 0],
-          rotate: [0, 3, 0]
+          rotate: [0, 3, 0],
+          filter: ["drop-shadow(0px 0px 0px rgba(135, 79, 65, 0))", "drop-shadow(0px 0px 10px rgba(135, 79, 65, 0.5))", "drop-shadow(0px 0px 0px rgba(135, 79, 65, 0))"]
         }}
         transition={{ 
           duration: 5,
@@ -97,7 +253,8 @@ const Hero = () => {
         className="absolute bottom-32 right-20 opacity-15 hidden md:block"
         animate={{ 
           y: [0, 20, 0],
-          rotate: [0, -3, 0]
+          rotate: [0, -3, 0],
+          filter: ["drop-shadow(0px 0px 0px rgba(144, 174, 173, 0))", "drop-shadow(0px 0px 10px rgba(144, 174, 173, 0.5))", "drop-shadow(0px 0px 0px rgba(144, 174, 173, 0))"]
         }}
         transition={{ 
           duration: 8,
