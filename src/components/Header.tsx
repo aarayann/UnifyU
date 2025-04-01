@@ -106,7 +106,7 @@ const Header = () => {
                 filter: "drop-shadow(0px 0px 8px rgba(36, 72, 85, 0.6))" 
               }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              src="/logo.png" 
+              src="public/logo-unifyu.png" 
               alt="UnifyU" 
               className="h-10 w-auto relative z-10" 
             />
