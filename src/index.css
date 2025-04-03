@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -69,7 +68,7 @@
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted-foreground: 215 20.2% 75.1%;
 
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
@@ -80,20 +79,21 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    
+    --sidebar-background: 224 71% 4%;
+    --sidebar-foreground: 225 20% 92%;
+    --sidebar-primary: 224.3 76.3% 58%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-accent: 225 7% 25%;
+    --sidebar-accent-foreground: 225 20% 92%;
+    --sidebar-border: 225 7% 25%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
 @layer base {
   * {
-    @apply border-border selection:bg-[#244855]/20 selection:text-[#244855];
+    @apply border-border selection:bg-[#244855]/20 selection:text-[#244855] dark:selection:bg-[#90AEAD]/30 dark:selection:text-[#90AEAD];
   }
 
   body {
@@ -108,15 +108,15 @@
 
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-[#244855] to-[#E64833] bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[#244855] to-[#E64833] bg-clip-text text-transparent dark:from-[#90AEAD] dark:to-[#E64833];
   }
 
   .glass {
-    @apply backdrop-blur-md bg-white/10 border border-white/20;
+    @apply backdrop-blur-md bg-white/10 border border-white/20 dark:bg-black/20 dark:border-white/10;
   }
 
   .glass-card {
-    @apply backdrop-blur-lg bg-white/80 dark:bg-gray-900/80 border border-gray-200 dark:border-gray-800 shadow-lg;
+    @apply backdrop-blur-lg bg-white/80 dark:bg-gray-900/90 border border-gray-200 dark:border-gray-800 shadow-lg;
   }
 
   .magnetic-hover {
@@ -124,7 +124,7 @@
   }
   
   .glass-morphism {
-    @apply backdrop-blur-lg bg-white/20 border border-white/30 shadow-lg;
+    @apply backdrop-blur-lg bg-white/20 border border-white/30 shadow-lg dark:bg-black/30 dark:border-white/10;
   }
 }
 

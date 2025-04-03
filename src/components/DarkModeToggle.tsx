@@ -46,11 +46,11 @@ const DarkModeToggle = () => {
       variant="ghost"
       size="icon"
       onClick={toggleDarkMode}
-      className="w-9 h-9 rounded-full"
+      className="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-800"
       aria-label="Toggle dark mode"
     >
       {isDarkMode ? (
-        <Moon className="h-5 w-5 text-gray-200 hover:text-white transition-colors" />
+        <Moon className="h-5 w-5 text-gray-100 hover:text-white transition-colors" />
       ) : (
         <Sun className="h-5 w-5 text-gray-700 hover:text-gray-900 transition-colors" />
       )}
