@@ -15,8 +15,8 @@ const BenTime = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
-  const PROJECT_ID = "virtual-dogfish-455613-a2";
-  const API_KEY = "AIzaSyDOZolzUWk0J9UARNfu_7b9x3tkDjoV_4I";
+  // Updated API key and model
+  const API_KEY = "AIzaSyDmkNJBdWSOQQrFJzUvMNF708lzf6f5g0A";
   
   useEffect(() => {
     // Add welcome message when component mounts
@@ -94,8 +94,9 @@ const BenTime = () => {
   };
   
   const callGeminiAPI = async (userInput: string) => {
+    // Updated to use the correct Gemini 2.0 Flash endpoint
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
