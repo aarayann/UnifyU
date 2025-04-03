@@ -1,14 +1,25 @@
 
+import { useEffect, useRef } from "react";
 import Hero from "@/components/Hero";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { GraduationCap, Laptop, Brain, MessageSquare } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Index = () => {
+  const location = useLocation();
+  const topRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Scroll to top when the page loads or when the hash is "#top"
+    if (location.hash === "#top" && topRef.current) {
+      topRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [location]);
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen" ref={topRef}>
       <Hero />
       
       {/* Features Section */}
