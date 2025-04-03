@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -5,6 +6,7 @@ import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuL
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
+import DarkModeToggle from "./DarkModeToggle";
 
 const Header = () => {
   const location = useLocation();
@@ -102,7 +104,7 @@ const Header = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className={cn(
-          "sticky top-0 z-50 w-full backdrop-blur-lg bg-white/80 dark:bg-background/80 supports-[backdrop-filter]:bg-background/60",
+          "sticky top-0 z-50 w-full backdrop-blur-lg bg-white/80 dark:bg-background/80 supports-[backdrop-filter]:bg-background/60 transition-colors duration-300",
           scrolled ? "shadow-md" : "border-b"
         )}
       >
@@ -131,7 +133,7 @@ const Header = () => {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="ml-2 text-sm font-medium text-muted-foreground relative z-10"
+                className="ml-2 text-sm font-medium text-muted-foreground relative z-10 dark:text-gray-300 transition-colors duration-300"
               >
                 Your Campus, Reimagined.
               </motion.span>
@@ -237,7 +239,11 @@ const Header = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex items-center gap-2"
           >
+            {/* Dark Mode Toggle */}
+            <DarkModeToggle />
+            
             <Link to="/auth">
               <Button 
                 className="relative overflow-hidden group"
@@ -245,12 +251,12 @@ const Header = () => {
               >
                 <span className="relative z-10 text-white">Login / Sign Up</span>
                 <motion.div 
-                  className="absolute inset-0 bg-gradient-to-r from-[#244855] to-[#1e3941]" 
+                  className="absolute inset-0 bg-gradient-to-r from-[#244855] to-[#1e3941] dark:from-[#90AEAD] dark:to-[#768e8d] transition-colors duration-300" 
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.3 }}
                 />
                 <motion.div 
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-[#1e3941] to-[#244855] transition-opacity"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-[#1e3941] to-[#244855] dark:from-[#768e8d] dark:to-[#90AEAD] transition-all duration-300"
                   initial={{ scale: 1.1 }}
                   whileHover={{ scale: 1 }}
                   transition={{ duration: 0.3 }}
@@ -264,7 +270,7 @@ const Header = () => {
       {/* Floating Scroll-to-Top Button */}
       <motion.button
         onClick={scrollToTop}
-        className="fixed bottom-6 right-6 z-50 rounded-full bg-[#244855] p-3 text-white shadow-lg hover:bg-[#1a353f] transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#244855] focus:ring-offset-2"
+        className="fixed bottom-6 right-6 z-50 rounded-full bg-[#244855] p-3 text-white shadow-lg hover:bg-[#1a353f] transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#244855] focus:ring-offset-2 dark:bg-[#90AEAD] dark:hover:bg-[#768e8d] dark:focus:ring-[#90AEAD] dark:ring-offset-gray-900"
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
         animate={{ 
           opacity: showScrollTop ? 1 : 0, 

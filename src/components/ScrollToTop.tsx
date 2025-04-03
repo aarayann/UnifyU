@@ -41,7 +41,7 @@ function ScrollToTop() {
     <>
       {isVisible && (
         <Button
-          className="fixed bottom-8 left-8 z-40 rounded-full h-12 w-12 bg-[#244855] hover:bg-[#244855]/90 text-white shadow-lg flex items-center justify-center"
+          className="fixed bottom-8 left-8 z-40 rounded-full h-12 w-12 bg-[#244855] hover:bg-[#244855]/90 text-white shadow-lg flex items-center justify-center dark:bg-[#90AEAD] dark:hover:bg-[#90AEAD]/90 transition-all duration-300"
           onClick={scrollToTop}
           aria-label="Scroll to top"
         >

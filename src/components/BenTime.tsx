@@ -114,40 +114,40 @@ const BenTime = () => {
   return (
     <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end">
       {isOpen ? (
-        <div className="mb-4 w-[350px] max-w-[calc(100vw-32px)] flex flex-col rounded-xl shadow-lg overflow-hidden bg-white border border-gray-200">
+        <div className="mb-4 w-[350px] max-w-[calc(100vw-32px)] flex flex-col rounded-xl shadow-lg overflow-hidden bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-700 transition-colors duration-300">
           {/* Chat header */}
-          <div className="flex items-center justify-between bg-[#244855] text-white p-3">
+          <div className="flex items-center justify-between bg-[#244855] text-white p-3 dark:bg-[#90AEAD] transition-colors duration-300">
             <h3 className="font-bold text-lg">BenTime</h3>
             <Button 
               variant="ghost" 
               size="icon" 
               onClick={toggleChat}
-              className="h-8 w-8 text-white hover:bg-[#1b3640] hover:text-white"
+              className="h-8 w-8 text-white hover:bg-[#1b3640] hover:text-white dark:hover:bg-[#768e8d]"
             >
               <MinimizeIcon className="h-4 w-4" />
             </Button>
           </div>
           
           {/* Messages area */}
-          <div className="flex-1 p-4 overflow-y-auto max-h-[400px] bg-[#FBE9D0]/10">
+          <div className="flex-1 p-4 overflow-y-auto max-h-[400px] bg-[#FBE9D0]/10 dark:bg-gray-900/50 transition-colors duration-300">
             {messages.map((message, index) => (
               <div 
                 key={index} 
                 className={`mb-3 ${
                   message.role === "user" 
-                    ? "ml-auto mr-0 bg-[#E64833]/10 text-gray-900" 
-                    : "ml-0 mr-auto bg-[#244855]/10 text-gray-900"
-                } max-w-[80%] rounded-lg p-3`}
+                    ? "ml-auto mr-0 bg-[#E64833]/10 text-gray-900 dark:text-gray-100" 
+                    : "ml-0 mr-auto bg-[#244855]/10 text-gray-900 dark:bg-[#90AEAD]/20 dark:text-gray-100"
+                } max-w-[80%] rounded-lg p-3 transition-colors duration-300`}
               >
                 {message.content}
               </div>
             ))}
             {isLoading && (
-              <div className="ml-0 mr-auto bg-[#244855]/10 text-gray-900 max-w-[80%] rounded-lg p-3">
+              <div className="ml-0 mr-auto bg-[#244855]/10 text-gray-900 dark:bg-[#90AEAD]/20 dark:text-gray-100 max-w-[80%] rounded-lg p-3 transition-colors duration-300">
                 <div className="flex space-x-1">
-                  <div className="h-2 w-2 bg-[#244855] rounded-full animate-bounce"></div>
-                  <div className="h-2 w-2 bg-[#244855] rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
-                  <div className="h-2 w-2 bg-[#244855] rounded-full animate-bounce" style={{ animationDelay: "0.4s" }}></div>
+                  <div className="h-2 w-2 bg-[#244855] dark:bg-[#90AEAD] rounded-full animate-bounce transition-colors duration-300"></div>
+                  <div className="h-2 w-2 bg-[#244855] dark:bg-[#90AEAD] rounded-full animate-bounce transition-colors duration-300" style={{ animationDelay: "0.2s" }}></div>
+                  <div className="h-2 w-2 bg-[#244855] dark:bg-[#90AEAD] rounded-full animate-bounce transition-colors duration-300" style={{ animationDelay: "0.4s" }}></div>
                 </div>
               </div>
             )}
@@ -155,18 +155,18 @@ const BenTime = () => {
           </div>
           
           {/* Input area */}
-          <form onSubmit={handleSubmit} className="flex items-center border-t border-gray-200 p-2">
+          <form onSubmit={handleSubmit} className="flex items-center border-t border-gray-200 dark:border-gray-700 p-2 transition-colors duration-300">
             <input 
               type="text" 
               value={input} 
               onChange={handleInputChange}
               placeholder="Ask me anything..."
-              className="flex-1 p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#244855]"
+              className="flex-1 p-2 rounded-md border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#244855] dark:focus:ring-[#90AEAD] dark:bg-gray-700 dark:text-white transition-colors duration-300"
               disabled={isLoading}
             />
             <Button 
               type="submit"
-              className="ml-2 bg-[#E64833] hover:bg-[#E64833]/90 text-white"
+              className="ml-2 bg-[#E64833] hover:bg-[#E64833]/90 text-white transition-colors duration-300"
               disabled={isLoading || !input.trim()}
               size="icon"
             >
