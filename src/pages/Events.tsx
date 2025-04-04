@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, MapPin, Search } from "lucide-react";
+import { Calendar, Clock, MapPin, Search, Download } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
@@ -349,3 +349,4 @@ export default function Events() {
     </div>
   );
 };
+
