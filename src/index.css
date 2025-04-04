@@ -47,15 +47,15 @@
   }
 
   .dark {
-    /* Dark Mode Colors */
-    --background: 193 40% 17%; /* #1A3641 - Darkened Teal */
-    --foreground: 37 69% 90%; /* #FBE9D0 - Soft Beige */
+    /* Dark Mode Colors - Optimized for better contrast and visibility */
+    --background: 198 28% 21%; /* #223D4A - Lightened Darkened Teal */
+    --foreground: 0 0% 88%; /* #E0E0E0 - Light Gray */
 
-    --card: 193 40% 17%; /* #1A3641 - Darkened Teal */
-    --card-foreground: 37 69% 90%; /* #FBE9D0 - Soft Beige */
+    --card: 200 35% 20%; /* #1E3A47 - Card background */
+    --card-foreground: 0 0% 96%; /* #F5F5F5 - Off White */
 
-    --popover: 193 40% 17%; /* #1A3641 - Darkened Teal */
-    --popover-foreground: 37 69% 90%; /* #FBE9D0 - Soft Beige */
+    --popover: 200 35% 20%; /* #1E3A47 - Card background */
+    --popover-foreground: 0 0% 96%; /* #F5F5F5 - Off White */
 
     --primary: 180 16% 71%; /* #A8C0BF - Lightened Muted Teal */
     --primary-foreground: 193 40% 17%; /* #1A3641 - Darkened Teal */
@@ -63,8 +63,8 @@
     --secondary: 9 65% 51%; /* #D6402D - Darkened Burnt Orange */
     --secondary-foreground: 0 0% 100%; /* White */
 
-    --muted: 193 16% 14%; /* Darker Teal */
-    --muted-foreground: 180 16% 81%; /* Lighter Muted Teal */
+    --muted: 193 20% 18%; /* Darker Teal - #1E3641 */
+    --muted-foreground: 180 16% 85%; /* Lighter Muted Teal - #C5D6D5 */
 
     --accent: 180 16% 71%; /* #A8C0BF - Lightened Muted Teal */
     --accent-foreground: 193 40% 17%; /* #1A3641 - Darkened Teal */
@@ -72,16 +72,16 @@
     --destructive: 0 62.8% 30.6%; /* Darker Red */
     --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 180 16% 40%; /* Muted Teal with 30% opacity */
-    --input: 193 25% 12%; /* #142A35 - 20% darker than main background */
+    --border: 200 28% 27%; /* #2A4E5D - Border for separation */
+    --input: 193 25% 15%; /* #142A35 - 20% darker than main background */
     --ring: 180 16% 71%; /* #A8C0BF - Lightened Muted Teal */
 
     --sidebar-background: 193 40% 14%; /* Slightly darker than background */
     --sidebar-foreground: 37 69% 90%; /* #FBE9D0 - Soft Beige */
     --sidebar-primary: 180 16% 71%; /* #A8C0BF - Lightened Muted Teal */
     --sidebar-primary-foreground: 0 0% 100%; /* White */
-    --sidebar-accent: 193 16% 20%; /* Darker Teal */
-    --sidebar-accent-foreground: 180 16% 81%; /* Lighter Muted Teal */
+    --sidebar-accent: 193 20% 18%; /* Darker Teal - #1E3641 */
+    --sidebar-accent-foreground: 180 16% 85%; /* Lighter Muted Teal - #C5D6D5 */
     --sidebar-border: 180 16% 40%; /* Muted Teal with 30% opacity */
     --sidebar-ring: 180 16% 71%; /* #A8C0BF - Lightened Muted Teal */
   }
@@ -104,7 +104,8 @@
 
   /* Improved Typography for Dark Mode */
   .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-    @apply text-accent font-semibold;
+    @apply text-white font-bold text-shadow-sm;
+    text-shadow: 0 0 8px rgba(255,255,255,0.3);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -129,6 +130,20 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+  }
+
+  /* Dark mode specific text styles */
+  .dark p {
+    @apply text-[#E0E0E0] font-medium;
+  }
+  
+  .dark li {
+    @apply text-[#F5F5F5] text-lg;
+  }
+  
+  /* Improve link visibility in dark mode */
+  .dark a:not(.btn) {
+    @apply text-secondary hover:text-[#E64833] hover:underline;
   }
 }
 
@@ -155,7 +170,7 @@
 
   /* Interactive Elements Styling */
   .btn-secondary {
-    @apply bg-secondary text-white hover:bg-[#C23827] dark:hover:bg-[#C23827] transition-colors;
+    @apply bg-secondary text-white hover:bg-[#C23827] dark:hover:bg-[#E64833] transition-colors;
   }
   
   .link {
@@ -169,6 +184,15 @@
   
   .input-field {
     @apply bg-background dark:bg-[#142A35] border-border dark:border-accent/30 transition-colors;
+  }
+  
+  /* Text shadow utility */
+  .text-shadow-sm {
+    text-shadow: 0 0 8px rgba(255,255,255,0.3);
+  }
+  
+  .dark .checklist-icon {
+    @apply text-[#A8C0BF];
   }
 }
 

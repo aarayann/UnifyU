@@ -5,31 +5,24 @@ import { Button } from "@/components/ui/button";
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { ArrowUp } from "lucide-react";
 import DarkModeToggle from "./DarkModeToggle";
 
 const Header = () => {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
   
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 10;
-      const shouldShowScrollTop = window.scrollY > 300;
       
       if (isScrolled !== scrolled) {
         setScrolled(isScrolled);
-      }
-      
-      if (shouldShowScrollTop !== showScrollTop) {
-        setShowScrollTop(shouldShowScrollTop);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrolled, showScrollTop]);
+  }, [scrolled]);
   
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -249,7 +242,7 @@ const Header = () => {
                 className="relative overflow-hidden group"
                 variant="default"
               >
-                <span className="relative z-10 text-white">Login / Sign Up</span>
+                <span className="relative z-10 text-white font-bold">Login / Sign Up</span>
                 <motion.div 
                   className="absolute inset-0 bg-gradient-to-r from-[#244855] to-[#1e3941] dark:from-[#90AEAD] dark:to-[#768e8d] transition-colors duration-300" 
                   whileHover={{ scale: 1.1 }}
@@ -266,22 +259,6 @@ const Header = () => {
           </motion.div>
         </div>
       </motion.header>
-
-      {/* Floating Scroll-to-Top Button */}
-      <motion.button
-        onClick={scrollToTop}
-        className="fixed bottom-6 right-6 z-50 rounded-full bg-[#244855] p-3 text-white shadow-lg hover:bg-[#1a353f] transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#244855] focus:ring-offset-2 dark:bg-[#90AEAD] dark:hover:bg-[#768e8d] dark:focus:ring-[#90AEAD] dark:ring-offset-gray-900"
-        initial={{ opacity: 0, scale: 0.8, y: 20 }}
-        animate={{ 
-          opacity: showScrollTop ? 1 : 0, 
-          scale: showScrollTop ? 1 : 0.8, 
-          y: showScrollTop ? 0 : 20
-        }}
-        transition={{ duration: 0.3 }}
-        aria-label="Scroll to top"
-      >
-        <ArrowUp size={24} />
-      </motion.button>
     </>
   );
 };

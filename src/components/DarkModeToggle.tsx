@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -7,6 +7,13 @@ import { useToast } from "@/components/ui/use-toast";
 const DarkModeToggle = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { toast } = useToast();
+
+  // Check system theme and sync state on component mount
+  useEffect(() => {
+    // Initialize based on document class
+    const isDark = document.documentElement.classList.contains("dark");
+    setIsDarkMode(isDark);
+  }, []);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -39,7 +46,7 @@ const DarkModeToggle = () => {
       aria-label="Toggle dark mode"
     >
       {isDarkMode ? (
-        <Moon className="h-6 w-6 text-[#A8C0BF] hover:text-white transition-colors" />
+        <Moon className="h-6 w-6 text-[#F5F5F5] hover:text-white transition-colors" />
       ) : (
         <Sun className="h-6 w-6 text-[#244855] hover:text-[#1A3641] transition-colors" />
       )}
