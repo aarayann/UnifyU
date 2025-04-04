@@ -22,24 +22,16 @@ const App = () => {
     // Add theme initialization script to prevent flash of wrong theme
     addThemeInitScript();
     
-    // Initialize theme based on saved preference or system preference
+    // Initialize theme based on user preference for current session only
     initializeTheme();
     
-    // Listen for system preference changes
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleChange = (e: MediaQueryListEvent) => {
-      const savedTheme = localStorage.getItem("theme");
-      if (!savedTheme) {
-        if (e.matches) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      }
+    // Clear theme preference when the page is about to unload/refresh
+    const handleBeforeUnload = () => {
+      localStorage.removeItem("theme");
     };
     
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, []);
 
   return (

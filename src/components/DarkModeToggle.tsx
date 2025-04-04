@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -7,17 +7,6 @@ import { useToast } from "@/components/ui/use-toast";
 const DarkModeToggle = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { toast } = useToast();
-
-  // Initialize theme based on localStorage or system preference
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -46,13 +35,13 @@ const DarkModeToggle = () => {
       variant="ghost"
       size="icon"
       onClick={toggleDarkMode}
-      className="w-9 h-9 rounded-full"
+      className="w-12 h-12 rounded-full flex items-center justify-center transition-colors"
       aria-label="Toggle dark mode"
     >
       {isDarkMode ? (
-        <Moon className="h-5 w-5 text-gray-200 hover:text-white transition-colors" />
+        <Moon className="h-6 w-6 text-[#A8C0BF] hover:text-white transition-colors" />
       ) : (
-        <Sun className="h-5 w-5 text-gray-700 hover:text-gray-900 transition-colors" />
+        <Sun className="h-6 w-6 text-[#244855] hover:text-[#1A3641] transition-colors" />
       )}
     </Button>
   );
