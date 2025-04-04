@@ -70,9 +70,42 @@ const Hero = () => {
     );
   };
 
+  // Shooting Stars Component
+  const ShootingStars = () => {
+    return (
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <motion.div 
+            key={i}
+            className="absolute h-px w-20 bg-gradient-to-r from-transparent via-white to-transparent"
+            initial={{ 
+              x: -100, 
+              y: Math.random() * 300,
+              opacity: 0,
+              rotate: 25 + (Math.random() * 15)
+            }}
+            animate={{ 
+              x: window.innerWidth + 200,
+              y: Math.random() * 300 + 200,
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 2 + Math.random() * 4,
+              repeat: Infinity,
+              repeatDelay: 5 + Math.random() * 10,
+              ease: "easeInOut",
+              delay: i * 2
+            }}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <section ref={containerRef} className="container mx-auto py-16 px-4 md:px-6 relative overflow-hidden min-h-[80vh] flex items-center">
       <ParticleComponent />
+      <ShootingStars />
       
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <motion.h1 
@@ -83,7 +116,7 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ opacity: textOpacity, y: textY }}
         >
-          <motion.span className="inline-block text-[#244855] dark:text-white font-bold">
+          <motion.span className="inline-block bg-gradient-to-r from-[#244855] to-[#E64833] dark:from-[#A8C0BF] dark:to-[#D6402D] text-transparent bg-clip-text">
             UnifyU
           </motion.span>
           <motion.span className="inline-block"> – Your Ultimate College Companion </motion.span>
@@ -91,9 +124,21 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.8, duration: 0.5, type: "spring" }}
-            className="inline-block ml-2"
+            className="inline-block ml-2 relative"
           >
             🚀
+            <motion.div 
+              className="absolute -top-1 -right-1 text-2xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 0] }}
+              transition={{ 
+                duration: 2, 
+                repeat: Infinity, 
+                repeatDelay: 4 
+              }}
+            >
+              ✨
+            </motion.div>
           </motion.span>
         </motion.h1>
         
@@ -185,7 +230,7 @@ const Hero = () => {
         </motion.div>
         
         <motion.p 
-          className="text-lg font-medium text-[#244855]"
+          className="text-lg font-medium text-[#244855] dark:text-[#A8C0BF]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ 
             opacity: typingComplete ? 1 : 0, 

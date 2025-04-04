@@ -1,6 +1,7 @@
 
 import { useEffect, useRef } from "react";
 import Hero from "@/components/Hero";
+import FacultyHeader from "@/components/FacultyHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -23,53 +24,56 @@ const Index = () => {
       <Hero />
       
       {/* Features Section */}
-      <section className="py-16 bg-[#FBE9D0]/30">
+      <section className="py-16 bg-[#FBE9D0]/30 dark:bg-[#1E3A47]/30">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-[#244855]">Powerful Features That Make a Difference</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 text-[#244855] dark:text-white">Powerful Features That Make a Difference</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <Card className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 dark:bg-[#1E3A47]">
               <CardContent className="pt-6">
                 <div className="rounded-full bg-[#E64833]/10 p-3 w-12 h-12 flex items-center justify-center mb-4">
-                  <GraduationCap className="text-[#E64833]" size={24} />
+                  <GraduationCap className="text-[#E64833] dark:text-[#D6402D]" size={24} />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-[#244855]">Smart Learning</h3>
-                <p className="text-gray-600">AI-powered study recommendations based on your progress, strengths, and areas for improvement.</p>
+                <h3 className="text-xl font-bold mb-2 text-[#244855] dark:text-white">Smart Learning</h3>
+                <p className="text-gray-600 dark:text-gray-300">AI-powered study recommendations based on your progress, strengths, and areas for improvement.</p>
               </CardContent>
             </Card>
             
-            <Card className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <Card className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 dark:bg-[#1E3A47]">
               <CardContent className="pt-6">
                 <div className="rounded-full bg-[#244855]/10 p-3 w-12 h-12 flex items-center justify-center mb-4">
-                  <Laptop className="text-[#244855]" size={24} />
+                  <Laptop className="text-[#244855] dark:text-[#A8C0BF]" size={24} />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-[#244855]">Unified Dashboard</h3>
-                <p className="text-gray-600">All your academic info in one place: schedule, assignments, grades, and administrative tasks.</p>
+                <h3 className="text-xl font-bold mb-2 text-[#244855] dark:text-white">Unified Dashboard</h3>
+                <p className="text-gray-600 dark:text-gray-300">All your academic info in one place: schedule, assignments, grades, and administrative tasks.</p>
               </CardContent>
             </Card>
             
-            <Card className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <Card className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 dark:bg-[#1E3A47]">
               <CardContent className="pt-6">
                 <div className="rounded-full bg-[#874F41]/10 p-3 w-12 h-12 flex items-center justify-center mb-4">
                   <Brain className="text-[#874F41]" size={24} />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-[#244855]">AI Assistant</h3>
-                <p className="text-gray-600">Get instant help with course concepts, assignment clarification, and study resources.</p>
+                <h3 className="text-xl font-bold mb-2 text-[#244855] dark:text-white">AI Assistant</h3>
+                <p className="text-gray-600 dark:text-gray-300">Get instant help with course concepts, assignment clarification, and study resources.</p>
               </CardContent>
             </Card>
             
-            <Card className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <Card className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 dark:bg-[#1E3A47]">
               <CardContent className="pt-6">
                 <div className="rounded-full bg-[#90AEAD]/10 p-3 w-12 h-12 flex items-center justify-center mb-4">
                   <MessageSquare className="text-[#90AEAD]" size={24} />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-[#244855]">Collaboration Tools</h3>
-                <p className="text-gray-600">Connect with peers and professors through integrated discussion forums and group spaces.</p>
+                <h3 className="text-xl font-bold mb-2 text-[#244855] dark:text-white">Collaboration Tools</h3>
+                <p className="text-gray-600 dark:text-gray-300">Connect with peers and professors through integrated discussion forums and group spaces.</p>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
+      
+      {/* Faculty Header Section */}
+      <FacultyHeader />
       
       {/* Campus Tour Call-to-Action */}
       <section className="py-16">
@@ -82,14 +86,12 @@ const Index = () => {
                   Discover state-of-the-art facilities, vibrant student spaces, and the innovative environment where your academic journey will unfold.
                 </p>
                 <div>
-                  <a 
-                    href="https://www.bennett.edu.in/campus-tour/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
+                  <Link
+                    to="/bennett"
                     className="inline-flex items-center justify-center rounded-md bg-[#E64833] px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-[#d13e2b] focus:outline-none focus:ring-2 focus:ring-[#E64833] focus:ring-offset-2"
                   >
-                    Take a Virtual Tour
-                  </a>
+                    Explore Bennett
+                  </Link>
                 </div>
               </div>
               <div className="relative h-64 md:h-auto">
@@ -108,10 +110,10 @@ const Index = () => {
       </section>
       
       {/* Call to Action */}
-      <section className="py-16 bg-[#90AEAD]/10">
+      <section className="py-16 bg-[#90AEAD]/10 dark:bg-[#1A3641]/30">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4 text-[#244855]">Ready to Transform Your College Experience?</h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4 text-[#244855] dark:text-white">Ready to Transform Your College Experience?</h2>
+          <p className="text-xl text-gray-600 dark:text-[#E0E0E0] mb-8 max-w-2xl mx-auto">
             Join thousands of students and faculty members already using UnifyU to enhance their academic journey.
           </p>
           <Link to="/auth">
