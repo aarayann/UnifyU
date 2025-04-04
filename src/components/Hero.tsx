@@ -83,7 +83,7 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ opacity: textOpacity, y: textY }}
         >
-          <motion.span className="inline-block bg-gradient-to-r from-[#244855] to-[#E64833] text-transparent bg-clip-text">
+          <motion.span className="inline-block text-[#244855] dark:text-white font-bold">
             UnifyU
           </motion.span>
           <motion.span className="inline-block"> – Your Ultimate College Companion </motion.span>
@@ -98,7 +98,7 @@ const Hero = () => {
         </motion.h1>
         
         <motion.div
-          className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed min-h-[120px]"
+          className="text-lg md:text-xl text-gray-700 dark:text-[#E0E0E0] mb-8 leading-relaxed min-h-[120px]"
           style={{ opacity: textOpacity }}
         >
           <p>{visibleText}</p>

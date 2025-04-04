@@ -6,13 +6,13 @@ const Footer = () => {
     <footer className="bg-[#244855] text-white py-12">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-bold mb-8 text-center">Stay Connected with Us!</h2>
+          <h2 className="text-2xl font-bold mb-8 text-center text-white">Stay Connected with Us!</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center md:items-start">
               <div className="flex items-center mb-4">
                 <MapPin className="mr-2" size={20} />
-                <h3 className="font-semibold text-lg">Location</h3>
+                <h3 className="font-semibold text-lg text-white">Location</h3>
               </div>
               <p className="text-sm text-gray-200 mb-3 text-center md:text-left">
                 Plot Nos 8-11, TechZone II, Greater Noida, UP – 201310
@@ -33,7 +33,7 @@ const Footer = () => {
             <div className="flex flex-col items-center md:items-start">
               <div className="flex items-center mb-4">
                 <Mail className="mr-2" size={20} />
-                <h3 className="font-semibold text-lg">Email Us</h3>
+                <h3 className="font-semibold text-lg text-white">Email Us</h3>
               </div>
               <a href="mailto:admissions@bennett.edu.in" className="text-sm text-gray-200 hover:text-[#FBE9D0] mb-2">
                 admissions@bennett.edu.in
@@ -46,7 +46,7 @@ const Footer = () => {
             <div className="flex flex-col items-center md:items-start">
               <div className="flex items-center mb-4">
                 <Phone className="mr-2" size={20} />
-                <h3 className="font-semibold text-lg">Call Us</h3>
+                <h3 className="font-semibold text-lg text-white">Call Us</h3>
               </div>
               <div className="text-sm text-gray-200 mb-2">
                 <span className="block font-medium">Admission Queries:</span>
