@@ -67,8 +67,8 @@ const Bennett = () => {
               {/* <h1 className="text-4xl md:text-6xl font-bold text-white text-center drop-shadow-lg mb-2">
                 Bennett University
               </h1> */}
-              <p className="text-xl text-white text-center max-w-2xl px-4 drop-shadow-md">
-                Learning today, leading tomorrow - Discover excellence in education at Bennett.
+              <p className="text-xl font-bold text-white text-center max-w-2xl px-4 drop-shadow-md">
+              Ecosystem for Academic and Research Excellence through Innovations, Incubation and Entrepreneurship
               </p>
             </motion.div>
           </div>
