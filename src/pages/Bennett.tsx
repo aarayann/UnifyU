@@ -60,7 +60,7 @@ const Bennett = () => {
               className="flex flex-col items-center"
             >
               <img 
-                src="https://bennett.edu.in/wp-content/uploads/2022/02/bennett_logo-final.png" 
+                src="https://www.bennett.edu.in/wp-content/uploads/2025/01/NAAC-Logo-2025-webp-1.webp" 
                 alt="Bennett University Logo" 
                 className="h-20 md:h-32 mb-4 drop-shadow-lg"
               />
