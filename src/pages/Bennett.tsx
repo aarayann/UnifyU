@@ -149,7 +149,7 @@ const Bennett = () => {
             </h3>
             <AspectRatio ratio={16 / 9}>
               <iframe 
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                src="https://youtu.be/qdB9mTBZsxQ?si=aWH-2xxWMplxiMmn" 
                 title="Bennett University Library Tour" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowFullScreen
