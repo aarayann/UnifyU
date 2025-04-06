@@ -64,9 +64,9 @@ const Bennett = () => {
                 alt="Bennett University Logo" 
                 className="h-20 md:h-32 mb-4 drop-shadow-lg"
               />
-              <h1 className="text-4xl md:text-6xl font-bold text-white text-center drop-shadow-lg mb-2">
+              {/* <h1 className="text-4xl md:text-6xl font-bold text-white text-center drop-shadow-lg mb-2">
                 Bennett University
-              </h1>
+              </h1> */}
               <p className="text-xl text-white text-center max-w-2xl px-4 drop-shadow-md">
                 Learning today, leading tomorrow - Discover excellence in education at Bennett.
               </p>
