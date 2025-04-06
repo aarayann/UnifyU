@@ -184,7 +184,7 @@ const BenTime = () => {
         {isOpen ? (
           <Maximize2 className="h-6 w-6" />
         ) : (
-          <div className="font-bold">BT</div>
+          <div className="font-bold">BEN</div>
         )}
       </Button>
     </div>
