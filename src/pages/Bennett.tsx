@@ -65,7 +65,7 @@ const Bennett = () => {
   return (
     <div className="min-h-screen" ref={containerRef}>
       {/* Hero Section with Bennett Logo and Parallax Effect */}
-      <section className="relative h-[60vh] md:h-[80vh] overflow-hidden">
+      <section className="relative h-[60vh] md:h-[70vh] overflow-hidden">
         <motion.div 
           className="absolute inset-0 z-0"
           style={{ y: backgroundY }}
@@ -85,6 +85,14 @@ const Bennett = () => {
             transition={{ duration: 0.8, type: "spring" }}
             className="flex flex-col items-center"
           >
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+              className="text-3xl md:text-5xl font-bold text-white mb-4 text-center drop-shadow-lg"
+            >
+              Bennett University
+            </motion.h1>
             <motion.img 
               whileHover={{ scale: 1.05, rotateY: 5, rotateX: 5 }}
               transition={{ type: "spring", stiffness: 300 }}
@@ -123,9 +131,9 @@ const Bennett = () => {
       
       {/* Gallery Section with Creative Layout */}
       <section className="py-16 bg-[#FBE9D0]/20 dark:bg-[#1E3A47]/20">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto">
           <motion.h2 
-            className="text-3xl font-bold text-[#244855] dark:text-white mb-12 text-center"
+            className="text-3xl font-bold text-[#244855] dark:text-white mb-8 md:mb-12 text-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -134,18 +142,18 @@ const Bennett = () => {
             Experience Our Campus
           </motion.h2>
           
-          {/* Video Gallery - Masonry Layout */}
+          {/* Video Gallery - Updated Modern Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16">
-            {/* Main Video */}
+            {/* Video Cards: Now placed side by side on wider screens with aspect ratio preservation */}
             <motion.div 
-              className="lg:col-span-7 rounded-lg overflow-hidden shadow-lg h-full"
+              className="lg:col-span-6 rounded-lg overflow-hidden shadow-lg h-full"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
             >
-              <Card className="h-full overflow-hidden border-none shadow-md dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] dark:bg-[#1E3A47] bg-white">
+              <Card className="h-full overflow-hidden border-none shadow-lg dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] dark:bg-[#1E3A47] bg-white">
                 <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
                   <video
                     ref={videoRef1}
@@ -172,14 +180,14 @@ const Bennett = () => {
             
             {/* Secondary Video */}
             <motion.div 
-              className="lg:col-span-5 rounded-lg overflow-hidden shadow-lg"
+              className="lg:col-span-6 rounded-lg overflow-hidden shadow-lg"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
             >
-              <Card className="h-full overflow-hidden border-none shadow-md dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] dark:bg-[#1E3A47] bg-white">
+              <Card className="h-full overflow-hidden border-none shadow-lg dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] dark:bg-[#1E3A47] bg-white">
                 <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
                   <video
                     ref={videoRef2}
@@ -205,9 +213,9 @@ const Bennett = () => {
             </motion.div>
           </div>
           
-          {/* YouTube Video - Full Width with Animation */}
+          {/* YouTube Video - Updated Styling */}
           <motion.div 
-            className="rounded-lg overflow-hidden shadow-xl mb-12 relative"
+            className="rounded-lg overflow-hidden shadow-xl mb-8 md:mb-12 relative"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -216,7 +224,7 @@ const Bennett = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#244855]/10 to-[#E64833]/10 dark:from-[#244855]/20 dark:to-[#E64833]/20 z-10 pointer-events-none"></div>
             <div className="p-6 bg-white dark:bg-[#1E3A47] text-center">
-              <h3 className="text-2xl md:text-3xl font-bold text-[#244855] dark:text-white mb-4 inline-block">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 inline-block">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#244855] to-[#E64833] dark:from-[#90AEAD] dark:to-[#E64833]">
                   The Bennett Library
                 </span>
@@ -238,19 +246,19 @@ const Bennett = () => {
         </div>
       </section>
       
-      {/* University Events Section with Glassmorphism Effect */}
+      {/* University Events Section - Updated Design */}
       <section className="py-16 relative">
-        <div className="absolute inset-0 bg-[#244855] z-0"></div>
-        <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1517971071642-34a2d3ecc9cd?q=80&w=2069&auto=format&fit=crop')] bg-cover bg-center bg-no-repeat mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-[#244855]"></div>
+        <div className="absolute inset-0 opacity-15 bg-[url('https://images.unsplash.com/photo-1517971071642-34a2d3ecc9cd?q=80&w=2069&auto=format&fit=crop')] bg-cover bg-center bg-no-repeat mix-blend-overlay"></div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto relative z-10">
           <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="text-center mb-12"
+              className="text-center mb-8 md:mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">University Events</h2>
               <p className="text-lg text-[#FBE9D0] max-w-2xl mx-auto">
@@ -344,11 +352,11 @@ const Bennett = () => {
         </div>
       </section>
       
-      {/* Campus Facilities Showcase - New Section */}
+      {/* Campus Facilities Showcase - Updated Layout */}
       <section className="py-16 bg-[#FBE9D0]/20 dark:bg-[#1E3A47]/20">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto">
           <motion.h2 
-            className="text-3xl font-bold text-center mb-12 text-[#244855] dark:text-white"
+            className="text-3xl font-bold text-center mb-8 md:mb-12 text-[#244855] dark:text-white"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -360,7 +368,7 @@ const Bennett = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Facility 1 */}
             <motion.div
-              className="rounded-lg overflow-hidden shadow-lg"
+              className="rounded-lg overflow-hidden shadow-lg h-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -379,16 +387,16 @@ const Bennett = () => {
                   </div>
                 </div>
               </div>
-              <div className="p-4 bg-white dark:bg-[#1E3A47]">
+              <div className="p-4 bg-white dark:bg-[#1E3A47] h-full">
                 <p className="text-gray-600 dark:text-gray-300">
-                  Technology-enabled learning spaces designed for interactive education.
+                  Technology-enabled learning spaces designed for interactive education and collaborative learning experiences.
                 </p>
               </div>
             </motion.div>
             
             {/* Facility 2 */}
             <motion.div
-              className="rounded-lg overflow-hidden shadow-lg"
+              className="rounded-lg overflow-hidden shadow-lg h-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -407,16 +415,16 @@ const Bennett = () => {
                   </div>
                 </div>
               </div>
-              <div className="p-4 bg-white dark:bg-[#1E3A47]">
+              <div className="p-4 bg-white dark:bg-[#1E3A47] h-full">
                 <p className="text-gray-600 dark:text-gray-300">
-                  State-of-the-art facilities for innovation and advanced learning.
+                  State-of-the-art facilities for innovation, experimentation, and advanced learning across disciplines.
                 </p>
               </div>
             </motion.div>
             
             {/* Facility 3 */}
             <motion.div
-              className="rounded-lg overflow-hidden shadow-lg"
+              className="rounded-lg overflow-hidden shadow-lg h-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -435,9 +443,9 @@ const Bennett = () => {
                   </div>
                 </div>
               </div>
-              <div className="p-4 bg-white dark:bg-[#1E3A47]">
+              <div className="p-4 bg-white dark:bg-[#1E3A47] h-full">
                 <p className="text-gray-600 dark:text-gray-300">
-                  Comprehensive facilities for sports and physical activities.
+                  Comprehensive facilities for sports and physical activities, including indoor and outdoor sporting venues.
                 </p>
               </div>
             </motion.div>
@@ -447,7 +455,7 @@ const Bennett = () => {
       
       {/* Call to Action */}
       <section className="py-16 bg-gradient-to-r from-[#244855] to-[#1A3641] text-white">
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}

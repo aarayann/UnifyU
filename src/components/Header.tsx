@@ -251,7 +251,7 @@ const Header = () => {
                 </Link>
               </NavigationMenuItem>
               
-              {/* Resources Dropdown - Improved styling and positioning */}
+              {/* Resources Dropdown - Fixed positioning for dropdown content */}
               <NavigationMenuItem className="relative">
                 <NavigationMenuTrigger
                   className={cn(
@@ -269,50 +269,52 @@ const Header = () => {
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-r from-[#E64833] to-[#244855] transition-opacity duration-300"></div>
                   </motion.div>
                 </NavigationMenuTrigger>
-                <NavigationMenuContent 
-                  className="absolute top-full left-0 mt-1 min-w-[220px] bg-white dark:bg-[#1E3A47] p-2 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 z-50"
-                >
-                  <ul className="grid gap-1">
-                    <li>
-                      <a 
-                        href="http://10.6.0.121/gdroombooking/" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-[#142A35] transition-colors"
-                        aria-label="GD Room Booking"
-                      >
-                        <FileText size={18} className="text-[#244855] dark:text-[#A8C0BF]" />
-                        <span>GD Room Booking</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a 
-                        href="#" 
-                        onClick={(e) => {
-                          e.preventDefault();
-                          downloadSyllabus();
-                        }}
-                        className="flex items-center gap-2 p-2 rounded-md bg-[#E64833]/10 dark:bg-[#D6402D]/10 hover:bg-[#E64833]/20 dark:hover:bg-[#D6402D]/20 text-[#E64833] dark:text-[#D6402D] font-medium transition-colors"
-                        aria-label="Download B.Tech Syllabus"
-                      >
-                        <Download size={18} />
-                        <span>B. Tech Syllabus</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a 
-                        href="https://bennett.refread.com/#/home" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-[#142A35] transition-colors"
-                        aria-label="E-Library (PYQs)"
-                      >
-                        <BookOpen size={18} className="text-[#244855] dark:text-[#A8C0BF]" />
-                        <span>E-Library (PYQs)</span>
-                      </a>
-                    </li>
-                  </ul>
-                </NavigationMenuContent>
+                <div className="absolute top-full left-0 mt-1 z-50">
+                  <NavigationMenuContent 
+                    className="min-w-[220px] bg-white dark:bg-gray-800 p-2 rounded-md shadow-lg border border-gray-200 dark:border-gray-700"
+                  >
+                    <ul className="grid gap-1">
+                      <li>
+                        <a 
+                          href="http://10.6.0.121/gdroombooking/" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                          aria-label="GD Room Booking"
+                        >
+                          <FileText size={18} className="text-[#244855] dark:text-[#A8C0BF]" />
+                          <span>GD Room Booking</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a 
+                          href="#" 
+                          onClick={(e) => {
+                            e.preventDefault();
+                            downloadSyllabus();
+                          }}
+                          className="flex items-center gap-2 p-2 rounded-md bg-[#E64833]/10 dark:bg-[#D6402D]/10 hover:bg-[#E64833]/20 dark:hover:bg-[#D6402D]/20 text-[#E64833] dark:text-[#D6402D] font-medium transition-colors"
+                          aria-label="Download B.Tech Syllabus"
+                        >
+                          <Download size={18} />
+                          <span>B. Tech Syllabus</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a 
+                          href="https://bennett.refread.com/#/home" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                          aria-label="E-Library (PYQs)"
+                        >
+                          <BookOpen size={18} className="text-[#244855] dark:text-[#A8C0BF]" />
+                          <span>E-Library (PYQs)</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </div>
               </NavigationMenuItem>
               
               {/* Events Link */}

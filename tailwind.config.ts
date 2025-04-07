@@ -144,7 +144,14 @@ export default {
 				'fluid-8': 'clamp(2rem, 1.75rem + 1.75vw, 3rem)',
 				'fluid-12': 'clamp(3rem, 2.5rem + 3vw, 4.5rem)',
 				'fluid-16': 'clamp(4rem, 3.5rem + 4vw, 6rem)',
-			}
+			},
+			zIndex: {
+				'60': '60',
+				'70': '70',
+				'80': '80',
+				'90': '90',
+				'100': '100',
+			},
 		}
 	},
 	plugins: [
