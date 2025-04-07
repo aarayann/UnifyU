@@ -157,7 +157,7 @@ const Bennett = () => {
                 <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
                 <video
                 ref={videoRef1}
-                src="/Ben1.mp4"
+                src="public/Ben1.mp4"
                 controls
                 autoPlay
                 loop
