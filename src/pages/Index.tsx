@@ -1,7 +1,6 @@
 
 import { useEffect, useRef } from "react";
 import Hero from "@/components/Hero";
-import FacultyHeader from "@/components/FacultyHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -18,6 +17,10 @@ const Index = () => {
       topRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [location]);
+
+  const openVirtualTour = () => {
+    window.open("https://www.bennett.edu.in/campus-tour/", "_blank");
+  };
 
   return (
     <div className="flex flex-col min-h-screen" ref={topRef}>
@@ -72,10 +75,9 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Faculty Header Section */}
-      <FacultyHeader />
+      {/* Faculty Header Section is removed and will be moved to Faculties page */}
       
-      {/* Campus Tour Call-to-Action */}
+      {/* Campus Tour Call-to-Action - Updated button text and action */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="bg-[#244855] rounded-2xl overflow-hidden shadow-xl">
@@ -86,12 +88,12 @@ const Index = () => {
                   Discover state-of-the-art facilities, vibrant student spaces, and the innovative environment where your academic journey will unfold.
                 </p>
                 <div>
-                  <Link
-                    to="/bennett"
+                  <Button
+                    onClick={openVirtualTour}
                     className="inline-flex items-center justify-center rounded-md bg-[#E64833] px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-[#d13e2b] focus:outline-none focus:ring-2 focus:ring-[#E64833] focus:ring-offset-2"
                   >
-                    Explore Bennett
-                  </Link>
+                    Take a Virtual Tour
+                  </Button>
                 </div>
               </div>
               <div className="relative h-64 md:h-auto">

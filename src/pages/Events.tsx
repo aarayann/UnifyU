@@ -1,100 +1,227 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, MapPin, Search, Download } from "lucide-react";
+import { Calendar, Clock, MapPin, Search, Download, GraduationCap, Theater, Trophy, BookOpen, Calendar as CalendarIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 
-// Sample events data
+// Updated events data
 const eventData = [
+  // Upcoming Events
   {
     id: 1,
-    title: "Orientation Week",
-    date: "August 1-7, 2025",
-    time: "9:00 AM - 5:00 PM",
-    location: "Main Auditorium",
+    title: "Mid Term Makeup Examinations",
+    date: "April 1–4, 2025",
+    time: "As per schedule",
+    location: "Examination Centers",
     category: "Academic",
-    description: "Welcome session for new students with campus tours and department introductions.",
-    image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+    status: "Ongoing",
+    description: "Makeup exams for students who missed the mid-terms.",
+    image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
   },
   {
     id: 2,
-    title: "Technology Summit 2025",
-    date: "May 15, 2025",
-    time: "10:00 AM - 4:00 PM",
-    location: "Engineering Block",
-    category: "Technical",
-    description: "Annual tech conference featuring industry experts and showcasing student innovations.",
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+    title: "End Semester Examinations",
+    date: "May 12–30, 2025",
+    time: "9:00 AM - 5:00 PM",
+    location: "All Exam Halls",
+    category: "Academic",
+    status: "Upcoming",
+    description: "Final exams for all programs.",
+    image: "https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
   },
   {
     id: 3,
-    title: "Annual Sports Meet",
-    date: "June 2-5, 2025",
-    time: "8:00 AM - 6:00 PM",
-    location: "Sports Complex",
-    category: "Sports",
-    description: "Inter-department sports competition featuring various indoor and outdoor games.",
-    image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+    title: "Declaration of End Term Results",
+    date: "June 13, 2025",
+    time: "10:00 AM",
+    location: "Online Portal",
+    category: "Administrative",
+    status: "Upcoming",
+    description: "Results published for May 2025 end-semester exams.",
+    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
   },
   {
     id: 4,
-    title: "Graduation Ceremony",
-    date: "June 20, 2025",
-    time: "3:00 PM - 7:00 PM",
-    location: "Main Auditorium",
-    category: "Academic",
-    description: "Annual convocation for graduating students with special guest lectures.",
-    image: "https://images.unsplash.com/photo-1564025051269-88f3d6909ba9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+    title: "Welcome Back Celebrations",
+    date: "January 6, 2025",
+    time: "4:00 PM - 8:00 PM",
+    location: "Central Courtyard",
+    category: "Cultural",
+    status: "Upcoming",
+    description: "Post-vacation welcome event for students.",
+    image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
   },
   {
     id: 5,
-    title: "Bennett Cultural Festival",
-    date: "March 25-27, 2025",
-    time: "11:00 AM - 9:00 PM",
-    location: "Central Courtyard",
-    category: "Cultural",
-    description: "Three-day festival celebrating art, music, dance and cultural diversity.",
-    image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+    title: "Uphoria & Sportikon",
+    date: "February 21–23, 2025",
+    time: "8:00 AM - 6:00 PM",
+    location: "Sports Complex",
+    category: "Sports",
+    status: "Upcoming",
+    description: "Annual inter-college sports competition.",
+    image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
   },
   {
     id: 6,
-    title: "Industry Expert Talk Series",
-    date: "Every Month",
-    time: "2:00 PM - 4:00 PM",
-    location: "Virtual & Room 301",
+    title: "Orientation Week (Freshman Students)",
+    date: "August 1–7, 2025",
+    time: "9:00 AM - 5:00 PM",
+    location: "Main Auditorium",
     category: "Workshop",
-    description: "Monthly sessions featuring industry leaders sharing insights and career guidance.",
-    image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+    status: "Upcoming",
+    description: "Campus tours, department introductions, and welcome sessions.",
+    image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+  },
+  
+  // Ongoing Events
+  {
+    id: 7,
+    title: "Lab Examinations",
+    date: "April 1–8, 2025",
+    time: "As per department schedule",
+    location: "Department Labs",
+    category: "Academic",
+    status: "Ongoing",
+    description: "Practical exams for lab courses.",
+    image: "https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    id: 8,
+    title: "Grievance Redressal Window",
+    date: "March 3–7, 2025",
+    time: "10:00 AM - 4:00 PM",
+    location: "Room 203, Admin Building",
+    category: "Administrative",
+    status: "Ongoing",
+    description: "Students can submit grievances about makeup exam results.",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+  },
+  
+  // Past Events
+  {
+    id: 9,
+    title: "Mid Term Examinations",
+    date: "March 2–13, 2025",
+    time: "As per schedule",
+    location: "Examination Centers",
+    category: "Academic",
+    status: "Past",
+    description: "Regular mid-term exams for all students.",
+    image: "https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    id: 10,
+    title: "Supplementary Examinations",
+    date: "February 11–24, 2025",
+    time: "As per schedule",
+    location: "Examination Centers",
+    category: "Academic",
+    status: "Past",
+    description: "Retests for odd-semester courses.",
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    id: 11,
+    title: "Teachers Day Celebration",
+    date: "September 5, 2024",
+    time: "3:00 PM - 7:00 PM",
+    location: "Main Auditorium",
+    category: "Cultural",
+    status: "Past",
+    description: "Faculty felicitation and student performances.",
+    image: "https://images.unsplash.com/photo-1511629036492-6c07153d3e83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    id: 12,
+    title: "Convocation",
+    date: "October 19, 2024",
+    time: "10:00 AM - 2:00 PM",
+    location: "Convocation Hall",
+    category: "Cultural",
+    status: "Past",
+    description: "Graduation day for 2023–24 batch.",
+    image: "https://images.unsplash.com/photo-1564025051269-88f3d6909ba9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    id: 13,
+    title: "Bennovate Entrepreneurship Summit",
+    date: "November 30 – December 1, 2024",
+    time: "9:00 AM - 5:00 PM",
+    location: "Bennett Business School",
+    category: "Technical",
+    status: "Past",
+    description: "Workshops and talks by industry leaders.",
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    id: 14,
+    title: "Diwali Break",
+    date: "October 29 – November 3, 2024",
+    time: "All Day",
+    location: "University",
+    category: "Holiday",
+    status: "Past",
+    description: "University closed for festivities.",
+    image: "https://images.unsplash.com/photo-1593152057073-c41ff129a896?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    id: 15,
+    title: "Christmas Vacations",
+    date: "December 26, 2024 – January 5, 2025",
+    time: "All Day",
+    location: "University",
+    category: "Holiday",
+    status: "Past",
+    description: "Winter break for students.",
+    image: "https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
   }
 ];
 
 // Categories for filtering
-const categories = ["All", "Academic", "Technical", "Cultural", "Sports", "Workshop"];
+const categories = ["All", "Academic", "Administrative", "Cultural", "Technical", "Sports", "Workshop", "Holiday"];
 
 export default function Events() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedTab, setSelectedTab] = useState("upcoming");
 
-  // Filter events based on search term and category
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case "Academic":
+        return <GraduationCap size={16} className="mr-1" />;
+      case "Cultural":
+        return <Theater size={16} className="mr-1" />;
+      case "Sports":
+        return <Trophy size={16} className="mr-1" />;
+      case "Workshop":
+        return <BookOpen size={16} className="mr-1" />;
+      default:
+        return <CalendarIcon size={16} className="mr-1" />;
+    }
+  };
+
+  // Filter events based on search term, category, and tab (status)
   const filteredEvents = eventData.filter(event => {
     const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                          event.description.toLowerCase().includes(searchTerm.toLowerCase());
                          
     const matchesCategory = selectedCategory === "All" || event.category === selectedCategory;
     
-    // Simple filtering for upcoming/past events (in a real app, you'd compare with current date)
-    const isUpcoming = event.id <= 4; // Just for demo purposes
-    const matchesTab = (selectedTab === "upcoming" && isUpcoming) || (selectedTab === "past" && !isUpcoming);
+    // Filter based on the selected tab
+    const matchesTab = (selectedTab === "upcoming" && event.status === "Upcoming") || 
+                       (selectedTab === "ongoing" && event.status === "Ongoing") || 
+                       (selectedTab === "past" && event.status === "Past");
     
     return matchesSearch && matchesCategory && matchesTab;
   });
 
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { 
@@ -112,6 +239,16 @@ export default function Events() {
       opacity: 1,
       transition: { type: "spring", stiffness: 100 }
     }
+  };
+
+  // Function to download academic calendar
+  const downloadCalendar = () => {
+    const link = document.createElement('a');
+    link.href = '/AcademicCalendar.pdf';  // Path to your PDF in the public folder
+    link.download = 'AcademicCalendar.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -183,6 +320,9 @@ export default function Events() {
                 <TabsTrigger value="upcoming" className="data-[state=active]:bg-[#244855]/10 data-[state=active]:text-[#244855] dark:data-[state=active]:bg-[#A8C0BF]/20 dark:data-[state=active]:text-[#A8C0BF]">
                   Upcoming Events
                 </TabsTrigger>
+                <TabsTrigger value="ongoing" className="data-[state=active]:bg-[#244855]/10 data-[state=active]:text-[#244855] dark:data-[state=active]:bg-[#A8C0BF]/20 dark:data-[state=active]:text-[#A8C0BF]">
+                  Ongoing Events
+                </TabsTrigger>
                 <TabsTrigger value="past" className="data-[state=active]:bg-[#244855]/10 data-[state=active]:text-[#244855] dark:data-[state=active]:bg-[#A8C0BF]/20 dark:data-[state=active]:text-[#A8C0BF]">
                   Past Events
                 </TabsTrigger>
@@ -209,9 +349,10 @@ export default function Events() {
                           alt={event.title} 
                           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                         />
-                        <div className="absolute top-2 right-2 bg-[#E64833] text-white text-xs font-bold px-2 py-1 rounded">
+                        <Badge className="absolute top-2 right-2 bg-[#244855] text-white flex items-center">
+                          {getCategoryIcon(event.category)}
                           {event.category}
-                        </div>
+                        </Badge>
                       </div>
                       
                       <CardContent className="p-5">
@@ -256,6 +397,77 @@ export default function Events() {
               )}
             </TabsContent>
             
+            <TabsContent value="ongoing" className="mt-0">
+              <motion.div 
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                {filteredEvents.map((event) => (
+                  <motion.div 
+                    key={event.id}
+                    variants={itemVariants}
+                    className="h-full"
+                  >
+                    <Card className="h-full overflow-hidden bg-white dark:bg-[#1E3A47] border-none shadow-lg hover:shadow-xl transition-all duration-300">
+                      <div className="relative h-48 overflow-hidden">
+                        <img 
+                          src={event.image} 
+                          alt={event.title} 
+                          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                        />
+                        <Badge className="absolute top-2 right-2 bg-[#E64833] text-white flex items-center">
+                          {getCategoryIcon(event.category)}
+                          {event.category}
+                        </Badge>
+                        <Badge className="absolute top-2 left-2 bg-green-500 text-white">
+                          Happening Now
+                        </Badge>
+                      </div>
+                      
+                      <CardContent className="p-5">
+                        <h3 className="text-xl font-bold text-[#244855] dark:text-white mb-3">{event.title}</h3>
+                        
+                        <div className="space-y-2 mb-4">
+                          <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                            <Calendar size={16} className="flex-shrink-0" />
+                            <span className="text-sm">{event.date}</span>
+                          </div>
+                          
+                          <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                            <Clock size={16} className="flex-shrink-0" />
+                            <span className="text-sm">{event.time}</span>
+                          </div>
+                          
+                          <div className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
+                            <MapPin size={16} className="flex-shrink-0 mt-1" />
+                            <span className="text-sm">{event.location}</span>
+                          </div>
+                        </div>
+                        
+                        <Separator className="my-3 bg-gray-200 dark:bg-gray-700" />
+                        
+                        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                          {event.description}
+                        </p>
+                        
+                        <Button variant="outline" className="w-full border-[#244855] hover:bg-[#244855] hover:text-white dark:border-[#A8C0BF] dark:hover:bg-[#A8C0BF] dark:hover:text-[#1A3641] transition-colors">
+                          View Details
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </motion.div>
+              
+              {filteredEvents.length === 0 && (
+                <div className="text-center py-10">
+                  <p className="text-lg text-gray-700 dark:text-gray-300">No ongoing events found matching your search criteria.</p>
+                </div>
+              )}
+            </TabsContent>
+            
             <TabsContent value="past" className="mt-0">
               <motion.div 
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -276,9 +488,10 @@ export default function Events() {
                           alt={event.title} 
                           className="w-full h-full object-cover"
                         />
-                        <div className="absolute top-2 right-2 bg-gray-700 text-white text-xs font-bold px-2 py-1 rounded">
+                        <Badge className="absolute top-2 right-2 bg-gray-700 text-white flex items-center">
+                          {getCategoryIcon(event.category)}
                           {event.category}
-                        </div>
+                        </Badge>
                       </div>
                       
                       <CardContent className="p-5">
@@ -339,7 +552,7 @@ export default function Events() {
               Stay organized throughout the semester with our complete academic calendar featuring all key dates and events.
             </p>
             
-            <Button className="bg-[#E64833] hover:bg-[#D6402D] text-white">
+            <Button className="bg-[#E64833] hover:bg-[#D6402D] text-white" onClick={downloadCalendar}>
               <Download className="mr-2 h-4 w-4" />
               <span>Download Academic Calendar</span>
             </Button>
@@ -348,5 +561,4 @@ export default function Events() {
       </section>
     </div>
   );
-};
-
+}

@@ -115,14 +115,14 @@ const BenTime = () => {
     <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end">
       {isOpen ? (
         <div className="mb-4 w-[350px] max-w-[calc(100vw-32px)] flex flex-col rounded-xl shadow-lg overflow-hidden bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-700 transition-colors duration-300">
-          {/* Chat header */}
-          <div className="flex items-center justify-between bg-[#244855] text-white p-3 dark:bg-[#90AEAD] transition-colors duration-300">
+          {/* Chat header with gradient background */}
+          <div className="flex items-center justify-between bg-gradient-to-r from-[#244855] to-[#E64833] text-white p-3 transition-colors duration-300">
             <h3 className="font-bold text-lg">BenTime</h3>
             <Button 
               variant="ghost" 
               size="icon" 
               onClick={toggleChat}
-              className="h-8 w-8 text-white hover:bg-[#1b3640] hover:text-white dark:hover:bg-[#768e8d]"
+              className="h-8 w-8 text-white hover:bg-white/20 hover:text-white"
             >
               <MinimizeIcon className="h-4 w-4" />
             </Button>
@@ -176,10 +176,10 @@ const BenTime = () => {
         </div>
       ) : null}
       
-      {/* Chat button */}
+      {/* Chat button with gradient */}
       <Button 
         onClick={toggleChat}
-        className={`rounded-full h-14 w-14 bg-[#E64833] hover:bg-[#E64833]/90 text-white shadow-lg flex items-center justify-center transition-all duration-300 ${isOpen ? 'scale-90' : 'animate-pulse'}`}
+        className="rounded-full h-14 w-14 bg-gradient-to-r from-[#244855] to-[#E64833] hover:from-[#1e3941] hover:to-[#d13e2b] text-white shadow-lg flex items-center justify-center transition-all duration-300"
       >
         {isOpen ? (
           <Maximize2 className="h-6 w-6" />

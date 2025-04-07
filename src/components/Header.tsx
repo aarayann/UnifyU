@@ -80,8 +80,13 @@ const Header = () => {
 
   // Function to download syllabus
   const downloadSyllabus = () => {
-    // This would typically download a PDF
-    alert("Syllabus download will be available soon");
+    // Create an anchor element to trigger download
+    const link = document.createElement('a');
+    link.href = '/BTechSyllabus.pdf'; // Path to your PDF in the public folder
+    link.download = 'BTechSyllabus.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const navItemVariants = {
@@ -246,8 +251,8 @@ const Header = () => {
                 </Link>
               </NavigationMenuItem>
               
-              {/* Resources Dropdown (replaced Syllabus) */}
-              <NavigationMenuItem>
+              {/* Resources Dropdown (replaced Syllabus) - Improved styling */}
+              <NavigationMenuItem className="relative">
                 <NavigationMenuTrigger
                   className={cn(
                     "group inline-flex h-10 w-max items-center justify-center rounded-md backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 relative overflow-hidden border border-transparent hover:border-gray-200 dark:hover:border-gray-700",
@@ -264,7 +269,7 @@ const Header = () => {
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-r from-[#E64833] to-[#244855] transition-opacity duration-300"></div>
                   </motion.div>
                 </NavigationMenuTrigger>
-                <NavigationMenuContent className="min-w-[220px] bg-white dark:bg-[#1E3A47] p-2 rounded-md shadow-lg">
+                <NavigationMenuContent className="absolute left-0 top-[100%] min-w-[220px] bg-white dark:bg-[#1E3A47] p-2 rounded-md shadow-lg border border-gray-200 dark:border-gray-700">
                   <ul className="grid gap-1">
                     <li>
                       <a 
