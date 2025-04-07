@@ -153,26 +153,28 @@ const Bennett = () => {
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
             >
               <Card className="h-full overflow-hidden border-none shadow-lg dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] dark:bg-[#1E3A47] bg-white">
-                <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
-                <video
-                  ref={videoRef1}
-                  controls
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover"
-                >
-                  <source src="/Ben1.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+              <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
+              <video
+              ref={videoRef1}
+              autoPlay
+              loop
+              muted
+              playsInline
+              controls
+              className="w-full h-full object-cover"
+              >
+              <source src="/Ben1.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+              </video>
+              </AspectRatio>
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity">
+
+                  {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity">
                     <div className="absolute bottom-4 left-4 text-white">
                       <h3 className="text-xl font-bold mb-1">Campus Tour</h3>
                       <p className="text-sm">Discover our beautiful campus</p>
-                    </div>
-                  </div>
+                    </div> */}
+          </div>
                 </AspectRatio>
                 <CardContent className="p-4 bg-white dark:bg-[#1E3A47]">
                   <h3 className="text-xl font-bold text-[#244855] dark:text-white">Campus Tour</h3>
