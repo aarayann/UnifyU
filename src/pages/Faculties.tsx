@@ -260,7 +260,7 @@ const Faculties = () => {
         </div>
       </section>
 
-      {/* Original Faculty Members Grid */}
+      Original Faculty Members Grid
       <div className="container mx-auto py-12 px-4">
         <h1 className="text-3xl font-bold text-center mb-12 text-[#244855]">Additional Faculty Members</h1>
         
@@ -283,7 +283,7 @@ const Faculties = () => {
               </CardContent>
             </Card>
           ))}
-        </div>
+        </div> 
       </div>
     </div>
   );

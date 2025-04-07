@@ -340,14 +340,14 @@ const Bennett = () => {
               </Link>
               
               <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white text-white hover:bg-white/20"
-                onClick={downloadCalendar}
-              >
-                <Download className="mr-2 h-4 w-4" />
-                <span>Download Academic Calendar</span>
+              size="lg" 
+              className="bg-white text-black hover:bg-gray-200"
+              onClick={downloadCalendar}
+              > 
+              <Download className="mr-2 h-4 w-4" />
+              <span>Download Academic Calendar</span>
               </Button>
+
             </motion.div>
           </div>
         </div>
@@ -463,7 +463,10 @@ const Bennett = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Join Bennett University</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white drop-shadow-lg">
+              Join Bennett University
+            </h2>
+
             <p className="text-lg mb-8 max-w-2xl mx-auto">
               Be part of our vibrant community and experience world-class education with cutting-edge facilities.
             </p>
