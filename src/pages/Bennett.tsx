@@ -1,20 +1,32 @@
 
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Calendar, ExternalLink } from "lucide-react";
+import { Calendar, ExternalLink, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Card, CardContent } from "@/components/ui/card";
 
 const Bennett = () => {
   const videoRef1 = useRef<HTMLVideoElement>(null);
   const videoRef2 = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Parallax scroll effect
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+  
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const fadeIn = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
   
   useEffect(() => {
     // Initialize IntersectionObserver for lazy loading videos
     const options = {
       root: null,
-      rootMargin: '0px',
+      rootMargin: '100px',
       threshold: 0.1
     };
     
@@ -41,206 +53,419 @@ const Bennett = () => {
     };
   }, []);
 
+  const downloadCalendar = () => {
+    const link = document.createElement('a');
+    link.href = '/AcademicCalendar.pdf';
+    link.download = 'AcademicCalendar.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
-    <div className="min-h-screen">
-      {/* Hero Section with Bennett Logo */}
-      <section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#244855]/80 to-transparent dark:from-[#1A3641]/90 dark:to-transparent z-10"></div>
-        <div className="relative h-[50vh] md:h-[70vh] overflow-hidden">
+    <div className="min-h-screen" ref={containerRef}>
+      {/* Hero Section with Bennett Logo and Parallax Effect */}
+      <section className="relative h-[60vh] md:h-[80vh] overflow-hidden">
+        <motion.div 
+          className="absolute inset-0 z-0"
+          style={{ y: backgroundY }}
+        >
           <img 
             src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" 
             alt="Bennett University Campus" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
-            <motion.div 
-              initial={{ y: -50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, type: "spring" }}
-              className="flex flex-col items-center"
+          <div className="absolute inset-0 bg-gradient-to-b from-[#244855]/80 to-transparent dark:from-[#1A3641]/90 dark:to-transparent"></div>
+        </motion.div>
+
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
+          <motion.div 
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, type: "spring" }}
+            className="flex flex-col items-center"
+          >
+            <motion.img 
+              whileHover={{ scale: 1.05, rotateY: 5, rotateX: 5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              src="https://www.bennett.edu.in/wp-content/uploads/2025/01/NAAC-Logo-2025-webp-1.webp" 
+              alt="Bennett University Logo" 
+              className="h-24 md:h-32 mb-6 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+            />
+            <motion.p 
+              className="text-xl md:text-2xl font-bold text-white text-center max-w-2xl px-4 drop-shadow-md bg-black/30 backdrop-blur-sm p-4 rounded-lg"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
             >
-              <img 
-                src="https://www.bennett.edu.in/wp-content/uploads/2025/01/NAAC-Logo-2025-webp-1.webp" 
-                alt="Bennett University Logo" 
-                className="h-20 md:h-32 mb-4 drop-shadow-lg"
-              />
-              {/* <h1 className="text-4xl md:text-6xl font-bold text-white text-center drop-shadow-lg mb-2">
-                Bennett University
-              </h1> */}
-              <p className="text-xl font-bold text-white text-center max-w-2xl px-4 drop-shadow-md">
               Ecosystem for Academic and Research Excellence through Innovations, Incubation and Entrepreneurship
-              </p>
-            </motion.div>
-          </div>
+            </motion.p>
+          </motion.div>
         </div>
+
+        {/* Animated scroll indicator */}
+        <motion.div 
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white"
+          animate={{ 
+            y: [0, 10, 0],
+          }}
+          transition={{ 
+            repeat: Infinity, 
+            duration: 2,
+          }}
+        >
+          <span className="text-sm font-medium mb-2">Scroll to explore</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5L12 19M12 19L19 12M12 19L5 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </motion.div>
       </section>
       
-      {/* Video Gallery Section */}
+      {/* Gallery Section with Creative Layout */}
       <section className="py-16 bg-[#FBE9D0]/20 dark:bg-[#1E3A47]/20">
         <div className="container mx-auto px-4">
           <motion.h2 
-            className="text-3xl font-bold text-[#244855] dark:text-white mb-8 text-center"
+            className="text-3xl font-bold text-[#244855] dark:text-white mb-12 text-center"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
             Experience Our Campus
           </motion.h2>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            {/* Local Video 1 */}
+          {/* Video Gallery - Masonry Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16">
+            {/* Main Video */}
             <motion.div 
-              className="rounded-lg overflow-hidden shadow-lg"
+              className="lg:col-span-7 rounded-lg overflow-hidden shadow-lg h-full"
               initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
+              whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
             >
-              <AspectRatio ratio={16 / 9}>
-                <video
-                  ref={videoRef1}
-                  data-src="https://assets.mixkit.co/videos/preview/mixkit-students-walking-in-a-university-campus-4519-large.mp4"
-                  controls
-                  poster="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                  className="w-full h-full object-cover"
-                >
-                  Your browser does not support the video tag.
-                </video>
-              </AspectRatio>
-              <div className="p-4 bg-white dark:bg-[#1E3A47]">
-                <h3 className="text-xl font-bold text-[#244855] dark:text-white">Campus Tour</h3>
-                <p className="text-gray-600 dark:text-gray-300">Explore our state-of-the-art facilities and vibrant campus life.</p>
-              </div>
+              <Card className="h-full overflow-hidden border-none shadow-md dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] dark:bg-[#1E3A47] bg-white">
+                <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
+                  <video
+                    ref={videoRef1}
+                    data-src="https://assets.mixkit.co/videos/preview/mixkit-students-walking-in-a-university-campus-4519-large.mp4"
+                    controls
+                    poster="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                    className="w-full h-full object-cover"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity">
+                    <div className="absolute bottom-4 left-4 text-white">
+                      <h3 className="text-xl font-bold mb-1">Campus Tour</h3>
+                      <p className="text-sm">Discover our beautiful campus</p>
+                    </div>
+                  </div>
+                </AspectRatio>
+                <CardContent className="p-4 bg-white dark:bg-[#1E3A47]">
+                  <h3 className="text-xl font-bold text-[#244855] dark:text-white">Campus Tour</h3>
+                  <p className="text-gray-600 dark:text-gray-300">Explore our state-of-the-art facilities and vibrant campus life.</p>
+                </CardContent>
+              </Card>
             </motion.div>
             
-            {/* Local Video 2 */}
+            {/* Secondary Video */}
             <motion.div 
-              className="rounded-lg overflow-hidden shadow-lg"
+              className="lg:col-span-5 rounded-lg overflow-hidden shadow-lg"
               initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
+              whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
             >
-              <AspectRatio ratio={16 / 9}>
-                <video
-                  ref={videoRef2}
-                  data-src="https://assets.mixkit.co/videos/preview/mixkit-teacher-giving-a-lecture-to-her-students-9512-large.mp4"
-                  controls
-                  poster="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                  className="w-full h-full object-cover"
-                >
-                  Your browser does not support the video tag.
-                </video>
-              </AspectRatio>
-              <div className="p-4 bg-white dark:bg-[#1E3A47]">
-                <h3 className="text-xl font-bold text-[#244855] dark:text-white">Academic Excellence</h3>
-                <p className="text-gray-600 dark:text-gray-300">Learn from industry experts and distinguished faculty.</p>
-              </div>
+              <Card className="h-full overflow-hidden border-none shadow-md dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] dark:bg-[#1E3A47] bg-white">
+                <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
+                  <video
+                    ref={videoRef2}
+                    data-src="https://assets.mixkit.co/videos/preview/mixkit-teacher-giving-a-lecture-to-her-students-9512-large.mp4"
+                    controls
+                    poster="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                    className="w-full h-full object-cover"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity">
+                    <div className="absolute bottom-4 left-4 text-white">
+                      <h3 className="text-xl font-bold mb-1">Academic Excellence</h3>
+                      <p className="text-sm">World-class education and research</p>
+                    </div>
+                  </div>
+                </AspectRatio>
+                <CardContent className="p-4 bg-white dark:bg-[#1E3A47]">
+                  <h3 className="text-xl font-bold text-[#244855] dark:text-white">Academic Excellence</h3>
+                  <p className="text-gray-600 dark:text-gray-300">Learn from industry experts and distinguished faculty.</p>
+                </CardContent>
+              </Card>
             </motion.div>
           </div>
           
-          {/* YouTube Video */}
+          {/* YouTube Video - Full Width with Animation */}
           <motion.div 
-            className="rounded-lg overflow-hidden shadow-lg mb-12"
+            className="rounded-lg overflow-hidden shadow-xl mb-12 relative"
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.6 }}
+            whileHover={{ boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
           >
-            <h3 className="text-2xl font-bold text-[#244855] dark:text-white mb-4 text-center">
-              The Bennett Library
-            </h3>
-            <AspectRatio ratio={16 / 9}>
+            <div className="absolute inset-0 bg-gradient-to-br from-[#244855]/10 to-[#E64833]/10 dark:from-[#244855]/20 dark:to-[#E64833]/20 z-10 pointer-events-none"></div>
+            <div className="p-6 bg-white dark:bg-[#1E3A47] text-center">
+              <h3 className="text-2xl md:text-3xl font-bold text-[#244855] dark:text-white mb-4 inline-block">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#244855] to-[#E64833] dark:from-[#90AEAD] dark:to-[#E64833]">
+                  The Bennett Library
+                </span>
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
+                Explore our extensive library collection and modern study spaces designed for collaborative learning.
+              </p>
+            </div>
+            <AspectRatio ratio={16 / 9} className="w-full">
               <iframe 
-                src="https://www.youtube.com/watch?v=qdB9mTBZsxQ" 
+                src="https://www.youtube.com/embed/qdB9mTBZsxQ" 
                 title="Bennett University Library Tour" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowFullScreen
                 className="w-full h-full border-0"
               ></iframe>
             </AspectRatio>
-            <div className="p-4 bg-white dark:bg-[#1E3A47]">
-              <p className="text-gray-600 dark:text-gray-300">Explore our extensive library collection and modern study spaces designed for collaborative learning.</p>
-            </div>
           </motion.div>
         </div>
       </section>
       
-      {/* University Events Section */}
-      <section className="py-16 bg-[#244855] text-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
+      {/* University Events Section with Glassmorphism Effect */}
+      <section className="py-16 relative">
+        <div className="absolute inset-0 bg-[#244855] z-0"></div>
+        <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1517971071642-34a2d3ecc9cd?q=80&w=2069&auto=format&fit=crop')] bg-cover bg-center bg-no-repeat mix-blend-overlay"></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="mb-8"
+              className="text-center mb-12"
             >
-              <h2 className="text-3xl font-bold mb-4">University Events</h2>
-              <p className="text-lg text-[#FBE9D0]">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">University Events</h2>
+              <p className="text-lg text-[#FBE9D0] max-w-2xl mx-auto">
                 Stay updated with the latest happenings and upcoming events at Bennett University. From academic conferences to cultural festivals, there's always something exciting happening on campus.
               </p>
             </motion.div>
             
-            <motion.div 
-              className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <motion.div 
+                className="backdrop-blur-md bg-white/10 p-6 rounded-lg border border-white/20 shadow-lg"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                whileHover={{ y: -5, transition: { duration: 0.3 } }}
+              >
                 <div className="flex items-center mb-4">
                   <Calendar className="mr-3 text-[#E64833]" />
-                  <h3 className="text-xl font-bold">Upcoming Events</h3>
+                  <h3 className="text-xl font-bold text-white">Upcoming Events</h3>
                 </div>
-                <ul className="space-y-3 text-left">
+                <ul className="space-y-4 text-left">
                   <li className="flex items-start">
                     <span className="inline-block w-24 text-[#E64833] font-medium">May 15</span>
-                    <span>Technology Summit 2025</span>
+                    <span className="text-white">Technology Summit 2025</span>
                   </li>
                   <li className="flex items-start">
                     <span className="inline-block w-24 text-[#E64833] font-medium">June 2</span>
-                    <span>Annual Sports Meet</span>
+                    <span className="text-white">Annual Sports Meet</span>
                   </li>
                   <li className="flex items-start">
                     <span className="inline-block w-24 text-[#E64833] font-medium">June 20</span>
-                    <span>Graduation Ceremony</span>
+                    <span className="text-white">Graduation Ceremony</span>
                   </li>
                 </ul>
-              </div>
+              </motion.div>
               
-              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+              <motion.div 
+                className="backdrop-blur-md bg-white/10 p-6 rounded-lg border border-white/20 shadow-lg"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                whileHover={{ y: -5, transition: { duration: 0.3 } }}
+              >
                 <div className="flex items-center mb-4">
                   <Calendar className="mr-3 text-[#E64833]" />
-                  <h3 className="text-xl font-bold">Recent Events</h3>
+                  <h3 className="text-xl font-bold text-white">Recent Events</h3>
                 </div>
-                <ul className="space-y-3 text-left">
+                <ul className="space-y-4 text-left">
                   <li className="flex items-start">
                     <span className="inline-block w-24 text-[#E64833] font-medium">April 10</span>
-                    <span>International Conference on AI</span>
+                    <span className="text-white">International Conference on AI</span>
                   </li>
                   <li className="flex items-start">
                     <span className="inline-block w-24 text-[#E64833] font-medium">March 25</span>
-                    <span>Bennett Cultural Festival</span>
+                    <span className="text-white">Bennett Cultural Festival</span>
                   </li>
                   <li className="flex items-start">
                     <span className="inline-block w-24 text-[#E64833] font-medium">March 3</span>
-                    <span>Industry Expert Talk Series</span>
+                    <span className="text-white">Industry Expert Talk Series</span>
                   </li>
                 </ul>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
             
             <motion.div
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.6 }}
             >
               <Link to="/events">
-                <Button className="bg-[#E64833] hover:bg-[#D6402D] text-white group">
+                <Button size="lg" className="bg-[#E64833] hover:bg-[#D6402D] text-white group">
                   <span>View All Events</span>
                   <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
+              
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white/20"
+                onClick={downloadCalendar}
+              >
+                <Download className="mr-2 h-4 w-4" />
+                <span>Download Academic Calendar</span>
+              </Button>
             </motion.div>
           </div>
+        </div>
+      </section>
+      
+      {/* Campus Facilities Showcase - New Section */}
+      <section className="py-16 bg-[#FBE9D0]/20 dark:bg-[#1E3A47]/20">
+        <div className="container mx-auto px-4">
+          <motion.h2 
+            className="text-3xl font-bold text-center mb-12 text-[#244855] dark:text-white"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            World-Class Facilities
+          </motion.h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Facility 1 */}
+            <motion.div
+              className="rounded-lg overflow-hidden shadow-lg"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+            >
+              <div className="relative h-48">
+                <img 
+                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
+                  alt="Modern Classrooms" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent">
+                  <div className="absolute bottom-4 left-4">
+                    <h3 className="text-xl font-bold text-white">Modern Classrooms</h3>
+                  </div>
+                </div>
+              </div>
+              <div className="p-4 bg-white dark:bg-[#1E3A47]">
+                <p className="text-gray-600 dark:text-gray-300">
+                  Technology-enabled learning spaces designed for interactive education.
+                </p>
+              </div>
+            </motion.div>
+            
+            {/* Facility 2 */}
+            <motion.div
+              className="rounded-lg overflow-hidden shadow-lg"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+            >
+              <div className="relative h-48">
+                <img 
+                  src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2193&auto=format&fit=crop"
+                  alt="Research Labs" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent">
+                  <div className="absolute bottom-4 left-4">
+                    <h3 className="text-xl font-bold text-white">Research Labs</h3>
+                  </div>
+                </div>
+              </div>
+              <div className="p-4 bg-white dark:bg-[#1E3A47]">
+                <p className="text-gray-600 dark:text-gray-300">
+                  State-of-the-art facilities for innovation and advanced learning.
+                </p>
+              </div>
+            </motion.div>
+            
+            {/* Facility 3 */}
+            <motion.div
+              className="rounded-lg overflow-hidden shadow-lg"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+            >
+              <div className="relative h-48">
+                <img 
+                  src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=2070&auto=format&fit=crop"
+                  alt="Sports Complex" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent">
+                  <div className="absolute bottom-4 left-4">
+                    <h3 className="text-xl font-bold text-white">Sports Complex</h3>
+                  </div>
+                </div>
+              </div>
+              <div className="p-4 bg-white dark:bg-[#1E3A47]">
+                <p className="text-gray-600 dark:text-gray-300">
+                  Comprehensive facilities for sports and physical activities.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Call to Action */}
+      <section className="py-16 bg-gradient-to-r from-[#244855] to-[#1A3641] text-white">
+        <div className="container mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Join Bennett University</h2>
+            <p className="text-lg mb-8 max-w-2xl mx-auto">
+              Be part of our vibrant community and experience world-class education with cutting-edge facilities.
+            </p>
+            <Button 
+              size="lg" 
+              className="bg-[#E64833] hover:bg-[#D6402D] text-white py-6 px-8 text-lg"
+              onClick={() => window.open("https://www.bennett.edu.in/admissions/", "_blank")}
+            >
+              Apply Now
+            </Button>
+          </motion.div>
         </div>
       </section>
     </div>

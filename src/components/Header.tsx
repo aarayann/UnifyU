@@ -251,7 +251,7 @@ const Header = () => {
                 </Link>
               </NavigationMenuItem>
               
-              {/* Resources Dropdown (replaced Syllabus) - Improved styling */}
+              {/* Resources Dropdown - Improved styling and positioning */}
               <NavigationMenuItem className="relative">
                 <NavigationMenuTrigger
                   className={cn(
@@ -269,7 +269,9 @@ const Header = () => {
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-r from-[#E64833] to-[#244855] transition-opacity duration-300"></div>
                   </motion.div>
                 </NavigationMenuTrigger>
-                <NavigationMenuContent className="absolute left-0 top-[100%] min-w-[220px] bg-white dark:bg-[#1E3A47] p-2 rounded-md shadow-lg border border-gray-200 dark:border-gray-700">
+                <NavigationMenuContent 
+                  className="absolute top-full left-0 mt-1 min-w-[220px] bg-white dark:bg-[#1E3A47] p-2 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 z-50"
+                >
                   <ul className="grid gap-1">
                     <li>
                       <a 
@@ -346,6 +348,68 @@ const Header = () => {
             </NavigationMenuList>
           </NavigationMenu>
           
+          {/* Mobile Navigation Menu */}
+          <div className="md:hidden">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon" className="h-10 w-10">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-[1.2rem] w-[1.2rem]">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                  </svg>
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-[200px] bg-white dark:bg-[#1E3A47] p-2">
+                <DropdownMenuItem>
+                  <Link to="/" className="flex w-full">Home</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/bennett" className="flex w-full">Bennett</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/faculties" className="flex w-full">Faculties</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/events" className="flex w-full">Events</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <a 
+                    href="http://10.6.0.121/gdroombooking/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex w-full"
+                  >
+                    GD Room Booking
+                  </a>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <a 
+                    href="#" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      downloadSyllabus();
+                    }}
+                    className="flex w-full"
+                  >
+                    B. Tech Syllabus
+                  </a>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <a 
+                    href="https://bennett.refread.com/#/home" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex w-full"
+                  >
+                    E-Library (PYQs)
+                  </a>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -355,7 +419,7 @@ const Header = () => {
             {/* Dark Mode Toggle */}
             <DarkModeToggle />
             
-            <Link to="/auth">
+            <Link to="/auth" className="hidden md:block">
               <Button 
                 className="relative overflow-hidden group"
                 variant="default"

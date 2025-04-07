@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -110,6 +111,27 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply text-primary transition-colors;
+    line-height: 1.2;
+  }
+
+  h1 {
+    @apply text-fluid-4xl font-bold mb-4;
+  }
+  
+  h2 {
+    @apply text-fluid-3xl font-bold mb-3;
+  }
+  
+  h3 {
+    @apply text-fluid-2xl font-semibold mb-2;
+  }
+  
+  h4 {
+    @apply text-fluid-xl font-semibold mb-2;
+  }
+  
+  p {
+    @apply max-w-prose text-pretty mb-4 text-fluid-base;
   }
 
   /* Interactive Elements */
@@ -145,11 +167,30 @@
   .dark a:not(.btn) {
     @apply text-secondary hover:text-[#E64833] hover:underline;
   }
+  
+  /* Responsive layout adjustments */
+  @media (max-width: 640px) {
+    .container {
+      @apply px-4;
+    }
+    
+    h1, h2, h3 {
+      @apply text-balance;
+    }
+  }
 }
 
 @layer utilities {
   .text-gradient {
     @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+
+  .text-gradient-teal-orange {
+    @apply bg-gradient-to-r from-[#244855] to-[#E64833] bg-clip-text text-transparent;
+  }
+
+  .dark .text-gradient-teal-orange {
+    @apply bg-gradient-to-r from-[#90AEAD] to-[#E64833] bg-clip-text text-transparent;
   }
 
   .glass {
@@ -194,6 +235,29 @@
   .dark .checklist-icon {
     @apply text-[#A8C0BF];
   }
+  
+  /* Responsive utilities */
+  .responsive-container {
+    @apply w-full px-4 sm:px-6 md:px-8 mx-auto max-w-7xl;
+  }
+  
+  .flex-responsive {
+    @apply flex flex-col md:flex-row;
+  }
+  
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6;
+  }
+  
+  /* Focus visible utility */
+  .focus-visible-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+  
+  /* Mobile-first touch target */
+  .touch-target {
+    @apply min-h-[2.75rem] min-w-[2.75rem];
+  }
 }
 
 /* Animate utilities */
@@ -214,7 +278,7 @@
 }
 
 .pulse-glow {
-  animation: pulse-glow 2s infinite;
+  animation: pulse-glow 5s infinite;
 }
 
 /* Scrollbar styling */
@@ -234,4 +298,52 @@
 /* Dark mode image dimming */
 .dark img:not(.no-dim) {
   filter: brightness(0.8);
+}
+
+/* Animated elements */
+.animate-on-scroll {
+  @apply opacity-0 translate-y-8 transition-all duration-700;
+}
+
+.animate-on-scroll.visible {
+  @apply opacity-100 translate-y-0;
+}
+
+/* Overlay gradient for cards */
+.card-gradient-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100;
+}
+
+/* Media query for reduced animations */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .pulse-glow,
+  .animate-shimmer::after {
+    animation: none !important;
+  }
+}
+
+/* Mobile menu adjustments for better touch interaction */
+@media (max-width: 768px) {
+  .touch-nav-item {
+    @apply py-3 px-4;
+  }
+  
+  .touch-button {
+    @apply min-h-[44px] min-w-[44px];
+  }
+}
+
+/* Dark mode specific animations */
+.dark .animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px rgba(255,255,255,0.2), 0 0 10px rgba(255,255,255,0.1);
+  }
+  to {
+    text-shadow: 0 0 10px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.2), 0 0 30px rgba(255,255,255,0.1);
+  }
 }

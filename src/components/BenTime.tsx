@@ -115,9 +115,9 @@ const BenTime = () => {
     <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end">
       {isOpen ? (
         <div className="mb-4 w-[350px] max-w-[calc(100vw-32px)] flex flex-col rounded-xl shadow-lg overflow-hidden bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-700 transition-colors duration-300">
-          {/* Chat header with gradient background */}
+          {/* Chat header with gradient background - improved visibility */}
           <div className="flex items-center justify-between bg-gradient-to-r from-[#244855] to-[#E64833] text-white p-3 transition-colors duration-300">
-            <h3 className="font-bold text-lg">BenTime</h3>
+            <h3 className="font-bold text-lg text-white">BenTime</h3>
             <Button 
               variant="ghost" 
               size="icon" 
@@ -145,9 +145,9 @@ const BenTime = () => {
             {isLoading && (
               <div className="ml-0 mr-auto bg-[#244855]/10 text-gray-900 dark:bg-[#90AEAD]/20 dark:text-gray-100 max-w-[80%] rounded-lg p-3 transition-colors duration-300">
                 <div className="flex space-x-1">
-                  <div className="h-2 w-2 bg-[#244855] dark:bg-[#90AEAD] rounded-full animate-bounce transition-colors duration-300"></div>
-                  <div className="h-2 w-2 bg-[#244855] dark:bg-[#90AEAD] rounded-full animate-bounce transition-colors duration-300" style={{ animationDelay: "0.2s" }}></div>
-                  <div className="h-2 w-2 bg-[#244855] dark:bg-[#90AEAD] rounded-full animate-bounce transition-colors duration-300" style={{ animationDelay: "0.4s" }}></div>
+                  <div className="h-2 w-2 bg-[#244855] dark:bg-[#90AEAD] rounded-full animate-pulse transition-colors duration-300"></div>
+                  <div className="h-2 w-2 bg-[#244855] dark:bg-[#90AEAD] rounded-full animate-pulse transition-colors duration-300" style={{ animationDelay: "0.2s" }}></div>
+                  <div className="h-2 w-2 bg-[#244855] dark:bg-[#90AEAD] rounded-full animate-pulse transition-colors duration-300" style={{ animationDelay: "0.4s" }}></div>
                 </div>
               </div>
             )}
@@ -176,7 +176,7 @@ const BenTime = () => {
         </div>
       ) : null}
       
-      {/* Chat button with gradient */}
+      {/* Chat button with gradient from teal to orange */}
       <Button 
         onClick={toggleChat}
         className="rounded-full h-14 w-14 bg-gradient-to-r from-[#244855] to-[#E64833] hover:from-[#1e3941] hover:to-[#d13e2b] text-white shadow-lg flex items-center justify-center transition-all duration-300"
@@ -184,7 +184,7 @@ const BenTime = () => {
         {isOpen ? (
           <Maximize2 className="h-6 w-6" />
         ) : (
-          <div className="font-bold">BEN</div>
+          <div className="font-bold text-white">BEN</div>
         )}
       </Button>
     </div>
