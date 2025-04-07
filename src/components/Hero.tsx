@@ -157,7 +157,7 @@ const Hero = () => {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-2xl ml-auto mb-12"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-2xl mx-auto mb-12"
           style={{
             opacity: iconsOpacity,
             scale: iconsScale,

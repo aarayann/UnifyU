@@ -130,18 +130,26 @@ const Header = () => {
           >
             {/* Logo with glow effect on hover - now clickable */}
             <div className="flex items-center group relative">
-              <Link to="/" onClick={scrollToTop} aria-label="UnifyU Home">
-                <motion.img 
-                  whileHover={{ 
-                    scale: 1.05,
-                    filter: "drop-shadow(0px 0px 8px rgba(36, 72, 85, 0.6))" 
-                  }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  src="public/logo-unifyu.png" 
-                  alt="UnifyU" 
-                  className="h-10 w-auto relative z-10 cursor-pointer" 
-                />
-              </Link>
+            <Link to="/" onClick={scrollToTop} aria-label="UnifyU Home">
+  <motion.img 
+    initial={{ opacity: 0, scale: 0.95 }}
+    animate={{ opacity: 1, scale: 1 }}
+    whileHover={{ 
+      scale: 1.08,
+      rotate: 2,
+      filter: "drop-shadow(0px 0px 12px rgba(36, 72, 85, 0.7))",
+    }}
+    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    src="/logo-unifyu.png"
+    alt="UnifyU"
+    className="h-16 md:h-20 lg:h-24 w-auto relative z-10 cursor-pointer dark:brightness-[0.85] dark:contrast-125" 
+    draggable={false}
+    loading="eager"
+    decoding="async"
+  />
+</Link>
+
+
               <motion.span 
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
