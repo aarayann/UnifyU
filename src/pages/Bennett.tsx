@@ -91,7 +91,7 @@ const Bennett = () => {
               transition={{ delay: 0.1, duration: 0.6 }}
               className="text-3xl md:text-5xl font-bold text-white mb-4 text-center drop-shadow-lg"
             >
-              Bennett University
+              {/* Bennett University */}
             </motion.h1>
             <motion.img 
               whileHover={{ scale: 1.05, rotateY: 5, rotateX: 5 }}
@@ -155,15 +155,19 @@ const Bennett = () => {
             >
               <Card className="h-full overflow-hidden border-none shadow-lg dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] dark:bg-[#1E3A47] bg-white">
                 <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
-                  <video
-                    ref={videoRef1}
-                    data-src="https://assets.mixkit.co/videos/preview/mixkit-students-walking-in-a-university-campus-4519-large.mp4"
-                    controls
-                    poster="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                    className="w-full h-full object-cover"
-                  >
-                    Your browser does not support the video tag.
-                  </video>
+                <video
+                ref={videoRef1}
+                src="/Ben1.mp4"
+                controls
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+                >
+                  Your browser does not support the video tag.
+                </video>
+
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity">
                     <div className="absolute bottom-4 left-4 text-white">
                       <h3 className="text-xl font-bold mb-1">Campus Tour</h3>
