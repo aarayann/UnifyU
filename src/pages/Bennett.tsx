@@ -469,7 +469,7 @@ const Bennett = () => {
             <Button 
               size="lg" 
               className="bg-[#E64833] hover:bg-[#D6402D] text-white py-6 px-8 text-lg"
-              onClick={() => window.open("https://www.bennett.edu.in/admissions/", "_blank")}
+              onClick={() => window.open("https://www.bennett.edu.in/admission/", "_blank")}
             >
               Apply Now
             </Button>
