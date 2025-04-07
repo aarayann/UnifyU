@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -156,15 +155,15 @@ const Bennett = () => {
               <Card className="h-full overflow-hidden border-none shadow-lg dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] dark:bg-[#1E3A47] bg-white">
                 <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
                 <video
-                ref={videoRef1}
-                src="public/Ben1.mp4"
-                controls
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
+                  ref={videoRef1}
+                  controls
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
                 >
+                  <source src="/Ben1.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
 
@@ -195,11 +194,11 @@ const Bennett = () => {
                 <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
                   <video
                     ref={videoRef2}
-                    data-src="https://assets.mixkit.co/videos/preview/mixkit-teacher-giving-a-lecture-to-her-students-9512-large.mp4"
                     controls
                     poster="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                     className="w-full h-full object-cover"
                   >
+                    <source src="/Ben2.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity">
@@ -289,7 +288,7 @@ const Bennett = () => {
                     <span className="text-white">Technology Summit 2025</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="inline-block w-24 text-[#E64833] font-medium">June 2</span>
+                    <span className="inline-block w-24 text-[#E66833] font-medium">June 2</span>
                     <span className="text-white">Annual Sports Meet</span>
                   </li>
                   <li className="flex items-start">
