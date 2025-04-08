@@ -1,3 +1,4 @@
+
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Laptop, GraduationCap, Users, Brain } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -36,7 +37,7 @@ const Hero = () => {
         {Array.from({ length: 30 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-[#244855] opacity-10"
+            className="absolute rounded-full bg-primary opacity-10"
             initial={{
               x: Math.random() * window.innerWidth,
               y: Math.random() * window.innerHeight,
@@ -119,7 +120,7 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ opacity: textOpacity, y: textY }}
         >
-          <motion.span className="inline-block bg-gradient-to-r from-[#244855] to-[#E64833] dark:from-[#A8C0BF] dark:to-[#D6402D] text-transparent bg-clip-text">
+          <motion.span className="inline-block bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text">
             UnifyU
           </motion.span>
           <motion.span className="inline-block">
@@ -148,12 +149,12 @@ const Hero = () => {
           </motion.span>
         </motion.h1>
 
-        {/* Centered typewriter text */}
+        {/* Centered typewriter text - Fixed center alignment */}
         <motion.div
-          className="text-lg md:text-xl text-gray-700 dark:text-[#E0E0E0] mb-8 leading-relaxed min-h-[120px] text-center"
+          className="text-lg md:text-xl text-gray-700 dark:text-[#E0E0E0] mb-8 leading-relaxed mx-auto text-center max-w-2xl"
           style={{ opacity: textOpacity }}
         >
-          <p>{visibleText}</p>
+          <p className="mx-auto text-center">{visibleText}</p>
         </motion.div>
 
         <motion.div
@@ -166,25 +167,25 @@ const Hero = () => {
           {[
             {
               icon: GraduationCap,
-              color: "#90AEAD",
+              color: "#3F72AF",
               text: "🎓 Learn smarter",
               subtext: "with AI-driven insights",
             },
             {
               icon: Laptop,
-              color: "#E64833",
+              color: "#7B68EE",
               text: "📚 Stay organized",
               subtext: "with a powerful LMS & ERP",
             },
             {
               icon: Users,
-              color: "#874F41",
+              color: "#6A5ACD",
               text: "🤝 Collaborate",
               subtext: "effortlessly with mentors & peers",
             },
             {
               icon: Brain,
-              color: "#244855",
+              color: "#4169E1",
               text: "🏆 Stay motivated",
               subtext: "with leaderboards & rewards",
             },
@@ -222,7 +223,7 @@ const Hero = () => {
               >
                 <item.icon size={24} />
               </motion.div>
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 <motion.span
                   className="font-medium"
                   initial={{ color: "#000" }}
@@ -237,9 +238,9 @@ const Hero = () => {
           ))}
         </motion.div>
 
-        {/* Centered tagline */}
+        {/* Centered tagline - Fixed center alignment */}
         <motion.p
-          className="text-lg font-medium text-[#244855] dark:text-[#A8C0BF] text-center"
+          className="text-lg font-medium text-primary dark:text-primary text-center mx-auto max-w-2xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{
             opacity: typingComplete ? 1 : 0,
@@ -259,9 +260,9 @@ const Hero = () => {
           y: [0, 15, 0],
           rotate: [0, 5, 0],
           filter: [
-            "drop-shadow(0px 0px 0px rgba(36, 72, 85, 0))",
-            "drop-shadow(0px 0px 10px rgba(36, 72, 85, 0.5))",
-            "drop-shadow(0px 0px 0px rgba(36, 72, 85, 0))",
+            "drop-shadow(0px 0px 0px rgba(65, 105, 225, 0))",
+            "drop-shadow(0px 0px 10px rgba(65, 105, 225, 0.5))",
+            "drop-shadow(0px 0px 0px rgba(65, 105, 225, 0))",
           ],
         }}
         transition={{
@@ -270,7 +271,7 @@ const Hero = () => {
           repeatType: "mirror",
         }}
       >
-        <Laptop size={100} className="text-[#244855]" />
+        <Laptop size={100} className="text-primary" />
       </motion.div>
 
       <motion.div
@@ -279,9 +280,9 @@ const Hero = () => {
           y: [0, 20, 0],
           rotate: [0, -5, 0],
           filter: [
-            "drop-shadow(0px 0px 0px rgba(230, 72, 51, 0))",
-            "drop-shadow(0px 0px 10px rgba(230, 72, 51, 0.5))",
-            "drop-shadow(0px 0px 0px rgba(230, 72, 51, 0))",
+            "drop-shadow(0px 0px 0px rgba(123, 104, 238, 0))",
+            "drop-shadow(0px 0px 10px rgba(123, 104, 238, 0.5))",
+            "drop-shadow(0px 0px 0px rgba(123, 104, 238, 0))",
           ],
         }}
         transition={{
@@ -291,7 +292,7 @@ const Hero = () => {
           delay: 1,
         }}
       >
-        <GraduationCap size={120} className="text-[#E64833]" />
+        <GraduationCap size={120} className="text-secondary" />
       </motion.div>
 
       <motion.div
@@ -300,9 +301,9 @@ const Hero = () => {
           y: [0, 15, 0],
           rotate: [0, 3, 0],
           filter: [
-            "drop-shadow(0px 0px 0px rgba(135, 79, 65, 0))",
-            "drop-shadow(0px 0px 10px rgba(135, 79, 65, 0.5))",
-            "drop-shadow(0px 0px 0px rgba(135, 79, 65, 0))",
+            "drop-shadow(0px 0px 0px rgba(106, 90, 205, 0))",
+            "drop-shadow(0px 0px 10px rgba(106, 90, 205, 0.5))",
+            "drop-shadow(0px 0px 0px rgba(106, 90, 205, 0))",
           ],
         }}
         transition={{
@@ -312,7 +313,7 @@ const Hero = () => {
           delay: 0.5,
         }}
       >
-        <Users size={80} className="text-[#874F41]" />
+        <Users size={80} className="text-[#6A5ACD]" />
       </motion.div>
 
       <motion.div
@@ -321,9 +322,9 @@ const Hero = () => {
           y: [0, 20, 0],
           rotate: [0, -3, 0],
           filter: [
-            "drop-shadow(0px 0px 0px rgba(144, 174, 173, 0))",
-            "drop-shadow(0px 0px 10px rgba(144, 174, 173, 0.5))",
-            "drop-shadow(0px 0px 0px rgba(144, 174, 173, 0))",
+            "drop-shadow(0px 0px 0px rgba(63, 114, 175, 0))",
+            "drop-shadow(0px 0px 10px rgba(63, 114, 175, 0.5))",
+            "drop-shadow(0px 0px 0px rgba(63, 114, 175, 0))",
           ],
         }}
         transition={{
@@ -333,12 +334,10 @@ const Hero = () => {
           delay: 1.5,
         }}
       >
-        <Brain size={90} className="text-[#90AEAD]" />
+        <Brain size={90} className="text-[#3F72AF]" />
       </motion.div>
     </section>
   );
 };
 
 export default Hero;
-
-

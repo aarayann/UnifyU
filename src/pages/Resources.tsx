@@ -1,187 +1,225 @@
-import React, { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabaseClient';
 
-interface Resource {
-  id: number;
-  course_name: string;
-  resource_url: string;
-}
+import React, { useState, useRef } from "react";
+import { 
+  BookOpen, 
+  Download, 
+  Clock, 
+  Info, 
+  FileText, 
+  MousePointer 
+} from "lucide-react";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
-const courseOptions = [
-  'Computer Networks',
-  'Operating Systems',
-  'Algorithms',
-  'Data Structures',
-];
+type ResourceType = {
+  id: string;
+  title: string;
+  type: "book" | "syllabus" | "calendar" | "guide" | "notes";
+  description: string;
+  date: string;
+  downloadUrl: string;
+};
 
-const Resources = () => {
-  const [resources, setResources] = useState<Resource[]>([]);
-  const [enrolledCourses, setEnrolledCourses] = useState<string[]>([]);
-  const [userType, setUserType] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+const Resources: React.FC = () => {
+  const [filter, setFilter] = useState<string>("all");
+  const popoverRefs = useRef<Map<string, HTMLDivElement | null>>(new Map());
 
-  // Faculty upload state
-  const [selectedCourse, setSelectedCourse] = useState('');
-  const [resourceUrl, setResourceUrl] = useState('');
-  const [uploading, setUploading] = useState(false);
+  const resources: ResourceType[] = [
+    {
+      id: "1",
+      title: "Computer Science Fundamentals",
+      type: "book",
+      description: "Essential reading material covering data structures, algorithms, and computing principles.",
+      date: "2023-09-10",
+      downloadUrl: "#",
+    },
+    {
+      id: "2",
+      title: "B.Tech Computer Science Syllabus",
+      type: "syllabus",
+      description: "Complete semester-wise breakdown of courses, credit requirements, and learning objectives.",
+      date: "2023-08-15",
+      downloadUrl: "/BTechSyllabus.pdf",
+    },
+    {
+      id: "3",
+      title: "Academic Calendar 2023-24",
+      type: "calendar",
+      description: "Important dates including examination schedules, holidays, and course registration deadlines.",
+      date: "2023-08-01",
+      downloadUrl: "/AcademicCalender.pdf",
+    },
+    {
+      id: "4",
+      title: "Laboratory Safety Guidelines",
+      type: "guide",
+      description: "Procedures and protocols for safe laboratory practices in engineering experiments.",
+      date: "2023-07-25",
+      downloadUrl: "#",
+    },
+    {
+      id: "5",
+      title: "Machine Learning Lecture Notes",
+      type: "notes",
+      description: "Comprehensive notes covering neural networks, decision trees, and unsupervised learning algorithms.",
+      date: "2023-09-20",
+      downloadUrl: "#",
+    },
+    {
+      id: "6",
+      title: "Data Science Project Guide",
+      type: "guide",
+      description: "Step-by-step instructions for completing the semester data analysis project.",
+      date: "2023-09-15",
+      downloadUrl: "#",
+    },
+  ];
 
-  const fetchUserType = async () => {
-    const { data: user } = await supabase.auth.getUser();
-    if (!user?.user) return;
-
-    const { data, error } = await supabase
-      .from('login_users')
-      .select('user_type')
-      .eq('uid', user.user.id)
-      .single();
-
-    if (error) {
-      console.error('Failed to fetch user type:', error.message);
-    } else {
-      setUserType(data?.user_type);
+  const getIcon = (type: string) => {
+    switch (type) {
+      case "book":
+        return <BookOpen className="text-primary" />;
+      case "syllabus":
+        return <FileText className="text-secondary" />;
+      case "calendar":
+        return <Clock className="text-accent" />;
+      case "guide":
+        return <Info className="text-primary" />;
+      case "notes":
+        return <FileText className="text-secondary" />;
+      default:
+        return <FileText className="text-primary" />;
     }
   };
 
-  const fetchEnrolledCourses = async () => {
-    const { data: user } = await supabase.auth.getUser();
-    if (!user?.user) return;
+  const filteredResources = filter === "all" 
+    ? resources 
+    : resources.filter(resource => resource.type === filter);
 
-    const { data, error } = await supabase
-      .from('performance_metrics')
-      .select('course_name')
-      .eq('uid', user.user.id);
-
-    if (error) {
-      console.error('Error fetching enrolled courses:', error);
-    } else {
-      const courses = data.map((item) => item.course_name);
-      setEnrolledCourses(courses);
-    }
+  const handleDownload = (url: string, title: string) => {
+    // Create an anchor element and set properties for download
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = title.replace(/\s+/g, '_') + '.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
-
-  const fetchResources = async () => {
-    const { data, error } = await supabase.from('resources').select('*');
-
-    if (error) {
-      console.error('Error fetching resources:', error);
-    } else {
-      setResources(data);
-    }
-
-    setLoading(false);
-  };
-
-  const handleUpload = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setUploading(true);
-
-    const { error } = await supabase.from('resources').insert([
-      {
-        course_name: selectedCourse,
-        resource_url: resourceUrl,
-      },
-    ]);
-
-    if (error) {
-      alert('Failed to upload resource');
-      console.error(error.message);
-    } else {
-      alert('Resource uploaded successfully');
-      setResourceUrl('');
-      setSelectedCourse('');
-      fetchResources(); // Refresh the list
-    }
-
-    setUploading(false);
-  };
-
-  useEffect(() => {
-    fetchUserType();
-    fetchEnrolledCourses();
-  }, []);
-
-  useEffect(() => {
-    if (enrolledCourses.length > 0 || userType === 'faculty') {
-      fetchResources();
-    }
-  }, [enrolledCourses, userType]);
-
-  const filteredResources =
-    userType === 'faculty'
-      ? resources // faculty sees all resources
-      : resources.filter((res) => enrolledCourses.includes(res.course_name));
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-semibold mb-4">Course Resources</h2>
+    <div className="container mx-auto py-8">
+      <h1 className="text-3xl font-bold mb-8 text-center text-primary dark:text-primary-foreground">
+        Academic Resources
+      </h1>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : filteredResources.length > 0 ? (
-        <ul className="space-y-4 mb-6">
-          {filteredResources.map((res) => (
-            <li
-              key={res.id}
-              className="border p-4 rounded shadow hover:bg-gray-50 transition"
-            >
-              <h3 className="text-lg font-medium">{res.course_name}</h3>
-              <a
-                href={res.resource_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                Visit Resource
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No resources found.</p>
-      )}
+      <div className="flex flex-wrap justify-center gap-2 mb-8">
+        <Button
+          variant={filter === "all" ? "default" : "outline"}
+          onClick={() => setFilter("all")}
+          className="rounded-full"
+        >
+          All Resources
+        </Button>
+        <Button
+          variant={filter === "book" ? "default" : "outline"}
+          onClick={() => setFilter("book")}
+          className="rounded-full"
+        >
+          Books
+        </Button>
+        <Button
+          variant={filter === "syllabus" ? "default" : "outline"}
+          onClick={() => setFilter("syllabus")}
+          className="rounded-full"
+        >
+          Syllabi
+        </Button>
+        <Button
+          variant={filter === "calendar" ? "default" : "outline"}
+          onClick={() => setFilter("calendar")}
+          className="rounded-full"
+        >
+          Calendars
+        </Button>
+        <Button
+          variant={filter === "guide" ? "default" : "outline"}
+          onClick={() => setFilter("guide")}
+          className="rounded-full"
+        >
+          Guides
+        </Button>
+        <Button
+          variant={filter === "notes" ? "default" : "outline"}
+          onClick={() => setFilter("notes")}
+          className="rounded-full"
+        >
+          Notes
+        </Button>
+      </div>
 
-      {/* Faculty Upload Form */}
-      {userType === 'faculty' && (
-        <div className="mt-8">
-          <h3 className="text-xl font-semibold mb-3">Upload New Resource</h3>
-          <form onSubmit={handleUpload} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium">Course</label>
-              <select
-                value={selectedCourse}
-                onChange={(e) => setSelectedCourse(e.target.value)}
-                className="border px-3 py-2 w-full rounded"
-                required
-              >
-                <option value="">-- Select Course --</option>
-                {courseOptions.map((course) => (
-                  <option key={course} value={course}>
-                    {course}
-                  </option>
-                ))}
-              </select>
-            </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredResources.map((resource) => (
+          <div key={resource.id} className="relative">
+            <Card className="h-full hover-card">
+              <CardHeader className="pb-2">
+                <div className="flex justify-between items-start">
+                  <div className="flex items-center space-x-2">
+                    {getIcon(resource.type)}
+                    <CardTitle className="text-lg">{resource.title}</CardTitle>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="py-2">
+                <div className="relative">
+                  <div className="line-clamp-2 text-sm text-muted-foreground mb-2">
+                    {resource.description}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Updated: {new Date(resource.date).toLocaleDateString()}
+                  </p>
+                </div>
+              </CardContent>
+              <CardFooter className="flex justify-between pt-2">
+                <div className="relative group">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="resource-hover-trigger flex items-center gap-1"
+                    onClick={() => {}}
+                  >
+                    <Info size={16} />
+                    <span>Details</span>
+                    <MousePointer size={12} className="ml-1" />
+                  </Button>
+                  <div 
+                    className="resource-hover-card"
+                    ref={ref => popoverRefs.current.set(resource.id, ref)}
+                  >
+                    <h3 className="font-semibold mb-2">{resource.title}</h3>
+                    <p className="text-sm mb-3">{resource.description}</p>
+                    <div className="text-xs text-muted-foreground">
+                      <p>Type: {resource.type.charAt(0).toUpperCase() + resource.type.slice(1)}</p>
+                      <p>Last updated: {new Date(resource.date).toLocaleDateString()}</p>
+                    </div>
+                  </div>
+                </div>
+                <Button 
+                  size="sm"
+                  onClick={() => handleDownload(resource.downloadUrl, resource.title)}
+                  className="flex items-center gap-1"
+                >
+                  <Download size={16} />
+                  <span>Download</span>
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        ))}
+      </div>
 
-            <div>
-              <label className="block text-sm font-medium">Resource URL</label>
-              <input
-                type="url"
-                value={resourceUrl}
-                onChange={(e) => setResourceUrl(e.target.value)}
-                className="border px-3 py-2 w-full rounded"
-                placeholder="https://..."
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
-              disabled={uploading}
-            >
-              {uploading ? 'Uploading...' : 'Upload Resource'}
-            </button>
-          </form>
+      {filteredResources.length === 0 && (
+        <div className="text-center my-12">
+          <p className="text-lg text-muted-foreground">No resources found for the selected filter.</p>
         </div>
       )}
     </div>

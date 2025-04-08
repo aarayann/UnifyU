@@ -1,89 +1,91 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Light Mode Colors (Default) */
-    --background: 37 69% 90%; /* #FBE9D0 - Soft Beige */
-    --foreground: 0 0% 20%; /* #333333 - Dark Gray */
+    /* Premium Educational Light Mode Colors */
+    --background: 210 33% 98%; /* #F5F9FC - Soft blue-white */
+    --foreground: 222 47% 11%; /* #111827 - Rich dark blue */
 
-    --card: 37 69% 90%; /* #FBE9D0 - Soft Beige */
-    --card-foreground: 0 0% 20%; /* #333333 - Dark Gray */
+    --card: 0 0% 100%; /* #FFFFFF - White */
+    --card-foreground: 222 47% 11%; /* #111827 - Rich dark blue */
 
-    --popover: 37 69% 90%; /* #FBE9D0 - Soft Beige */
-    --popover-foreground: 0 0% 20%; /* #333333 - Dark Gray */
+    --popover: 0 0% 100%; /* #FFFFFF - White */
+    --popover-foreground: 222 47% 11%; /* #111827 - Rich dark blue */
 
-    --primary: 195 40% 24%; /* #244855 - Dark Teal */
+    --primary: 221 83% 53%; /* #3B82F6 - Royal Blue */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 9 75% 55%; /* #E64833 - Burnt Orange */
+    --secondary: 250 95% 64%; /* #7B68EE - Medium Slate Blue */
     --secondary-foreground: 0 0% 100%; /* White */
 
-    --muted: 37 35% 80%; /* Lighter Beige */
-    --muted-foreground: 0 0% 40%; /* Muted Gray */
+    --muted: 210 40% 96%; /* #F1F5F9 - Soft blue gray */
+    --muted-foreground: 215 16% 47%; /* #64748B - Muted blue gray */
 
-    --accent: 195 40% 24%; /* #244855 - Dark Teal */
+    --accent: 217 91% 60%; /* #4169E1 - Royal Blue Accent */
     --accent-foreground: 0 0% 100%; /* White */
 
     --destructive: 0 84.2% 60.2%; /* Default destructive */
     --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 195 10% 70%; /* Light Teal Border */
-    --input: 195 10% 70%; /* Light Teal Input */
-    --ring: 195 40% 24%; /* #244855 - Dark Teal */
+    --border: 214 31% 91%; /* #E2E8F0 - Light blue gray border */
+    --input: 214 31% 91%; /* #E2E8F0 - Light blue gray input */
+    --ring: 221 83% 53%; /* #3B82F6 - Royal Blue */
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 37 35% 95%; /* Lighter Beige */
-    --sidebar-foreground: 0 0% 20%; /* Dark Gray */
-    --sidebar-primary: 195 40% 24%; /* Dark Teal */
+    --sidebar-background: 222 47% 11%; /* #111827 - Rich dark blue */
+    --sidebar-foreground: 210 40% 98%; /* #F8FAFC - Near white */
+    --sidebar-primary: 221 83% 53%; /* #3B82F6 - Royal Blue */
     --sidebar-primary-foreground: 0 0% 100%; /* White */
-    --sidebar-accent: 37 35% 90%; /* Light Beige */
-    --sidebar-accent-foreground: 195 40% 24%; /* Dark Teal */
-    --sidebar-border: 195 10% 70%; /* Light Teal Border */
-    --sidebar-ring: 195 40% 24%; /* Dark Teal */
+    --sidebar-accent: 214 32% 91%; /* #E2E8F0 - Light blue gray */
+    --sidebar-accent-foreground: 222 47% 11%; /* #111827 - Rich dark blue */
+    --sidebar-border: 215 20% 65%; /* Light blue gray border */
+    --sidebar-ring: 221 83% 53%; /* #3B82F6 - Royal Blue */
   }
 
   .dark {
-    /* Dark Mode Colors - Optimized for better contrast and visibility */
-    --background: 198 28% 21%; /* #223D4A - Lightened Darkened Teal */
-    --foreground: 0 0% 88%; /* #E0E0E0 - Light Gray */
+    /* Premium Educational Dark Mode Colors */
+    --background: 222 47% 11%; /* #111827 - Rich dark blue */
+    --foreground: 210 40% 98%; /* #F8FAFC - Near white */
 
-    --card: 200 35% 20%; /* #1E3A47 - Card background */
-    --card-foreground: 0 0% 96%; /* #F5F5F5 - Off White */
+    --card: 223 47% 15%; /* #1E293B - Dark blue card */
+    --card-foreground: 210 40% 98%; /* #F8FAFC - Near white */
 
-    --popover: 200 35% 20%; /* #1E3A47 - Card background */
-    --popover-foreground: 0 0% 96%; /* #F5F5F5 - Off White */
+    --popover: 223 47% 15%; /* #1E293B - Dark blue card */
+    --popover-foreground: 210 40% 98%; /* #F8FAFC - Near white */
 
-    --primary: 180 16% 71%; /* #A8C0BF - Lightened Muted Teal */
-    --primary-foreground: 193 40% 17%; /* #1A3641 - Darkened Teal */
+    --primary: 217 91% 60%; /* #4169E1 - Royal Blue */
+    --primary-foreground: 210 40% 98%; /* #F8FAFC - Near white */
 
-    --secondary: 9 65% 51%; /* #D6402D - Darkened Burnt Orange */
-    --secondary-foreground: 0 0% 100%; /* White */
+    --secondary: 250 95% 64%; /* #7B68EE - Medium Slate Blue */
+    --secondary-foreground: 210 40% 98%; /* #F8FAFC - Near white */
 
-    --muted: 193 20% 18%; /* Darker Teal - #1E3641 */
-    --muted-foreground: 180 16% 85%; /* Lighter Muted Teal - #C5D6D5 */
+    --muted: 217 33% 17%; /* #1F2937 - Darker blue gray */
+    --muted-foreground: 215 20% 65%; /* #94A3B8 - Medium blue gray */
 
-    --accent: 180 16% 71%; /* #A8C0BF - Lightened Muted Teal */
-    --accent-foreground: 193 40% 17%; /* #1A3641 - Darkened Teal */
+    --accent: 217 91% 60%; /* #4169E1 - Royal Blue */
+    --accent-foreground: 210 40% 98%; /* #F8FAFC - Near white */
 
     --destructive: 0 62.8% 30.6%; /* Darker Red */
     --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 200 28% 27%; /* #2A4E5D - Border for separation */
-    --input: 193 25% 15%; /* #142A35 - 20% darker than main background */
-    --ring: 180 16% 71%; /* #A8C0BF - Lightened Muted Teal */
+    --border: 217 33% 25%; /* #334155 - Medium dark blue */
+    --input: 217 33% 25%; /* #334155 - Medium dark blue */
+    --ring: 250 95% 64%; /* #7B68EE - Medium Slate Blue */
 
-    --sidebar-background: 193 40% 14%; /* Slightly darker than background */
-    --sidebar-foreground: 37 69% 90%; /* #FBE9D0 - Soft Beige */
-    --sidebar-primary: 180 16% 71%; /* #A8C0BF - Lightened Muted Teal */
+    --sidebar-background: 225 25% 7%; /* #0F172A - Very dark blue */
+    --sidebar-foreground: 217 91% 60%; /* #4169E1 - Royal Blue */
+    --sidebar-primary: 217 91% 60%; /* #4169E1 - Royal Blue */
     --sidebar-primary-foreground: 0 0% 100%; /* White */
-    --sidebar-accent: 193 20% 18%; /* Darker Teal - #1E3641 */
-    --sidebar-accent-foreground: 180 16% 85%; /* Lighter Muted Teal - #C5D6D5 */
-    --sidebar-border: 180 16% 40%; /* Muted Teal with 30% opacity */
-    --sidebar-ring: 180 16% 71%; /* #A8C0BF - Lightened Muted Teal */
+    --sidebar-accent: 218 11% 15%; /* #1E293B - Darker blue */
+    --sidebar-accent-foreground: 210 40% 98%; /* #F8FAFC - Near white */
+    --sidebar-border: 217 33% 25%; /* #334155 - Medium dark blue */
+    --sidebar-ring: 217 91% 60%; /* #4169E1 - Royal Blue */
   }
 }
 
@@ -92,26 +94,35 @@
     @apply border-border selection:bg-primary/20 selection:text-primary;
   }
 
+  html, body {
+    @apply scroll-smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-montserrat;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  html {
-    @apply scroll-smooth;
+  /* Custom cursor */
+  body {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%233B82F6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z'/%3E%3Cpath d='m13 13 6 6'/%3E%3C/svg%3E"), auto;
   }
 
-  /* Improved Typography for Dark Mode */
+  a, button, .cursor-pointer, input[type="button"], input[type="submit"] {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%237B68EE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z'/%3E%3Cpath d='M12 2v2'/%3E%3Cpath d='M12 20v2'/%3E%3Cpath d='m4.93 4.93 1.41 1.41'/%3E%3Cpath d='m17.66 17.66 1.41 1.41'/%3E%3Cpath d='M2 12h2'/%3E%3Cpath d='M20 12h2'/%3E%3Cpath d='m6.34 17.66-1.41 1.41'/%3E%3Cpath d='m19.07 4.93-1.41 1.41'/%3E%3C/svg%3E"), pointer;
+  }
+
+  /* Improved Typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair text-primary dark:text-primary-foreground font-bold transition-colors;
+    line-height: 1.2;
+  }
+
+  /* Dark mode specific text styles */
   .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
     @apply text-white font-bold text-shadow-sm;
-    text-shadow: 0 0 8px rgba(255,255,255,0.3);
-    font-weight: 700;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply text-primary transition-colors;
-    line-height: 1.2;
+    text-shadow: 0 0 8px rgba(65, 105, 225, 0.3);
   }
 
   h1 {
@@ -136,7 +147,17 @@
 
   /* Interactive Elements */
   button, .btn {
+    @apply relative overflow-hidden;
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+  }
+
+  button::after, .btn::after {
+    content: '';
+    @apply absolute inset-0 bg-white/20 opacity-0 transition-opacity;
+  }
+
+  button:hover::after, .btn:hover::after {
+    @apply opacity-100;
   }
 
   /* Focus States for Accessibility */
@@ -165,7 +186,7 @@
   
   /* Improve link visibility in dark mode */
   .dark a:not(.btn) {
-    @apply text-secondary hover:text-[#E64833] hover:underline;
+    @apply text-secondary hover:text-primary hover:underline;
   }
   
   /* Responsive layout adjustments */
@@ -178,6 +199,11 @@
       @apply text-balance;
     }
   }
+
+  /* Card hover effects */
+  .card {
+    @apply transition-transform duration-300 ease-in-out hover:translate-y-[-8px] hover:shadow-xl;
+  }
 }
 
 @layer utilities {
@@ -185,12 +211,12 @@
     @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
   }
 
-  .text-gradient-teal-orange {
-    @apply bg-gradient-to-r from-[#244855] to-[#E64833] bg-clip-text text-transparent;
+  .text-gradient-blue {
+    @apply bg-gradient-to-r from-[#3B82F6] to-[#7B68EE] bg-clip-text text-transparent;
   }
 
-  .dark .text-gradient-teal-orange {
-    @apply bg-gradient-to-r from-[#90AEAD] to-[#E64833] bg-clip-text text-transparent;
+  .dark .text-gradient-blue {
+    @apply bg-gradient-to-r from-[#4169E1] to-[#7B68EE] bg-clip-text text-transparent;
   }
 
   .glass {
@@ -198,7 +224,7 @@
   }
 
   .glass-card {
-    @apply backdrop-blur-lg bg-white/80 dark:bg-background/80 border border-border shadow-lg;
+    @apply backdrop-blur-lg bg-white/90 dark:bg-card/90 border border-border shadow-lg;
   }
 
   .magnetic-hover {
@@ -211,11 +237,11 @@
 
   /* Interactive Elements Styling */
   .btn-secondary {
-    @apply bg-secondary text-white hover:bg-[#C23827] dark:hover:bg-[#E64833] transition-colors;
+    @apply bg-secondary text-white hover:bg-secondary/80 dark:hover:bg-secondary/90 transition-colors;
   }
   
   .link {
-    @apply text-secondary hover:text-[#E64833] dark:text-[#D6402D] dark:hover:text-[#E64833] transition-colors;
+    @apply text-secondary hover:text-primary dark:text-secondary dark:hover:text-primary transition-colors;
   }
   
   /* Card & Container Styling */
@@ -224,16 +250,16 @@
   }
   
   .input-field {
-    @apply bg-background dark:bg-[#142A35] border-border dark:border-accent/30 transition-colors;
+    @apply bg-background dark:bg-card border-border dark:border-accent/30 transition-colors;
   }
   
   /* Text shadow utility */
   .text-shadow-sm {
-    text-shadow: 0 0 8px rgba(255,255,255,0.3);
+    text-shadow: 0 0 8px rgba(65, 105, 225, 0.3);
   }
   
   .dark .checklist-icon {
-    @apply text-[#A8C0BF];
+    @apply text-primary;
   }
   
   /* Responsive utilities */
@@ -258,6 +284,129 @@
   .touch-target {
     @apply min-h-[2.75rem] min-w-[2.75rem];
   }
+
+  /* Hover effect for cards */
+  .hover-card {
+    @apply transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl;
+  }
+
+  /* Pulsating effect */
+  .pulse-effect {
+    animation: pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.8;
+    }
+  }
+
+  /* Shimmer effect */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.2) 50%,
+      transparent 80%
+    );
+    width: 300%;
+    height: 300%;
+    transform: rotate(45deg);
+    animation: shimmerAnimation 3s infinite;
+  }
+  
+  @keyframes shimmerAnimation {
+    0% {
+      transform: translateX(-100%) rotate(45deg);
+    }
+    100% {
+      transform: translateX(100%) rotate(45deg);
+    }
+  }
+
+  /* Resource card hover effect */
+  .resource-hover-card {
+    @apply absolute bottom-full lg:bottom-auto lg:left-full transform translate-y-2 lg:translate-y-0 lg:translate-x-2 z-50 bg-card dark:bg-card border border-border dark:border-muted p-4 rounded-lg shadow-lg;
+    min-width: 300px;
+    max-width: calc(100vw - 40px);
+    width: max-content;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+
+  .resource-hover-trigger:hover + .resource-hover-card,
+  .resource-hover-card:hover {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0);
+    pointer-events: auto;
+  }
+
+  @media (max-width: 1023px) {
+    .resource-hover-card {
+      left: 0;
+      right: 0;
+      width: 90%;
+      margin: 0 auto;
+    }
+  }
+
+  /* Button glow effect */
+  .btn-glow {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+  .btn-glow::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 70%
+    );
+    transform: scale(0);
+    opacity: 0;
+    z-index: -1;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+  }
+  
+  .btn-glow:hover::after {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  /* Font utilities */
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
 }
 
 /* Animate utilities */
@@ -272,9 +421,9 @@
 }
 
 @keyframes pulse-glow {
-  0% { box-shadow: 0 0 0 0 rgba(36, 72, 85, 0.7); }
-  70% { box-shadow: 0 0 0 10px rgba(36, 72, 85, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(36, 72, 85, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
 }
 
 .pulse-glow {
@@ -297,7 +446,7 @@
 
 /* Dark mode image dimming */
 .dark img:not(.no-dim) {
-  filter: brightness(0.8);
+  filter: brightness(0.9);
 }
 
 /* Animated elements */
@@ -341,9 +490,9 @@
 
 @keyframes glow {
   from {
-    text-shadow: 0 0 5px rgba(255,255,255,0.2), 0 0 10px rgba(255,255,255,0.1);
+    text-shadow: 0 0 5px rgba(65, 105, 225, 0.2), 0 0 10px rgba(65, 105, 225, 0.1);
   }
   to {
-    text-shadow: 0 0 10px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.2), 0 0 30px rgba(255,255,255,0.1);
+    text-shadow: 0 0 10px rgba(65, 105, 225, 0.3), 0 0 20px rgba(65, 105, 225, 0.2), 0 0 30px rgba(65, 105, 225, 0.1);
   }
 }

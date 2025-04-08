@@ -29,6 +29,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				playfair: ['Playfair Display', 'serif'],
+				montserrat: ['Montserrat', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -163,6 +167,19 @@ export default {
 				},
 				'.interactive-card': {
 					'@apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1': {},
+				},
+				'.premium-card': {
+					'@apply bg-white dark:bg-card rounded-lg shadow-lg border border-border overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1': {},
+				},
+				'.resource-hover-box': {
+					'@apply absolute bottom-full lg:bottom-auto lg:left-full transform lg:translate-x-2 translate-y-2 z-50 bg-white dark:bg-card shadow-xl rounded-lg p-4 border border-border': {},
+					'width': 'max-content',
+					'min-width': '280px',
+					'max-width': 'calc(100vw - 40px)',
+					'pointer-events': 'none',
+					'visibility': 'hidden',
+					'opacity': '0',
+					'transition': 'all 0.3s ease',
 				}
 			});
 			
@@ -185,6 +202,13 @@ export default {
 						'left': '0',
 						'background': 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
 						'animation': 'shimmer 2s infinite',
+					}
+				},
+				'.hide-scrollbar': {
+					'-ms-overflow-style': 'none',
+					'scrollbar-width': 'none',
+					'&::-webkit-scrollbar': {
+						'display': 'none',
 					}
 				}
 			});
