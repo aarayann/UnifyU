@@ -241,15 +241,21 @@ export default function Events() {
     }
   };
 
-  // Function to download academic calendar
   const downloadCalendar = () => {
     const link = document.createElement('a');
-    link.href = '/AcademicCalendar.pdf';  // Path to your PDF in the public folder
-    link.download = 'AcademicCalendar.pdf';
+    
+    // Correct the path for the file to be relative to the public folder
+    link.href = '/AcademicCalender.pdf';  // Path to your PDF in the public folder (assuming it is placed in the root of the public folder)
+    
+    // Name the file as it will be downloaded
+    link.download = 'AcademicCalender.pdf'; // File will be named when downloaded
+    
+    // Append link to body, simulate click to trigger download, then remove the link
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
+  
 
   return (
     <div className="min-h-screen">
