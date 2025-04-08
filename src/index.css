@@ -1,14 +1,11 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Light Mode Colors (Default) - Using the exact values provided */
+    /* Light Mode Colors (Default) */
     --background: 37 69% 90%; /* #FBE9D0 - Soft Beige */
     --foreground: 0 0% 20%; /* #333333 - Dark Gray */
 
@@ -96,7 +93,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-background text-foreground;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
     transition: background-color 0.3s ease, color 0.3s ease;
   }
@@ -105,16 +102,16 @@
     @apply scroll-smooth;
   }
 
-  /* Improved Typography */
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading text-primary transition-colors;
-    line-height: 1.2;
-  }
-
+  /* Improved Typography for Dark Mode */
   .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
     @apply text-white font-bold text-shadow-sm;
     text-shadow: 0 0 8px rgba(255,255,255,0.3);
     font-weight: 700;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-primary transition-colors;
+    line-height: 1.2;
   }
 
   h1 {
@@ -134,7 +131,7 @@
   }
   
   p {
-    @apply max-w-prose text-pretty mb-4 text-fluid-base font-body;
+    @apply max-w-prose text-pretty mb-4 text-fluid-base;
   }
 
   /* Interactive Elements */
@@ -260,24 +257,6 @@
   /* Mobile-first touch target */
   .touch-target {
     @apply min-h-[2.75rem] min-w-[2.75rem];
-  }
-
-  /* Custom cursor styles */
-  .custom-cursor {
-    @apply cursor-custom;
-  }
-  
-  .custom-cursor-pointer {
-    @apply cursor-custom-pointer;
-  }
-
-  /* Typing effect */
-  .typing-effect {
-    @apply relative inline-block;
-  }
-  
-  .typing-effect::after {
-    @apply content-['|'] animate-cursor-blink ml-0.5;
   }
 }
 
