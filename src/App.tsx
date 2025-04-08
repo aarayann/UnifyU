@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
   createBrowserRouter,
@@ -19,81 +20,77 @@ import LiveCalendar from "./pages/LiveCalendar";
 import Resources from "./pages/Resources";
 import AccountSettings from "./pages/AccountSettings"; 
 import CreateForum from "./pages/CreateForum";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
-const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Layout />,
-      errorElement: <NotFound />,
-      children: [
-        {
-          path: "/",
-          element: <Index />,
-        },
-        {
-          path: "/auth",
-          element: <Auth />,
-        },
-        {
-          path: "/faculties",
-          element: <Faculties />,
-        },
-        {
-          path: "/faculty-dashboard",
-          element: <FacultyDashboard />,
-        },
-        {
-          path: "/student-dashboard",
-          element: <StudentDashboard />,
-        },
-        {
-          path: "/bennett",
-          element: <Bennett />,
-        },
-        {
-          path: "/events",
-          element: <Events />,
-        },
-        {
-          path: "/attendance-records",
-          element: <AttendanceRecords />,
-        },
-        {
-          path: "/performance-metrics",
-          element: <PerformanceMetrics />,
-        },
-        {
-          path: "/discussion-forums",
-          element: <DiscussionForums />,
-        },
-        {
-          path: "/create-forum",
-          element: <CreateForum />,
-        },
-        {
-          path: "/live-calendar",
-          element: <LiveCalendar />,
-        },
-        {
-          path: "/resources",
-          element: <Resources />,
-        },
-        {
-          path: "/account-settings", // ✅ Route added
-          element: <AccountSettings />,
-        },
-      ],
-    },
-  ]);
 
-  return (
-    <React.StrictMode>
-      <RouterProvider router={router} />
-    </React.StrictMode>
-  );
+// Define router outside of component to avoid recreating on each render
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    errorElement: <NotFound />,
+    children: [
+      {
+        path: "/",
+        element: <Index />,
+      },
+      {
+        path: "/auth",
+        element: <Auth />,
+      },
+      {
+        path: "/faculties",
+        element: <Faculties />,
+      },
+      {
+        path: "/faculty-dashboard",
+        element: <FacultyDashboard />,
+      },
+      {
+        path: "/student-dashboard",
+        element: <StudentDashboard />,
+      },
+      {
+        path: "/bennett",
+        element: <Bennett />,
+      },
+      {
+        path: "/events",
+        element: <Events />,
+      },
+      {
+        path: "/attendance-records",
+        element: <AttendanceRecords />,
+      },
+      {
+        path: "/performance-metrics",
+        element: <PerformanceMetrics />,
+      },
+      {
+        path: "/discussion-forums",
+        element: <DiscussionForums />,
+      },
+      {
+        path: "/create-forum",
+        element: <CreateForum />,
+      },
+      {
+        path: "/live-calendar",
+        element: <LiveCalendar />,
+      },
+      {
+        path: "/resources",
+        element: <Resources />,
+      },
+      {
+        path: "/account-settings",
+        element: <AccountSettings />,
+      },
+    ],
+  },
+]);
+
+const App = () => {
+  return <RouterProvider router={router} />;
 };
 
 export default App;
