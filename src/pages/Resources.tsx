@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import { 
   BookOpen, 
@@ -28,6 +29,7 @@ const Resources: React.FC = () => {
   const [activeResource, setActiveResource] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   
+  // Check if device is mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -112,6 +114,7 @@ const Resources: React.FC = () => {
     : resources.filter(resource => resource.type === filter);
 
   const handleDownload = (url: string, title: string) => {
+    // Create an anchor element and set properties for download
     const link = document.createElement('a');
     link.href = url;
     link.download = title.replace(/\s+/g, '_') + '.pdf';
@@ -119,6 +122,7 @@ const Resources: React.FC = () => {
     link.click();
     document.body.removeChild(link);
     
+    // Show toast notification
     toast.success(`Downloading ${title}...`, {
       duration: 3000,
       position: "bottom-center"
@@ -128,8 +132,6 @@ const Resources: React.FC = () => {
   const handleInfoClick = (id: string) => {
     setActiveResource(prevId => prevId === id ? null : id);
   };
-
-  const detailsRefs = useRef<{[key: string]: HTMLDivElement | null}>({});
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -156,6 +158,15 @@ const Resources: React.FC = () => {
   const filterVariants = {
     inactive: { scale: 1, boxShadow: "0 2px 5px rgba(0,0,0,0)" },
     active: { scale: 1.05, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }
+  };
+  
+  const resourceHoverBoxRef = useRef<HTMLDivElement>(null);
+  
+  // Handle mouse position for accurate hover card positioning
+  const [hoverPosition, setHoverPosition] = useState({ x: 0, y: 0 });
+  
+  const updateHoverPosition = (e: React.MouseEvent) => {
+    setHoverPosition({ x: e.clientX, y: e.clientY });
   };
 
   return (
@@ -276,6 +287,7 @@ const Resources: React.FC = () => {
               </CardContent>
               <CardFooter className="flex justify-between pt-2 relative z-10">
                 {isMobile ? (
+                  // Mobile: Use Info button that toggles the details card
                   <div className="relative">
                     <Button 
                       variant="outline" 
@@ -283,9 +295,6 @@ const Resources: React.FC = () => {
                       className="flex items-center gap-1"
                       onClick={() => handleInfoClick(resource.id)}
                       aria-expanded={activeResource === resource.id}
-                      ref={(el) => {
-                        detailsRefs.current[resource.id] = el;
-                      }}
                     >
                       <Info size={16} />
                       <span>Details</span>
@@ -297,8 +306,8 @@ const Resources: React.FC = () => {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
-                          className="absolute top-full left-0 mt-2 bg-card dark:bg-card p-4 rounded-lg border border-border shadow-lg z-50 w-full"
-                          style={{ minWidth: '250px' }}
+                          className="absolute bottom-full left-0 right-0 mb-2 bg-card dark:bg-card p-4 rounded-lg border border-border shadow-lg z-50"
+                          ref={resourceHoverBoxRef}
                         >
                           <div className="flex justify-between items-start">
                             <h3 className="font-semibold mb-2">{resource.title}</h3>
@@ -319,12 +328,14 @@ const Resources: React.FC = () => {
                     </AnimatePresence>
                   </div>
                 ) : (
-                  <HoverCard openDelay={100} closeDelay={100}>
+                  // Desktop: Use HoverCard for cleaner UX
+                  <HoverCard openDelay={200} closeDelay={100}>
                     <HoverCardTrigger asChild>
                       <Button 
                         variant="outline" 
                         size="sm"
                         className="flex items-center gap-1"
+                        onMouseMove={updateHoverPosition}
                       >
                         <Info size={16} />
                         <span>Details</span>
@@ -342,9 +353,9 @@ const Resources: React.FC = () => {
                     </HoverCardTrigger>
                     <HoverCardContent 
                       className="w-80 bg-card dark:bg-card p-4 border border-border shadow-lg"
+                      side="right"
                       align="start"
-                      side="bottom"
-                      sideOffset={5}
+                      sideOffset={8}
                     >
                       <motion.div
                         initial={{ opacity: 0 }}
