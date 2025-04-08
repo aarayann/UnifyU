@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -29,6 +28,16 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'serif': ['Playfair Display', 'serif'],
+				'sans': ['Inter', 'sans-serif'],
+				'heading': ['Playfair Display', 'serif'],
+				'body': ['Inter', 'sans-serif'],
+			},
+			cursor: {
+				'custom': 'url("/cursor.svg"), auto',
+				'custom-pointer': 'url("/cursor-pointer.svg"), pointer',
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -115,6 +124,10 @@ export default {
 				},
 				'shimmer': {
 					'100%': { transform: 'translateX(100%)' }
+				},
+				'cursor-blink': {
+					'0%, 100%': { opacity: 1 },
+					'50%': { opacity: 0 }
 				}
 			},
 			animation: {
@@ -124,7 +137,8 @@ export default {
 				'pulse-gentle': 'pulse-gentle 3s ease-in-out infinite',
 				'gradient-shift': 'gradient-shift 10s ease infinite',
 				'scale-in-out': 'scale-in-out 8s ease-in-out infinite',
-				'shimmer': 'shimmer 2s infinite'
+				'shimmer': 'shimmer 2s infinite',
+				'cursor-blink': 'cursor-blink 1s step-end infinite'
 			},
 			fontSize: {
 				'fluid-sm': 'clamp(0.875rem, 0.8rem + 0.25vw, 1rem)',
@@ -156,7 +170,16 @@ export default {
 	},
 	plugins: [
 		require("tailwindcss-animate"),
-		function({ addComponents, addUtilities }) {
+		function({ addComponents, addUtilities, addBase }) {
+			addBase({
+				'html': {
+					'@apply cursor-custom': {},
+				},
+				'a, button, [role="button"]': {
+					'@apply cursor-custom-pointer': {},
+				}
+			});
+			
 			addComponents({
 				'.glass-card': {
 					'@apply backdrop-blur-lg bg-white/80 dark:bg-background/80 border border-white/20 dark:border-white/10 shadow-lg': {},
