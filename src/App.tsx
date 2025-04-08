@@ -12,7 +12,16 @@ import StudentDashboard from "./pages/StudentDashboard";
 import NotFound from "./pages/NotFound";
 import Bennett from "./pages/Bennett";
 import Events from "./pages/Events";
-
+import AttendanceRecords from "./pages/AttendanceRecords";
+import PerformanceMetrics from "./pages/PerformanceMetrics";
+import DiscussionForums from "./pages/DiscussionForums";
+import LiveCalendar from "./pages/LiveCalendar";
+import Resources from "./pages/Resources";
+import AccountSettings from "./pages/AccountSettings"; 
+import CreateForum from "./pages/CreateForum";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "@/context/AuthContext";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -47,6 +56,34 @@ const App = () => {
         {
           path: "/events",
           element: <Events />,
+        },
+        {
+          path: "/attendance-records",
+          element: <AttendanceRecords />,
+        },
+        {
+          path: "/performance-metrics",
+          element: <PerformanceMetrics />,
+        },
+        {
+          path: "/discussion-forums",
+          element: <DiscussionForums />,
+        },
+        {
+          path: "/create-forum",
+          element: <CreateForum />,
+        },
+        {
+          path: "/live-calendar",
+          element: <LiveCalendar />,
+        },
+        {
+          path: "/resources",
+          element: <Resources />,
+        },
+        {
+          path: "/account-settings", // ✅ Route added
+          element: <AccountSettings />,
         },
       ],
     },
