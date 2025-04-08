@@ -37,7 +37,7 @@ const Hero = () => {
         {Array.from({ length: 30 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-primary opacity-10"
+            className="absolute rounded-full bg-primary dark:bg-accent opacity-10"
             initial={{
               x: Math.random() * window.innerWidth,
               y: Math.random() * window.innerHeight,
@@ -78,7 +78,7 @@ const Hero = () => {
         {Array.from({ length: 6 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute h-px w-20 bg-gradient-to-r from-transparent via-white to-transparent"
+            className="absolute h-px w-20 bg-gradient-to-r from-transparent via-secondary to-transparent"
             initial={{
               x: -100,
               y: Math.random() * 300,
@@ -103,13 +103,89 @@ const Hero = () => {
     );
   };
 
+  // New component: Animated Background Gradient
+  const AnimatedBackground = () => {
+    return (
+      <motion.div 
+        className="absolute inset-0 pointer-events-none z-0 opacity-20"
+        initial={{ backgroundPosition: "0% 0%" }}
+        animate={{ 
+          backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"]
+        }}
+        transition={{ 
+          duration: 20,
+          ease: "linear",
+          repeat: Infinity
+        }}
+        style={{
+          background: "radial-gradient(circle at center, var(--color-primary), transparent 60%), radial-gradient(circle at top right, var(--color-secondary), transparent 60%)",
+          "--color-primary": "#244855",
+          "--color-secondary": "#E64833"
+        } as any}
+      />
+    );
+  };
+
+  // New component: Floating Icon Bubbles
+  const FloatingIconBubbles = () => {
+    return (
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[
+          { Icon: GraduationCap, delay: 0, color: "#244855", size: 40 },
+          { Icon: Laptop, delay: 2, color: "#E64833", size: 35 },
+          { Icon: Users, delay: 4, color: "#244855", size: 30 },
+          { Icon: Brain, delay: 6, color: "#E64833", size: 45 },
+        ].map((item, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full flex items-center justify-center"
+            initial={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+              opacity: 0,
+              scale: 0,
+            }}
+            animate={{
+              opacity: [0, 0.7, 0.5, 0.7, 0],
+              scale: [0, 1, 0.9, 1, 0],
+              x: [
+                Math.random() * window.innerWidth * 0.8,
+                Math.random() * window.innerWidth * 0.8,
+              ],
+              y: [
+                Math.random() * window.innerHeight * 0.8,
+                Math.random() * window.innerHeight * 0.8 - 100,
+              ],
+            }}
+            transition={{
+              duration: 15,
+              delay: item.delay,
+              repeat: Infinity,
+              repeatDelay: 5,
+            }}
+            style={{
+              width: item.size,
+              height: item.size,
+              backgroundColor: `${item.color}20`,
+              border: `1px solid ${item.color}40`,
+            }}
+          >
+            <item.Icon size={item.size * 0.6} color={item.color} />
+          </motion.div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <section
       ref={containerRef}
       className="container mx-auto py-16 px-4 md:px-6 relative overflow-hidden min-h-[80vh] flex items-center"
     >
+      <AnimatedBackground />
       <ParticleComponent />
       <ShootingStars />
+      <FloatingIconBubbles />
 
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <motion.h1
@@ -120,7 +196,20 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ opacity: textOpacity, y: textY }}
         >
-          <motion.span className="inline-block bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text">
+          <motion.span 
+            className="inline-block bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text"
+            animate={{ 
+              backgroundPosition: ['0% center', '100% center', '0% center'] 
+            }}
+            transition={{ 
+              duration: 8, 
+              ease: 'linear', 
+              repeat: Infinity 
+            }}
+            style={{ 
+              backgroundSize: '200% 100%'
+            }}
+          >
             UnifyU
           </motion.span>
           <motion.span className="inline-block">
@@ -133,7 +222,16 @@ const Hero = () => {
             transition={{ delay: 0.8, duration: 0.5, type: "spring" }}
             className="inline-block ml-2 relative"
           >
-            🚀
+            <motion.div
+              animate={{ rotate: [0, 360] }}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                ease: 'linear'
+              }}
+            >
+              🚀
+            </motion.div>
             <motion.div
               className="absolute -top-1 -right-1 text-2xl"
               initial={{ opacity: 0 }}
@@ -149,12 +247,15 @@ const Hero = () => {
           </motion.span>
         </motion.h1>
 
-        {/* Centered typewriter text - Fixed center alignment */}
+        {/* Typewriter text - Proper center alignment */}
         <motion.div
-          className="text-lg md:text-xl text-gray-700 dark:text-[#E0E0E0] mb-8 leading-relaxed mx-auto text-center max-w-2xl"
+          className="text-lg md:text-xl text-gray-700 dark:text-[#E0E0E0] mb-8 leading-relaxed mx-auto max-w-2xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
           style={{ opacity: textOpacity }}
         >
-          <p className="mx-auto text-center">{visibleText}</p>
+          <p className="text-center mx-auto max-w-2xl">{visibleText}</p>
         </motion.div>
 
         <motion.div
@@ -167,25 +268,29 @@ const Hero = () => {
           {[
             {
               icon: GraduationCap,
-              color: "#3F72AF",
+              color: "#244855",
+              darkColor: "#E64833",
               text: "🎓 Learn smarter",
               subtext: "with AI-driven insights",
             },
             {
               icon: Laptop,
-              color: "#7B68EE",
+              color: "#E64833",
+              darkColor: "#244855",
               text: "📚 Stay organized",
               subtext: "with a powerful LMS & ERP",
             },
             {
               icon: Users,
-              color: "#6A5ACD",
+              color: "#244855",
+              darkColor: "#E64833",
               text: "🤝 Collaborate",
               subtext: "effortlessly with mentors & peers",
             },
             {
               icon: Brain,
-              color: "#4169E1",
+              color: "#E64833",
+              darkColor: "#244855",
               text: "🏆 Stay motivated",
               subtext: "with leaderboards & rewards",
             },
@@ -205,8 +310,10 @@ const Hero = () => {
               }}
             >
               <motion.div
-                className="rounded-full p-2 text-white"
-                style={{ backgroundColor: item.color }}
+                className="rounded-full p-2 text-white dark:text-white"
+                style={{ 
+                  backgroundColor: item.color,
+                }}
                 whileHover={{
                   scale: 1.1,
                   boxShadow: `0 0 12px ${item.color}80`,
@@ -238,7 +345,7 @@ const Hero = () => {
           ))}
         </motion.div>
 
-        {/* Centered tagline - Fixed center alignment */}
+        {/* Centered tagline - Proper center alignment */}
         <motion.p
           className="text-lg font-medium text-primary dark:text-primary text-center mx-auto max-w-2xl"
           initial={{ opacity: 0, y: 20 }}
@@ -255,14 +362,14 @@ const Hero = () => {
 
       {/* Floating elements with enhanced animations */}
       <motion.div
-        className="absolute top-20 -left-16 opacity-15 hidden md:block"
+        className="absolute top-20 -left-16 opacity-15 hidden lg:block"
         animate={{
           y: [0, 15, 0],
           rotate: [0, 5, 0],
           filter: [
-            "drop-shadow(0px 0px 0px rgba(65, 105, 225, 0))",
-            "drop-shadow(0px 0px 10px rgba(65, 105, 225, 0.5))",
-            "drop-shadow(0px 0px 0px rgba(65, 105, 225, 0))",
+            "drop-shadow(0px 0px 0px rgba(36, 72, 85, 0))",
+            "drop-shadow(0px 0px 10px rgba(36, 72, 85, 0.5))",
+            "drop-shadow(0px 0px 0px rgba(36, 72, 85, 0))",
           ],
         }}
         transition={{
@@ -275,14 +382,14 @@ const Hero = () => {
       </motion.div>
 
       <motion.div
-        className="absolute top-40 -right-10 opacity-15 hidden md:block"
+        className="absolute top-40 -right-10 opacity-15 hidden lg:block"
         animate={{
           y: [0, 20, 0],
           rotate: [0, -5, 0],
           filter: [
-            "drop-shadow(0px 0px 0px rgba(123, 104, 238, 0))",
-            "drop-shadow(0px 0px 10px rgba(123, 104, 238, 0.5))",
-            "drop-shadow(0px 0px 0px rgba(123, 104, 238, 0))",
+            "drop-shadow(0px 0px 0px rgba(230, 72, 51, 0))",
+            "drop-shadow(0px 0px 10px rgba(230, 72, 51, 0.5))",
+            "drop-shadow(0px 0px 0px rgba(230, 72, 51, 0))",
           ],
         }}
         transition={{
@@ -296,14 +403,14 @@ const Hero = () => {
       </motion.div>
 
       <motion.div
-        className="absolute bottom-10 left-16 opacity-15 hidden md:block"
+        className="absolute bottom-10 left-16 opacity-15 hidden lg:block"
         animate={{
           y: [0, 15, 0],
           rotate: [0, 3, 0],
           filter: [
-            "drop-shadow(0px 0px 0px rgba(106, 90, 205, 0))",
-            "drop-shadow(0px 0px 10px rgba(106, 90, 205, 0.5))",
-            "drop-shadow(0px 0px 0px rgba(106, 90, 205, 0))",
+            "drop-shadow(0px 0px 0px rgba(36, 72, 85, 0))",
+            "drop-shadow(0px 0px 10px rgba(36, 72, 85, 0.5))",
+            "drop-shadow(0px 0px 0px rgba(36, 72, 85, 0))",
           ],
         }}
         transition={{
@@ -313,18 +420,18 @@ const Hero = () => {
           delay: 0.5,
         }}
       >
-        <Users size={80} className="text-[#6A5ACD]" />
+        <Users size={80} className="text-primary" />
       </motion.div>
 
       <motion.div
-        className="absolute bottom-32 right-20 opacity-15 hidden md:block"
+        className="absolute bottom-32 right-20 opacity-15 hidden lg:block"
         animate={{
           y: [0, 20, 0],
           rotate: [0, -3, 0],
           filter: [
-            "drop-shadow(0px 0px 0px rgba(63, 114, 175, 0))",
-            "drop-shadow(0px 0px 10px rgba(63, 114, 175, 0.5))",
-            "drop-shadow(0px 0px 0px rgba(63, 114, 175, 0))",
+            "drop-shadow(0px 0px 0px rgba(230, 72, 51, 0))",
+            "drop-shadow(0px 0px 10px rgba(230, 72, 51, 0.5))",
+            "drop-shadow(0px 0px 0px rgba(230, 72, 51, 0))",
           ],
         }}
         transition={{
@@ -334,7 +441,7 @@ const Hero = () => {
           delay: 1.5,
         }}
       >
-        <Brain size={90} className="text-[#3F72AF]" />
+        <Brain size={90} className="text-secondary" />
       </motion.div>
     </section>
   );
