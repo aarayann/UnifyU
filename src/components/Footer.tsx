@@ -59,10 +59,11 @@ const Footer = () => {
             </div>
           </div>
           
-          <div className="mt-12 text-center">
+          <div className="mt-16 text-center col-span-full justify-self-center w-full md:w-auto">
             <p className="text-[#FBE9D0] font-medium">Your future starts here—let's connect!</p>
             <p className="mt-6 text-sm text-gray-300">© {new Date().getFullYear()} UnifyU. All rights reserved.</p>
           </div>
+
         </div>
       </div>
     </footer>

@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -91,7 +90,7 @@ const Bennett = () => {
               transition={{ delay: 0.1, duration: 0.6 }}
               className="text-3xl md:text-5xl font-bold text-white mb-4 text-center drop-shadow-lg"
             >
-              Bennett University
+              {/* Bennett University */}
             </motion.h1>
             <motion.img 
               whileHover={{ scale: 1.05, rotateY: 5, rotateX: 5 }}
@@ -154,23 +153,27 @@ const Bennett = () => {
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
             >
               <Card className="h-full overflow-hidden border-none shadow-lg dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] dark:bg-[#1E3A47] bg-white">
-                <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
-                  <video
-                    ref={videoRef1}
-                    data-src="https://assets.mixkit.co/videos/preview/mixkit-students-walking-in-a-university-campus-4519-large.mp4"
-                    controls
-                    poster="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                    className="w-full h-full object-cover"
-                  >
-                    Your browser does not support the video tag.
-                  </video>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity">
+              <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
+              <video
+              ref={videoRef1}
+              autoPlay
+              loop
+              muted
+              playsInline
+              controls
+              className="w-full h-full object-cover"
+              >
+              <source src="public/Ben1.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+              </video>
+              </AspectRatio>
+
+
+                  {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity">
                     <div className="absolute bottom-4 left-4 text-white">
                       <h3 className="text-xl font-bold mb-1">Campus Tour</h3>
                       <p className="text-sm">Discover our beautiful campus</p>
-                    </div>
-                  </div>
-                </AspectRatio>
+                    </div> */}
                 <CardContent className="p-4 bg-white dark:bg-[#1E3A47]">
                   <h3 className="text-xl font-bold text-[#244855] dark:text-white">Campus Tour</h3>
                   <p className="text-gray-600 dark:text-gray-300">Explore our state-of-the-art facilities and vibrant campus life.</p>
@@ -188,23 +191,21 @@ const Bennett = () => {
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
             >
               <Card className="h-full overflow-hidden border-none shadow-lg dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] dark:bg-[#1E3A47] bg-white">
-                <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
-                  <video
-                    ref={videoRef2}
-                    data-src="https://assets.mixkit.co/videos/preview/mixkit-teacher-giving-a-lecture-to-her-students-9512-large.mp4"
-                    controls
-                    poster="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                    className="w-full h-full object-cover"
-                  >
-                    Your browser does not support the video tag.
-                  </video>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity">
-                    <div className="absolute bottom-4 left-4 text-white">
-                      <h3 className="text-xl font-bold mb-1">Academic Excellence</h3>
-                      <p className="text-sm">World-class education and research</p>
-                    </div>
-                  </div>
-                </AspectRatio>
+              <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
+              <video
+              ref={videoRef2}
+              autoPlay
+              loop
+              muted
+              playsInline
+              controls
+              className="w-full h-full object-cover"
+              >
+              <source src="public/Ben2.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+              </video>
+              </AspectRatio>
+
                 <CardContent className="p-4 bg-white dark:bg-[#1E3A47]">
                   <h3 className="text-xl font-bold text-[#244855] dark:text-white">Academic Excellence</h3>
                   <p className="text-gray-600 dark:text-gray-300">Learn from industry experts and distinguished faculty.</p>
@@ -285,7 +286,7 @@ const Bennett = () => {
                     <span className="text-white">Technology Summit 2025</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="inline-block w-24 text-[#E64833] font-medium">June 2</span>
+                    <span className="inline-block w-24 text-[#E66833] font-medium">June 2</span>
                     <span className="text-white">Annual Sports Meet</span>
                   </li>
                   <li className="flex items-start">
@@ -339,14 +340,14 @@ const Bennett = () => {
               </Link>
               
               <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white text-white hover:bg-white/20"
-                onClick={downloadCalendar}
-              >
-                <Download className="mr-2 h-4 w-4" />
-                <span>Download Academic Calendar</span>
+              size="lg" 
+              className="bg-white text-black hover:bg-gray-200"
+              onClick={downloadCalendar}
+              > 
+              <Download className="mr-2 h-4 w-4" />
+              <span>Download Academic Calendar</span>
               </Button>
+
             </motion.div>
           </div>
         </div>
@@ -462,14 +463,17 @@ const Bennett = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Join Bennett University</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white drop-shadow-lg">
+              Join Bennett University
+            </h2>
+
             <p className="text-lg mb-8 max-w-2xl mx-auto">
               Be part of our vibrant community and experience world-class education with cutting-edge facilities.
             </p>
             <Button 
               size="lg" 
               className="bg-[#E64833] hover:bg-[#D6402D] text-white py-6 px-8 text-lg"
-              onClick={() => window.open("https://www.bennett.edu.in/admissions/", "_blank")}
+              onClick={() => window.open("https://www.bennett.edu.in/admission/", "_blank")}
             >
               Apply Now
             </Button>
