@@ -11,17 +11,37 @@ export default function CreateForum() {
     const { data: user } = await supabase.auth.getUser();
     if (!user?.user) return;
 
+    // Fetch the user type from the login_users table
+    const { data: userData, error: userError } = await supabase
+      .from("login_users")
+      .select("user_type")
+      .eq("uid", user.user.id)
+      .single();
+
+    if (userError) {
+      alert("Error fetching user data");
+      return;
+    }
+
     const { error } = await supabase.from("discussion_forums").insert([
       {
         uid: user.user.id,
         title,
         content,
-        user_type: user.user.user_metadata?.user_type || "student",
+        user_type: userData?.user_type || "student",
       },
     ]);
 
-    if (error) alert("Error creating forum");
-    else navigate("/discussion-forums");
+    if (error) {
+      alert("Error creating forum");
+    } else {
+      // Redirect based on user type
+      if (userData?.user_type === "faculty") {
+        navigate("/faculty/forums");
+      } else {
+        navigate("/student/forums");
+      }
+    }
   };
 
   return (

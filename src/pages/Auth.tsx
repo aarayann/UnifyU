@@ -62,33 +62,33 @@ const Auth = () => {
       email,
       password,
     });
-
+  
     if (error) {
       alert(error.message);
       setLoading(false);
       return;
     }
-
+  
     const userId = data.user.id;
-
+  
     const { data: userData, error: userError } = await supabase
       .from("login_users")
       .select("user_type")
       .eq("uid", userId)
       .single();
-
+  
     if (userError) {
       alert("Login successful, but failed to fetch user type.");
       setLoading(false);
       return;
     }
-
+  
     if (userData.user_type === "student") {
       navigate("/student-dashboard");
     } else {
-      navigate("/faculty-dashboard");
+      navigate("/faculty/dashboard"); // ✅ FIXED PATH
     }
-
+  
     setLoading(false);
   };
 
