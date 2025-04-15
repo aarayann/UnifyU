@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Search, MapPin, Mail, Phone } from "lucide-react";
@@ -43,6 +42,42 @@ const facultyData = [
     seatingArea: "Room 307, Computer Science Building",
     email: "sarah.davis@bennett.edu.in",
     phone: "+91 98765 43213"
+  },
+  {
+    id: 5,
+    name: "Dr. Rajesh Kumar",
+    photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80",
+    expertise: "Robotics & Automation",
+    seatingArea: "Room 405, Engineering Building",
+    email: "rajesh.kumar@bennett.edu.in",
+    phone: "+91 98765 43214"
+  },
+  {
+    id: 6,
+    name: "Prof. Lisa Chen",
+    photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80",
+    expertise: "Digital Marketing",
+    seatingArea: "Room 201, Business School",
+    email: "lisa.chen@bennett.edu.in",
+    phone: "+91 98765 43215"
+  },
+  {
+    id: 7,
+    name: "Dr. Alex Thompson",
+    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80",
+    expertise: "Quantum Computing",
+    seatingArea: "Room 502, Computer Science Building",
+    email: "alex.thompson@bennett.edu.in",
+    phone: "+91 98765 43216"
+  },
+  {
+    id: 8,
+    name: "Dr. Priya Sharma",
+    photo: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80",
+    expertise: "Biotechnology",
+    seatingArea: "Room 304, Science Block",
+    email: "priya.sharma@bennett.edu.in",
+    phone: "+91 98765 43217"
   }
 ];
 
@@ -98,7 +133,11 @@ const expertiseCategories = [
   "Artificial Intelligence & Machine Learning",
   "Organic Chemistry",
   "Modern History",
-  "Data Science & Analytics"
+  "Data Science & Analytics",
+  "Robotics & Automation",
+  "Digital Marketing",
+  "Quantum Computing",
+  "Biotechnology"
 ];
 
 const Faculties = () => {
@@ -237,7 +276,7 @@ const Faculties = () => {
                       
                       <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
                         <Phone size={16} className="flex-shrink-0" />
-                        <a href={`tel:${faculty.phone}`} className="text-sm hover:text-[#E64833] dark:hover:text-[#D6402D]">
+                        <a href={`tel:${faculty.phone}`} className="text-sm hover:text-[#E64833] dark:hover:text-[#D6602D]">
                           {faculty.phone}
                         </a>
                       </div>
@@ -259,32 +298,6 @@ const Faculties = () => {
           )}
         </div>
       </section>
-{/* 
-      Original Faculty Members Grid
-      <div className="container mx-auto py-12 px-4">
-        <h1 className="text-3xl font-bold text-center mb-12 text-[#244855]">Additional Faculty Members</h1>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {facultyMembers.map((faculty) => (
-            <Card key={faculty.id} className="overflow-hidden transition-all duration-300 hover:shadow-lg">
-              <div className="aspect-ratio-1/1 h-48 overflow-hidden">
-                <img 
-                  src={faculty.image} 
-                  alt={faculty.name} 
-                  className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
-                />
-              </div>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-[#244855]">{faculty.name}</CardTitle>
-                <CardDescription className="text-[#E64833] font-medium">{faculty.title}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600">{faculty.department}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div> 
-      </div> */}
     </div>
   );
 };

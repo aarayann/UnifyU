@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import { 
   BookOpen, 
@@ -29,7 +28,6 @@ const Resources: React.FC = () => {
   const [activeResource, setActiveResource] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   
-  // Check if device is mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -114,7 +112,6 @@ const Resources: React.FC = () => {
     : resources.filter(resource => resource.type === filter);
 
   const handleDownload = (url: string, title: string) => {
-    // Create an anchor element and set properties for download
     const link = document.createElement('a');
     link.href = url;
     link.download = title.replace(/\s+/g, '_') + '.pdf';
@@ -122,7 +119,6 @@ const Resources: React.FC = () => {
     link.click();
     document.body.removeChild(link);
     
-    // Show toast notification
     toast.success(`Downloading ${title}...`, {
       duration: 3000,
       position: "bottom-center"
@@ -162,7 +158,6 @@ const Resources: React.FC = () => {
   
   const resourceHoverBoxRef = useRef<HTMLDivElement>(null);
   
-  // Handle mouse position for accurate hover card positioning
   const [hoverPosition, setHoverPosition] = useState({ x: 0, y: 0 });
   
   const updateHoverPosition = (e: React.MouseEvent) => {
@@ -287,7 +282,6 @@ const Resources: React.FC = () => {
               </CardContent>
               <CardFooter className="flex justify-between pt-2 relative z-10">
                 {isMobile ? (
-                  // Mobile: Use Info button that toggles the details card
                   <div className="relative">
                     <Button 
                       variant="outline" 
@@ -328,7 +322,6 @@ const Resources: React.FC = () => {
                     </AnimatePresence>
                   </div>
                 ) : (
-                  // Desktop: Use HoverCard for cleaner UX
                   <HoverCard openDelay={200} closeDelay={100}>
                     <HoverCardTrigger asChild>
                       <Button 
@@ -353,9 +346,8 @@ const Resources: React.FC = () => {
                     </HoverCardTrigger>
                     <HoverCardContent 
                       className="w-80 bg-card dark:bg-card p-4 border border-border shadow-lg"
-                      side="right"
-                      align="start"
-                      sideOffset={8}
+                      side="bottom"
+                      sideOffset={5}
                     >
                       <motion.div
                         initial={{ opacity: 0 }}
