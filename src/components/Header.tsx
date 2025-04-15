@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -50,7 +49,6 @@ const Header = () => {
   };
 
   const openVirtualTour = () => {
-    // Create shimmer effect before opening
     document.body.style.overflow = "hidden";
     const overlay = document.createElement("div");
     overlay.style.position = "fixed";
@@ -78,11 +76,9 @@ const Header = () => {
     }, 1000);
   };
 
-  // Function to download syllabus
   const downloadSyllabus = () => {
-    // Create an anchor element to trigger download
     const link = document.createElement('a');
-    link.href = '/BTechSyllabus.pdf'; // Path to your PDF in the public folder
+    link.href = '/BTechSyllabus.pdf';
     link.download = 'BTechSyllabus.pdf';
     document.body.appendChild(link);
     link.click();
@@ -128,27 +124,25 @@ const Header = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            {/* Logo with glow effect on hover - now clickable */}
             <div className="flex items-center group relative">
-            <Link to="/" onClick={scrollToTop} aria-label="UnifyU Home">
-  <motion.img 
-    initial={{ opacity: 0, scale: 0.95 }}
-    animate={{ opacity: 1, scale: 1 }}
-    whileHover={{ 
-      scale: 1.08,
-      rotate: 2,
-      filter: "drop-shadow(0px 0px 12px rgba(36, 72, 85, 0.7))",
-    }}
-    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-    src="/logo-unifyu.png"
-    alt="UnifyU"
-    className="h-16 md:h-20 lg:h-24 w-auto relative z-10 cursor-pointer dark:brightness-[0.85] dark:contrast-125" 
-    draggable={false}
-    loading="eager"
-    decoding="async"
-  />
-</Link>
-
+              <Link to="/" onClick={scrollToTop} aria-label="UnifyU Home">
+                <motion.img 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  whileHover={{ 
+                    scale: 1.08,
+                    rotate: 2,
+                    filter: "drop-shadow(0px 0px 12px rgba(36, 72, 85, 0.7))",
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  src="/logo-unifyu.png"
+                  alt="UnifyU"
+                  className="h-16 md:h-20 lg:h-24 w-auto relative z-10 cursor-pointer dark:brightness-[0.85] dark:contrast-125" 
+                  draggable={false}
+                  loading="eager"
+                  decoding="async"
+                />
+              </Link>
 
               <motion.span 
                 initial={{ opacity: 0, x: -10 }}
@@ -164,7 +158,6 @@ const Header = () => {
           
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList className="flex gap-6">
-              {/* Home Link */}
               <NavigationMenuItem>
                 <div onClick={scrollToTop}>
                   <Link to="/">
@@ -197,7 +190,6 @@ const Header = () => {
                 </div>
               </NavigationMenuItem>
               
-              {/* Bennett Link */}
               <NavigationMenuItem>
                 <Link to="/bennett">
                   <motion.div
@@ -228,7 +220,6 @@ const Header = () => {
                 </Link>
               </NavigationMenuItem>
               
-              {/* Faculties Link */}
               <NavigationMenuItem>
                 <Link to="/faculties">
                   <motion.div
@@ -259,7 +250,6 @@ const Header = () => {
                 </Link>
               </NavigationMenuItem>
               
-              {/* Resources Dropdown - Fixed positioning for dropdown content */}
               <NavigationMenuItem className="relative">
                 <NavigationMenuTrigger
                   className={cn(
@@ -277,7 +267,7 @@ const Header = () => {
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-r from-[#E64833] to-[#244855] transition-opacity duration-300"></div>
                   </motion.div>
                 </NavigationMenuTrigger>
-                <div className="absolute top-full left-0 mt-1 z-50">
+                <div className="absolute top-full left-0 ml-12 mt-1 z-50">
                   <NavigationMenuContent 
                     className="min-w-[220px] bg-white dark:bg-gray-800 p-2 rounded-md shadow-lg border border-gray-200 dark:border-gray-700"
                   >
@@ -325,7 +315,6 @@ const Header = () => {
                 </div>
               </NavigationMenuItem>
               
-              {/* Events Link */}
               <NavigationMenuItem>
                 <Link to="/events">
                   <motion.div
@@ -358,7 +347,6 @@ const Header = () => {
             </NavigationMenuList>
           </NavigationMenu>
           
-          {/* Mobile Navigation Menu */}
           <div className="md:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -426,7 +414,6 @@ const Header = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex items-center gap-2"
           >
-            {/* Dark Mode Toggle */}
             <DarkModeToggle />
             
             <Link to="/auth" className="hidden md:block">
