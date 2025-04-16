@@ -56,17 +56,17 @@ export default function LiveCalendar() {
       const { data, error } = await supabase
         .from('events')
         .select('*')
-        .order('date', { ascending: true })
+        .order('date', { ascending: true });
   
       if (error) {
-        console.error('Supabase Error:', error.message)
-        setError('Failed to load events.')
+        console.error('Supabase Error:', error.message);
+        setError('Failed to load events.');
       } else {
-        console.log('Fetched Events:', data)
-        setEvents(data)
+        console.log('Fetched Events:', data);
+        setEvents(data);
       }
-      setLoading(false)
-    }
+      setLoading(false);
+    };
   
     fetchEvents();
   }, []);
@@ -124,7 +124,7 @@ export default function LiveCalendar() {
     <div className="flex items-center justify-center h-96">
       <div className="text-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#244855] mx-auto mb-4"></div>
-        <p className="text-lg text-gray-600">Loading events...</p>
+        <p className="text-lg text-[#244855]">Loading events...</p>
       </div>
     </div>
   );
@@ -135,7 +135,7 @@ export default function LiveCalendar() {
       <Button 
         onClick={() => window.location.reload()} 
         variant="outline" 
-        className="mt-4"
+        className="mt-4 border-red-300 text-red-700 hover:bg-red-50"
       >
         Try Again
       </Button>
