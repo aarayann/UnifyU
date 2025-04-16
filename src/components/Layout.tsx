@@ -1,64 +1,40 @@
-
 import { useEffect } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import HeaderWithAuth from "./HeaderWithAuth";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
 import BenTime from "./BenTime";
-import {
-  Clock,
-  BarChart3,
-  MessageCircle,
-  ClipboardCheck,
-  PlusSquare,
-  Video,
-  BookOpen,
-  Archive,
-} from "lucide-react";
+import { Clock, BarChart3, MessageCircle, ClipboardCheck, PlusSquare, Video, BookOpen, Archive } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
-const studentPaths = [
-  "/student-dashboard",
-  "/attendance-records",
-  "/performance-metrics",
-  "/discussion-forums",
-  "/archived-forums",
-  "/create-forum",
-  "/resources",
-  "/upcoming-classes",
-  "/meet-setup",
+const studentNav = [
+  { path: "/attendance-records", label: "Attendance Records", icon: <ClipboardCheck /> },
+  { path: "/performance-metrics", label: "Performance Metrics", icon: <BarChart3 /> },
+  { path: "/discussion-forums", label: "Discussion Forums", icon: <MessageCircle /> },
+  { path: "/archived-forums", label: "Archived Forums", icon: <Archive /> },
+  { path: "/create-forum", label: "Create Forum", icon: <PlusSquare /> },
+  { path: "/upcoming-classes", label: "Upcoming Classes", icon: <Clock /> },
+  { path: "/meet-setup", label: "Meet Setup", icon: <Video /> },
+  { path: "/resources", label: "Resources", icon: <BookOpen /> },
 ];
 
-const facultyPaths = [
-  "/faculty-dashboard",
-  "/attendance-records",
-  "/performance-metrics",
-  "/discussion-forums",
-  "/archived-forums",
-  "/create-forum",
-  "/resources",
-  "/upcoming-classes",
-  "/meet-setup",
-  "/grade-assignments",
+const facultyNav = [
+  { path: "/faculty-dashboard", label: "Dashboard", icon: <ClipboardCheck /> },
+  { path: "/attendance-records", label: "Attendance Records", icon: <ClipboardCheck /> },
+  { path: "/grade-assignments", label: "Grade Assignments", icon: <BarChart3 /> },
+  { path: "/performance-metrics", label: "Performance Metrics", icon: <BarChart3 /> },
+  { path: "/discussion-forums", label: "Discussion Forums", icon: <MessageCircle /> },
+  { path: "/archived-forums", label: "Archived Forums", icon: <Archive /> },
+  { path: "/upcoming-classes", label: "Upcoming Classes", icon: <Clock /> },
+  { path: "/meet-setup", label: "Meet Setup", icon: <Video /> },
+  { path: "/resources", label: "Resources", icon: <BookOpen /> },
 ];
 
 const Layout = () => {
-  const location = useLocation();
+  const { userType } = useAuth();
   const navigate = useNavigate();
-  
-  // Check if current path is in studentPaths or facultyPaths
-  const isStudentPage = studentPaths.includes(location.pathname);
-  const isFacultyPage = facultyPaths.includes(location.pathname);
-  const isLoggedInPage = isStudentPage || isFacultyPage;
-  
-  // Determine which type of user is currently viewing the page
-  // This is a simplification - in a real app you would check auth context
-  const isStudentUser = isStudentPage && !isFacultyPage;
-  const isFacultyUser = isFacultyPage && !isStudentPage;
 
-  const navigateTo = (path: string) => () => {
-    navigate(path);
-  };
-
+  // Effects for scroll animations and BenTime styling (unchanged)
   useEffect(() => {
     const animateOnScroll = () => {
       const elements = document.querySelectorAll(".animate-on-scroll:not(.visible)");
@@ -70,7 +46,6 @@ const Layout = () => {
         }
       });
     };
-
     animateOnScroll();
     window.addEventListener("scroll", animateOnScroll);
     return () => {
@@ -91,7 +66,6 @@ const Layout = () => {
                 "color: var(--secondary) !important; font-weight: bold !important; text-shadow: 0 0 2px rgba(0,0,0,0.3)"
               );
             }
-
             const benTimeAvatar = document.querySelector(".bentime-avatar");
             if (benTimeAvatar) {
               benTimeAvatar.setAttribute("style", "background-color: var(--secondary) !important; animation: none !important");
@@ -100,175 +74,47 @@ const Layout = () => {
         }
       });
     });
-
     styleObserver.observe(document.body, { childList: true, subtree: true });
     return () => {
       styleObserver.disconnect();
     };
   }, []);
 
+  // Choose nav items based on userType
+  let navItems = [];
+  if (userType === "student") {
+    navItems = studentNav;
+  } else if (userType === "faculty") {
+    navItems = facultyNav;
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
-      <ScrollToTop />
       <HeaderWithAuth />
-      <main className="flex-grow flex">
-        {/* Student Navigation Sidebar - Only show when user is a student */}
-        {isStudentPage && (
-          <aside className="hidden md:flex w-64 bg-sidebar text-sidebar-foreground flex-col p-4 space-y-4 shadow-lg">
-            <div className="text-2xl font-bold mb-6 font-playfair">Dashboard</div>
-            <button
-              onClick={navigateTo("/student-dashboard")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <Clock size={18} /> <span className="font-medium">Attendance Records</span>
-            </button>
-            <button
-              onClick={navigateTo("/performance-metrics")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <BarChart3 size={18} /> <span className="font-medium">Performance Metrics</span>
-            </button>
-            <button
-              onClick={navigateTo("/discussion-forums")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <MessageCircle size={18} /> <span className="font-medium">Discussion Forums</span>
-            </button>
-            <button
-              onClick={navigateTo("/archived-forums")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <Archive size={18} /> <span className="font-medium">Archived Forums</span>
-            </button>
-            <button
-              onClick={navigateTo("/create-forum")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <PlusSquare size={18} /> <span className="font-medium">Create Forum</span>
-            </button>
-            <button
-              onClick={navigateTo("/upcoming-classes")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <BookOpen size={18} /> <span className="font-medium">Upcoming Classes</span>
-            </button>
-            <button
-              onClick={navigateTo("/meet-setup")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <Video size={18} /> <span className="font-medium">Meet Setup</span>
-            </button>
-            <button
-              onClick={navigateTo("/resources")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <ClipboardCheck size={18} /> <span className="font-medium">Resources</span>
-            </button>
-          </aside>
+      <div className="flex flex-1">
+        {userType && (
+          <nav className="w-64 bg-gray-100 p-4 border-r">
+            <div className="space-y-4">
+              {navItems.map((item) => (
+                <button
+                  key={item.path}
+                  className="flex items-center w-full py-2 px-3 rounded hover:bg-gray-200"
+                  onClick={() => navigate(item.path)}
+                >
+                  <span className="mr-2">{item.icon}</span>
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </nav>
         )}
-        
-        {/* Faculty Navigation Sidebar - Only show when user is faculty */}
-        {isFacultyPage && (
-          <aside className="hidden md:flex w-64 bg-sidebar text-sidebar-foreground flex-col p-4 space-y-4 shadow-lg">
-            <div className="text-2xl font-bold mb-6 font-playfair">Dashboard</div>
-            <button
-              onClick={navigateTo("/faculty-dashboard")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <Clock size={18} /> <span className="font-medium">Dashboard</span>
-            </button>
-            <button
-              onClick={navigateTo("/attendance-records")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <Clock size={18} /> <span className="font-medium">Attendance Records</span>
-            </button>
-            <button
-              onClick={navigateTo("/grade-assignments")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <ClipboardCheck size={18} /> <span className="font-medium">Grade Assignments</span>
-            </button>
-            <button
-              onClick={navigateTo("/performance-metrics")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <BarChart3 size={18} /> <span className="font-medium">Performance Metrics</span>
-            </button>
-            <button
-              onClick={navigateTo("/discussion-forums")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <MessageCircle size={18} /> <span className="font-medium">Discussion Forums</span>
-            </button>
-            <button
-              onClick={navigateTo("/archived-forums")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <Archive size={18} /> <span className="font-medium">Archived Forums</span>
-            </button>
-            <button
-              onClick={navigateTo("/upcoming-classes")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <BookOpen size={18} /> <span className="font-medium">Upcoming Classes</span>
-            </button>
-            <button
-              onClick={navigateTo("/meet-setup")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <Video size={18} /> <span className="font-medium">Meet Setup</span>
-            </button>
-            <button
-              onClick={navigateTo("/resources")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <ClipboardCheck size={18} /> <span className="font-medium">Resources</span>
-            </button>
-          </aside>
-        )}
-
-        {/* Mobile Sidebar for Logged In Pages */}
-        {isLoggedInPage && (
-          <div className="fixed bottom-0 left-0 right-0 bg-sidebar text-sidebar-foreground p-2 flex justify-around md:hidden z-50 shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
-            <button
-              onClick={navigateTo("/attendance-records")}
-              className="flex flex-col items-center p-2"
-            >
-              <Clock size={20} />
-              <span className="text-xs mt-1">Attendance</span>
-            </button>
-            <button
-              onClick={navigateTo("/performance-metrics")}
-              className="flex flex-col items-center p-2"
-            >
-              <BarChart3 size={20} />
-              <span className="text-xs mt-1">Performance</span>
-            </button>
-            <button
-              onClick={navigateTo("/discussion-forums")}
-              className="flex flex-col items-center p-2"
-            >
-              <MessageCircle size={20} />
-              <span className="text-xs mt-1">Forums</span>
-            </button>
-            <button
-              onClick={navigateTo("/upcoming-classes")}
-              className="flex flex-col items-center p-2"
-            >
-              <BookOpen size={20} />
-              <span className="text-xs mt-1">Classes</span>
-            </button>
-          </div>
-        )}
-
-        {/* Page Content */}
-        <section className={`flex-1 p-6 bg-background ${isLoggedInPage ? 'pb-20 md:pb-6' : ''}`}>
+        <main className="flex-1 p-8">
+          <ScrollToTop />
+          <BenTime />
           <Outlet />
-        </section>
-      </main>
+        </main>
+      </div>
       <Footer />
-      <BenTime />
     </div>
   );
 };
