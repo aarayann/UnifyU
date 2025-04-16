@@ -1,3 +1,4 @@
+
 // components/FacultyLayout.tsx
 import { Bell, LogOut, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -18,19 +19,6 @@ const FacultyLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="flex h-screen">
-      {/* Sidebar */}
-      <aside className="w-64 bg-[#244855] text-white p-6 space-y-6">
-        <h2 className="text-2xl font-bold">UnifyU</h2>
-        <nav className="space-y-3">
-          <button onClick={() => navigate("/faculty-dashboard")} className="w-full text-left">Dashboard</button>
-          <button onClick={() => navigate("/faculty/schedule")} className="w-full text-left">Teaching Schedule</button>
-          <button onClick={() => navigate("/faculty/assessments")} className="w-full text-left">Assessments</button>
-          <button onClick={() => navigate("/faculty/performance")} className="w-full text-left">Performance</button>
-          <button onClick={() => navigate("/faculty/forums")} className="w-full text-left">Forums</button>
-          <button onClick={() => navigate("/faculty/resources")} className="w-full text-left">Resources</button>
-        </nav>
-      </aside>
-
       {/* Main content */}
       <main className="flex-1 p-6 overflow-y-auto">
         {/* Top bar */}

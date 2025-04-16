@@ -16,7 +16,6 @@ import Events from "./pages/Events";
 import AttendanceRecords from "./pages/AttendanceRecords";
 import PerformanceMetrics from "./pages/PerformanceMetrics";
 import DiscussionForums from "./pages/DiscussionForums";
-import LiveCalendar from "./pages/LiveCalendar";
 import Resources from "./pages/Resources";
 import AccountSettings from "./pages/AccountSettings"; 
 import CreateForum from "./pages/CreateForum";
@@ -80,10 +79,6 @@ const router = createBrowserRouter([
       {
         path: "/create-forum",
         element: <CreateForum />,
-      },
-      {
-        path: "/live-calendar",
-        element: <LiveCalendar />,
       },
       {
         path: "/resources",

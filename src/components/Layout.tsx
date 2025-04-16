@@ -9,7 +9,6 @@ import {
   Clock,
   BarChart3,
   MessageCircle,
-  Calendar,
   ClipboardCheck,
   PlusSquare,
   Video,
@@ -24,7 +23,6 @@ const studentPaths = [
   "/discussion-forums",
   "/archived-forums",
   "/create-forum",
-  "/live-calendar",
   "/resources",
   "/upcoming-classes",
   "/meet-setup",
@@ -37,7 +35,6 @@ const facultyPaths = [
   "/discussion-forums",
   "/archived-forums",
   "/create-forum",
-  "/live-calendar",
   "/resources",
   "/upcoming-classes",
   "/meet-setup",
@@ -47,9 +44,16 @@ const facultyPaths = [
 const Layout = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  
+  // Check if current path is in studentPaths or facultyPaths
   const isStudentPage = studentPaths.includes(location.pathname);
   const isFacultyPage = facultyPaths.includes(location.pathname);
   const isLoggedInPage = isStudentPage || isFacultyPage;
+  
+  // Determine which type of user is currently viewing the page
+  // This is a simplification - in a real app you would check auth context
+  const isStudentUser = isStudentPage && !isFacultyPage;
+  const isFacultyUser = isFacultyPage && !isStudentPage;
 
   const navigateTo = (path: string) => () => {
     navigate(path);
@@ -108,6 +112,7 @@ const Layout = () => {
       <ScrollToTop />
       <HeaderWithAuth />
       <main className="flex-grow flex">
+        {/* Student Navigation Sidebar - Only show when user is a student */}
         {isStudentPage && (
           <aside className="hidden md:flex w-64 bg-sidebar text-sidebar-foreground flex-col p-4 space-y-4 shadow-lg">
             <div className="text-2xl font-bold mb-6 font-playfair">Dashboard</div>
@@ -148,12 +153,6 @@ const Layout = () => {
               <BookOpen size={18} /> <span className="font-medium">Upcoming Classes</span>
             </button>
             <button
-              onClick={navigateTo("/live-calendar")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <Calendar size={18} /> <span className="font-medium">Live Calendar</span>
-            </button>
-            <button
               onClick={navigateTo("/meet-setup")}
               className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
             >
@@ -168,6 +167,7 @@ const Layout = () => {
           </aside>
         )}
         
+        {/* Faculty Navigation Sidebar - Only show when user is faculty */}
         {isFacultyPage && (
           <aside className="hidden md:flex w-64 bg-sidebar text-sidebar-foreground flex-col p-4 space-y-4 shadow-lg">
             <div className="text-2xl font-bold mb-6 font-playfair">Dashboard</div>
@@ -212,12 +212,6 @@ const Layout = () => {
               className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
             >
               <BookOpen size={18} /> <span className="font-medium">Upcoming Classes</span>
-            </button>
-            <button
-              onClick={navigateTo("/live-calendar")}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
-            >
-              <Calendar size={18} /> <span className="font-medium">Live Calendar</span>
             </button>
             <button
               onClick={navigateTo("/meet-setup")}
