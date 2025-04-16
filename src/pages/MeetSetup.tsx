@@ -1,5 +1,4 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabaseClient";
 import {
@@ -69,6 +68,7 @@ export default function MeetSetup() {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [deleting, setDeleting] = useState<Record<string, boolean>>({});
+  const jitsiContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchMeetings = async () => {
@@ -246,7 +246,7 @@ export default function MeetSetup() {
   const renderJitsiMeet = (roomName: string) => {
     const domain = 'meet.jit.si';
     
-    // Render the JitsiMeetAPI script
+    // Load the Jitsi Meet external API script
     if (!document.getElementById('jitsi-api')) {
       const script = document.createElement('script');
       script.id = 'jitsi-api';
@@ -260,32 +260,36 @@ export default function MeetSetup() {
     } else {
       initializeMeeting(domain, roomName);
     }
+    
+    // Return a placeholder div that will be populated by Jitsi
+    return (
+      <div 
+        id="jitsi-container" 
+        ref={jitsiContainerRef} 
+        className="w-full h-[500px] bg-gray-100 rounded flex items-center justify-center"
+      >
+        <div className="text-center">
+          <div className="mb-4 animate-spin rounded-full h-12 w-12 border-b-2 border-[#244855] mx-auto"></div>
+          <p>Loading meeting interface...</p>
+        </div>
+      </div>
+    );
   };
 
   const initializeMeeting = (domain: string, roomName: string) => {
-    // Clear previous container if exists
-    const existingContainer = document.getElementById('jitsi-container');
-    if (existingContainer) {
-      existingContainer.innerHTML = '';
-    }
+    // Ensure the container is available
+    if (!jitsiContainerRef.current) return;
     
-    // Create container if not exists
-    const container = existingContainer || document.createElement('div');
-    container.id = 'jitsi-container';
-    container.style.width = '100%';
-    container.style.height = '500px';
-    
-    if (!existingContainer) {
-      document.getElementById('meet')?.appendChild(container);
-    }
+    // Clear previous content
+    jitsiContainerRef.current.innerHTML = '';
     
     try {
-      // @ts-ignore
+      // @ts-ignore - JitsiMeetExternalAPI is loaded from external script
       const jitsiAPI = new JitsiMeetExternalAPI(domain, {
         roomName: roomName,
         width: '100%',
         height: '100%',
-        parentNode: container,
+        parentNode: jitsiContainerRef.current,
         userInfo: {
           displayName: userEmail || 'UnifyU User'
         },
@@ -296,14 +300,16 @@ export default function MeetSetup() {
       });
     } catch (err) {
       console.error('Error initializing Jitsi API:', err);
-      container.innerHTML = `
-        <div class="flex flex-col items-center justify-center h-full bg-gray-100 rounded">
-          <p class="text-red-500">Failed to load meeting interface</p>
-          <a href="https://meet.jit.si/${roomName}" target="_blank" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded">
-            Join in new tab
-          </a>
-        </div>
-      `;
+      if (jitsiContainerRef.current) {
+        jitsiContainerRef.current.innerHTML = `
+          <div class="flex flex-col items-center justify-center h-full bg-gray-100 rounded">
+            <p class="text-red-500">Failed to load meeting interface</p>
+            <a href="https://meet.jit.si/${roomName}" target="_blank" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded">
+              Join in new tab
+            </a>
+          </div>
+        `;
+      }
     }
   };
 
