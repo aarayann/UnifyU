@@ -9,135 +9,126 @@ import { Button } from "@/components/ui/button";
 const facultyData = [
   {
     id: 1,
-    name: "Dr. John Smith",
-    photo: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&h=200&q=80",
+    name: "Dr. Manish Raj",
+    // Use a local image path for the photo
+    photo: "public\manish-raj310x310.png",
     expertise: "Artificial Intelligence & Machine Learning",
-    seatingArea: "Room 203, Engineering Building",
-    email: "john.smith@bennett.edu.in",
-    phone: "+91 98765 43210"
+    seatingArea: "Room 307, M Block",
+    email: "john.smith@bennett.edu.in"
   },
   {
     id: 2,
-    name: "Dr. Emily Johnson",
-    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&h=200&q=80",
-    expertise: "Organic Chemistry",
-    seatingArea: "Room 105, Science Block",
-    email: "emily.johnson@bennett.edu.in",
-    phone: "+91 98765 43211"
+    name: "Dr. Divya Singh",
+    photo: "public\Divya-Singh.jpg",
+    expertise: "Design & Analysis of Algorithms",
+    seatingArea: "Room 307, M Block",
+    email: "emily.johnson@bennett.edu.in"
   },
   {
     id: 3,
-    name: "Prof. Michael Brown",
-    photo: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&h=200&q=80",
-    expertise: "Modern History",
-    seatingArea: "Room 12, Humanities Wing",
-    email: "michael.brown@bennett.edu.in",
-    phone: "+91 98765 43212"
+    name: "Dr. Garima Jaiswal",
+    photo: "public\GARIMA-JAISWAL.jpg",
+    expertise: "Design, thinking & Innovation",
+    seatingArea: "Room 307, M Block",
+    email: "michael.brown@bennett.edu.in"
   },
   {
     id: 4,
-    name: "Dr. Sarah Davis",
-    photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&h=200&q=80",
+    name: "Dr. Ambrish Kumar",
+    photo: "public\Dr.-Ambrish-Kumar-1.webp",
     expertise: "Data Science & Analytics",
-    seatingArea: "Room 307, Computer Science Building",
-    email: "sarah.davis@bennett.edu.in",
-    phone: "+91 98765 43213"
+    seatingArea: "Room 307, M Block",
+    email: "sarah.davis@bennett.edu.in"
   },
   {
     id: 5,
-    name: "Dr. Rajesh Kumar",
-    photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80",
-    expertise: "Robotics & Automation",
-    seatingArea: "Room 405, Engineering Building",
-    email: "rajesh.kumar@bennett.edu.in",
-    phone: "+91 98765 43214"
+    name: "Dr. Hardeo Kumar Thakur",
+    photo: "public\Dr.-Hardeo-Kumar-Thakur.jpg",
+    expertise: "Design & Analysis of Algorithms",
+    seatingArea: "Room 307, M Block",
+    email: "rajesh.kumar@bennett.edu.in"
   },
   {
     id: 6,
-    name: "Prof. Lisa Chen",
-    photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80",
-    expertise: "Digital Marketing",
-    seatingArea: "Room 201, Business School",
-    email: "lisa.chen@bennett.edu.in",
-    phone: "+91 98765 43215"
+    name: "Dr. Sangeeta Kumari",
+    photo: "public\Dr.-Sangeeta-Kumari.jpg",
+    expertise: "Computer Networks",
+    seatingArea: "Room 307, M Block",
+    email: "lisa.chen@bennett.edu.in"
   },
   {
     id: 7,
-    name: "Dr. Alex Thompson",
-    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80",
-    expertise: "Quantum Computing",
-    seatingArea: "Room 502, Computer Science Building",
-    email: "alex.thompson@bennett.edu.in",
-    phone: "+91 98765 43216"
+    name: "Dr. Saquib Jawed",
+    photo: "public\MD-Saquib-Jawed.webp",
+    expertise: "Computer Networks",
+    seatingArea: "Room 307, M Block",
+    email: "alex.thompson@bennett.edu.in"
   },
   {
     id: 8,
-    name: "Dr. Priya Sharma",
-    photo: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80",
-    expertise: "Biotechnology",
-    seatingArea: "Room 304, Science Block",
-    email: "priya.sharma@bennett.edu.in",
-    phone: "+91 98765 43217"
+    name: "Dr. Arvind Mewada",
+    photo: "public\Mr.-Arvind-Mewada.webp",
+    expertise: "Operating Systems",
+    seatingArea: "Room 307, M Block",
+    email: "priya.sharma@bennett.edu.in"
   }
 ];
 
-// Faculty members list
-const facultyMembers = [
-  {
-    id: 5,
-    name: "Dr. Sarah Johnson",
-    title: "Professor of Computer Science",
-    department: "School of Engineering",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop",
-  },
-  {
-    id: 6,
-    name: "Dr. Michael Chen",
-    title: "Associate Professor of Data Science",
-    department: "School of Engineering",
-    image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=200&auto=format&fit=crop",
-  },
-  {
-    id: 7,
-    name: "Prof. Amelia Rodriguez",
-    title: "Professor of Business Administration",
-    department: "School of Business",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop",
-  },
-  {
-    id: 8,
-    name: "Dr. James Wilson",
-    title: "Professor of Economics",
-    department: "School of Business",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop",
-  },
-  {
-    id: 9,
-    name: "Dr. Priya Sharma",
-    title: "Professor of Psychology",
-    department: "School of Liberal Arts",
-    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=200&auto=format&fit=crop",
-  },
-  {
-    id: 10,
-    name: "Dr. Robert Zhang",
-    title: "Professor of Physics",
-    department: "School of Sciences",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
-  },
-];
+// // Faculty members list
+// const facultyMembers = [
+//   {
+//     id: 5,
+//     name: "Dr. Sarah Johnson",
+//     title: "Professor of Computer Science",
+//     department: "School of Engineering",
+//     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop",
+//   },
+//   {
+//     id: 6,
+//     name: "Dr. Michael Chen",
+//     title: "Associate Professor of Data Science",
+//     department: "School of Engineering",
+//     image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=200&auto=format&fit=crop",
+//   },
+//   {
+//     id: 7,
+//     name: "Prof. Amelia Rodriguez",
+//     title: "Professor of Business Administration",
+//     department: "School of Business",
+//     image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop",
+//   },
+//   {
+//     id: 8,
+//     name: "Dr. James Wilson",
+//     title: "Professor of Economics",
+//     department: "School of Business",
+//     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop",
+//   },
+//   {
+//     id: 9,
+//     name: "Dr. Priya Sharma",
+//     title: "Professor of Psychology",
+//     department: "School of Liberal Arts",
+//     image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=200&auto=format&fit=crop",
+//   },
+//   {
+//     id: 10,
+//     name: "Dr. Robert Zhang",
+//     title: "Professor of Physics",
+//     department: "School of Sciences",
+//     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+//   },
+// ];
 
 // Expertise categories for filtering
 const expertiseCategories = [
   "All",
   "Artificial Intelligence & Machine Learning",
-  "Organic Chemistry",
-  "Modern History",
+  "Design & Analysis of Algorithms",
+  "Design, thinking & Innovation",
   "Data Science & Analytics",
-  "Robotics & Automation",
-  "Digital Marketing",
-  "Quantum Computing",
-  "Biotechnology"
+  "Computer Networks",
+  "Operating Systems"
 ];
 
 const Faculties = () => {
