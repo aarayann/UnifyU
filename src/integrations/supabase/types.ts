@@ -9,7 +9,111 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      meetings: {
+        Row: {
+          agenda: string | null
+          created_at: string | null
+          creator_id: string
+          duration: number
+          id: string
+          meeting_date: string
+          participants: string[] | null
+          room_name: string
+          title: string
+        }
+        Insert: {
+          agenda?: string | null
+          created_at?: string | null
+          creator_id: string
+          duration: number
+          id?: string
+          meeting_date: string
+          participants?: string[] | null
+          room_name: string
+          title: string
+        }
+        Update: {
+          agenda?: string | null
+          created_at?: string | null
+          creator_id?: string
+          duration?: number
+          id?: string
+          meeting_date?: string
+          participants?: string[] | null
+          room_name?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      student_attendance: {
+        Row: {
+          created_at: string | null
+          date: string
+          faculty_id: string
+          id: string
+          status: string
+          student_id: string
+          subject_code: string
+          subject_name: string
+        }
+        Insert: {
+          created_at?: string | null
+          date?: string
+          faculty_id: string
+          id?: string
+          status: string
+          student_id: string
+          subject_code: string
+          subject_name: string
+        }
+        Update: {
+          created_at?: string | null
+          date?: string
+          faculty_id?: string
+          id?: string
+          status?: string
+          student_id?: string
+          subject_code?: string
+          subject_name?: string
+        }
+        Relationships: []
+      }
+      student_grades: {
+        Row: {
+          assignment_name: string
+          created_at: string | null
+          date: string
+          faculty_id: string
+          grade: string
+          id: string
+          student_id: string
+          subject_code: string
+          subject_name: string
+        }
+        Insert: {
+          assignment_name: string
+          created_at?: string | null
+          date?: string
+          faculty_id: string
+          grade: string
+          id?: string
+          student_id: string
+          subject_code: string
+          subject_name: string
+        }
+        Update: {
+          assignment_name?: string
+          created_at?: string | null
+          date?: string
+          faculty_id?: string
+          grade?: string
+          id?: string
+          student_id?: string
+          subject_code?: string
+          subject_name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

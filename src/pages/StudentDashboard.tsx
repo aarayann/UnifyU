@@ -1,72 +1,39 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabaseClient";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {
-  Clock,
-  Bell,
-  Settings,
-  LogOut,
-} from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface AttendanceRecord {
-  course_name: string;
-  total_classes: number;
-  attended_classes: number;
-}
-
-interface PerformanceMetric {
-  course_name: string;
-  assignments_score: number;
-  quizzes_score: number;
-  exams_score: number;
-  overall_grade: string;
+  id: string;
+  subject_code: string;
+  subject_name: string;
+  status: string;
+  date: string;
 }
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
   const [attendanceData, setAttendanceData] = useState<AttendanceRecord[]>([]);
-  const [performanceData, setPerformanceData] = useState<PerformanceMetric[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState("all"); // all, present, absent
 
-  const fetchData = async () => {
+  const fetchAttendanceData = async () => {
     setLoading(true);
     const { data: { user } } = await supabase.auth.getUser();
 
     if (user) {
-      const { data: attendance, error: attendanceError } = await supabase
-        .from("attendance_records")
-        .select("course_name, total_classes, attended_classes")
-        .eq("uid", user.id);
+      const { data, error } = await supabase
+        .from("student_attendance")
+        .select("*")
+        .eq("student_id", user.id)
+        .order('date', { ascending: false });
 
-      if (attendanceError) {
-        console.error("Error fetching attendance:", attendanceError.message);
+      if (error) {
+        console.error("Error fetching attendance:", error.message);
       } else {
-        setAttendanceData(attendance || []);
-      }
-
-      const { data: performance, error: performanceError } = await supabase
-        .from("performance_metrics")
-        .select("course_name, assignments_score, quizzes_score, exams_score, overall_grade")
-        .eq("uid", user.id);
-
-      if (performanceError) {
-        console.error("Error fetching performance:", performanceError.message);
-      } else {
-        setPerformanceData(performance || []);
+        setAttendanceData(data || []);
       }
     }
 
@@ -74,118 +41,137 @@ const StudentDashboard = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchAttendanceData();
   }, []);
 
-  const renderAttendanceBars = () => {
-    if (loading) return <p>Loading attendance data...</p>;
-    if (attendanceData.length === 0) return <p>No attendance data available.</p>;
+  const filteredAttendance = attendanceData.filter(record => {
+    if (filter === "all") return true;
+    return record.status === filter;
+  });
 
-    return attendanceData.map((record, index) => {
-      const percentage = Math.round(
-        (record.attended_classes / record.total_classes) * 100
-      );
-      return (
-        <div key={index}>
-          <div className="flex justify-between mb-1">
-            <span className="text-sm font-medium">{record.course_name}</span>
-            <span className="text-sm font-medium">{percentage}%</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div
-              className="bg-[#244855] h-2 rounded-full"
-              style={{ width: `${percentage}%` }}
-            ></div>
-          </div>
-        </div>
-      );
+  const getAttendanceStats = () => {
+    const total = attendanceData.length;
+    const present = attendanceData.filter(record => record.status === "present").length;
+    const absent = attendanceData.filter(record => record.status === "absent").length;
+    
+    const presentPercentage = total > 0 ? Math.round((present / total) * 100) : 0;
+    
+    return { total, present, absent, presentPercentage };
+  };
+
+  const { total, present, absent, presentPercentage } = getAttendanceStats();
+
+  const getStatusColor = (status: string) => {
+    return status === "present" ? "bg-green-500" : "bg-red-500";
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric"
     });
   };
 
-  const renderPerformanceCards = () => {
-    if (loading) return <p>Loading performance metrics...</p>;
-    if (performanceData.length === 0) return <p>No performance data available.</p>;
-
-    return performanceData.map((course, index) => (
-      <Card key={index} className="border border-gray-200 shadow-md">
-        <CardHeader>
-          <CardTitle className="text-lg font-semibold text-[#244855]">
-            {course.course_name}
-          </CardTitle>
-          <CardDescription>Grade: <strong>{course.overall_grade}</strong></CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-1 text-sm text-gray-700">
-            <p>Assignments Score: {course.assignments_score}%</p>
-            <p>Quizzes Score: {course.quizzes_score}%</p>
-            <p>Exams Score: {course.exams_score}%</p>
-          </div>
-        </CardContent>
-      </Card>
-    ));
-  };
-
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <div className="container mx-auto py-6 px-4 flex justify-between items-center border-b">
-        <h1
-          className="text-3xl font-bold text-[#244855] cursor-pointer"
-          onClick={() => navigate("/")}
-        >
-          Dashboard
-        </h1>
-
-        <div className="flex items-center gap-4">
-          {/* Notification Bell */}
-          <button className="relative" onClick={() => navigate("/notifications")}>
-            <Bell size={22} className="text-[#244855]" />
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full text-xs px-1.5">
-              3
-            </span>
-          </button>
-
-          {/* Account Dropdown */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="flex items-center gap-2">
-                <Settings size={16} />
-                Account
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-40">
-              <DropdownMenuItem onClick={() => navigate("/account-settings")}>
-                <Settings className="mr-2 h-4 w-4" /> Settings
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate("/")}>
-                <LogOut className="mr-2 h-4 w-4" /> Sign Out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="container mx-auto py-12 px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-          {/* Attendance */}
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto py-8">
+        <h1 className="text-3xl font-bold text-[#244855] mb-8">Student Dashboard</h1>
+        
+        <div className="mb-8">
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Clock className="mr-2 text-[#90AEAD]" size={20} />
-                Attendance Overview
-              </CardTitle>
-              <CardDescription>
-                Your attendance for the current semester
-              </CardDescription>
+            <CardHeader className="bg-[#244855]/5 pb-2">
+              <CardTitle className="text-xl text-[#244855]">Attendance Overview</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-4">{renderAttendanceBars()}</div>
+            <CardContent className="pt-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                  <p className="text-sm text-gray-500 mb-1">Total Classes</p>
+                  <p className="text-2xl font-bold">{total}</p>
+                </div>
+                <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                  <p className="text-sm text-gray-500 mb-1">Present</p>
+                  <p className="text-2xl font-bold text-green-600">{present}</p>
+                </div>
+                <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                  <p className="text-sm text-gray-500 mb-1">Absent</p>
+                  <p className="text-2xl font-bold text-red-600">{absent}</p>
+                </div>
+              </div>
+              
+              <div className="mb-6">
+                <p className="mb-2 font-medium">Attendance Rate: <span className={presentPercentage >= 75 ? "text-green-600" : "text-red-600"}>{presentPercentage}%</span></p>
+                <div className="w-full bg-gray-200 rounded-full h-4 mb-1">
+                  <div 
+                    className={`h-4 rounded-full ${presentPercentage >= 75 ? "bg-green-500" : "bg-red-500"}`} 
+                    style={{ width: `${presentPercentage}%` }}
+                  ></div>
+                </div>
+                {presentPercentage < 75 && (
+                  <p className="text-sm text-red-500">Your attendance is below the required 75% threshold.</p>
+                )}
+              </div>
             </CardContent>
           </Card>
-
-          {/* Performance Metrics */}
-          <div className="grid grid-cols-1 gap-4">{renderPerformanceCards()}</div>
+        </div>
+        
+        <div>
+          <Card>
+            <CardHeader className="bg-[#244855]/5 pb-2">
+              <CardTitle className="text-xl text-[#244855]">Recent Attendance</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <Tabs defaultValue="all" className="w-full">
+                <TabsList className="mb-4">
+                  <TabsTrigger value="all" onClick={() => setFilter("all")}>All</TabsTrigger>
+                  <TabsTrigger value="present" onClick={() => setFilter("present")}>Present</TabsTrigger>
+                  <TabsTrigger value="absent" onClick={() => setFilter("absent")}>Absent</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value={filter} className="mt-0">
+                  {loading ? (
+                    <div className="text-center py-8">
+                      <p>Loading attendance records...</p>
+                    </div>
+                  ) : filteredAttendance.length === 0 ? (
+                    <div className="text-center py-8">
+                      <p>No attendance records found.</p>
+                    </div>
+                  ) : (
+                    <div className="overflow-x-auto">
+                      <table className="w-full border-collapse">
+                        <thead>
+                          <tr className="bg-gray-50 text-gray-600">
+                            <th className="px-4 py-3 text-left">Date</th>
+                            <th className="px-4 py-3 text-left">Subject</th>
+                            <th className="px-4 py-3 text-left">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y">
+                          {filteredAttendance.map((record) => (
+                            <tr key={record.id} className="hover:bg-gray-50">
+                              <td className="px-4 py-3">{formatDate(record.date)}</td>
+                              <td className="px-4 py-3">
+                                <div className="font-medium">{record.subject_name}</div>
+                                <div className="text-sm text-gray-500">{record.subject_code}</div>
+                              </td>
+                              <td className="px-4 py-3">
+                                <span className={`inline-block px-3 py-1 rounded-full text-xs text-white ${getStatusColor(record.status)}`}>
+                                  {record.status === "present" ? "Present" : "Absent"}
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

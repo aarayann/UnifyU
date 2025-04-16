@@ -1,7 +1,7 @@
 
 import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import Header from "./Header";
+import HeaderWithAuth from "./HeaderWithAuth";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
 import BenTime from "./BenTime";
@@ -12,6 +12,9 @@ import {
   Calendar,
   ClipboardCheck,
   PlusSquare,
+  Video,
+  BookOpen,
+  Archive,
 } from "lucide-react";
 
 const studentPaths = [
@@ -19,15 +22,34 @@ const studentPaths = [
   "/attendance-records",
   "/performance-metrics",
   "/discussion-forums",
+  "/archived-forums",
   "/create-forum",
   "/live-calendar",
   "/resources",
+  "/upcoming-classes",
+  "/meet-setup",
+];
+
+const facultyPaths = [
+  "/faculty-dashboard",
+  "/attendance-records",
+  "/performance-metrics",
+  "/discussion-forums",
+  "/archived-forums",
+  "/create-forum",
+  "/live-calendar",
+  "/resources",
+  "/upcoming-classes",
+  "/meet-setup",
+  "/grade-assignments",
 ];
 
 const Layout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const isStudentPage = studentPaths.includes(location.pathname);
+  const isFacultyPage = facultyPaths.includes(location.pathname);
+  const isLoggedInPage = isStudentPage || isFacultyPage;
 
   const navigateTo = (path: string) => () => {
     navigate(path);
@@ -84,13 +106,13 @@ const Layout = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <ScrollToTop />
-      <Header />
+      <HeaderWithAuth />
       <main className="flex-grow flex">
         {isStudentPage && (
           <aside className="hidden md:flex w-64 bg-sidebar text-sidebar-foreground flex-col p-4 space-y-4 shadow-lg">
             <div className="text-2xl font-bold mb-6 font-playfair">Dashboard</div>
             <button
-              onClick={navigateTo("/attendance-records")}
+              onClick={navigateTo("/student-dashboard")}
               className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
             >
               <Clock size={18} /> <span className="font-medium">Attendance Records</span>
@@ -108,16 +130,100 @@ const Layout = () => {
               <MessageCircle size={18} /> <span className="font-medium">Discussion Forums</span>
             </button>
             <button
+              onClick={navigateTo("/archived-forums")}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
+            >
+              <Archive size={18} /> <span className="font-medium">Archived Forums</span>
+            </button>
+            <button
               onClick={navigateTo("/create-forum")}
               className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
             >
               <PlusSquare size={18} /> <span className="font-medium">Create Forum</span>
             </button>
             <button
+              onClick={navigateTo("/upcoming-classes")}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
+            >
+              <BookOpen size={18} /> <span className="font-medium">Upcoming Classes</span>
+            </button>
+            <button
               onClick={navigateTo("/live-calendar")}
               className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
             >
               <Calendar size={18} /> <span className="font-medium">Live Calendar</span>
+            </button>
+            <button
+              onClick={navigateTo("/meet-setup")}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
+            >
+              <Video size={18} /> <span className="font-medium">Meet Setup</span>
+            </button>
+            <button
+              onClick={navigateTo("/resources")}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
+            >
+              <ClipboardCheck size={18} /> <span className="font-medium">Resources</span>
+            </button>
+          </aside>
+        )}
+        
+        {isFacultyPage && (
+          <aside className="hidden md:flex w-64 bg-sidebar text-sidebar-foreground flex-col p-4 space-y-4 shadow-lg">
+            <div className="text-2xl font-bold mb-6 font-playfair">Dashboard</div>
+            <button
+              onClick={navigateTo("/faculty-dashboard")}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
+            >
+              <Clock size={18} /> <span className="font-medium">Dashboard</span>
+            </button>
+            <button
+              onClick={navigateTo("/attendance-records")}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
+            >
+              <Clock size={18} /> <span className="font-medium">Attendance Records</span>
+            </button>
+            <button
+              onClick={navigateTo("/grade-assignments")}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
+            >
+              <ClipboardCheck size={18} /> <span className="font-medium">Grade Assignments</span>
+            </button>
+            <button
+              onClick={navigateTo("/performance-metrics")}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
+            >
+              <BarChart3 size={18} /> <span className="font-medium">Performance Metrics</span>
+            </button>
+            <button
+              onClick={navigateTo("/discussion-forums")}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
+            >
+              <MessageCircle size={18} /> <span className="font-medium">Discussion Forums</span>
+            </button>
+            <button
+              onClick={navigateTo("/archived-forums")}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
+            >
+              <Archive size={18} /> <span className="font-medium">Archived Forums</span>
+            </button>
+            <button
+              onClick={navigateTo("/upcoming-classes")}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
+            >
+              <BookOpen size={18} /> <span className="font-medium">Upcoming Classes</span>
+            </button>
+            <button
+              onClick={navigateTo("/live-calendar")}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
+            >
+              <Calendar size={18} /> <span className="font-medium">Live Calendar</span>
+            </button>
+            <button
+              onClick={navigateTo("/meet-setup")}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-sidebar-accent/20 transition-colors"
+            >
+              <Video size={18} /> <span className="font-medium">Meet Setup</span>
             </button>
             <button
               onClick={navigateTo("/resources")}
@@ -128,8 +234,8 @@ const Layout = () => {
           </aside>
         )}
 
-        {/* Mobile Sidebar for Student Pages */}
-        {isStudentPage && (
+        {/* Mobile Sidebar for Logged In Pages */}
+        {isLoggedInPage && (
           <div className="fixed bottom-0 left-0 right-0 bg-sidebar text-sidebar-foreground p-2 flex justify-around md:hidden z-50 shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
             <button
               onClick={navigateTo("/attendance-records")}
@@ -153,17 +259,17 @@ const Layout = () => {
               <span className="text-xs mt-1">Forums</span>
             </button>
             <button
-              onClick={navigateTo("/live-calendar")}
+              onClick={navigateTo("/upcoming-classes")}
               className="flex flex-col items-center p-2"
             >
-              <Calendar size={20} />
-              <span className="text-xs mt-1">Calendar</span>
+              <BookOpen size={20} />
+              <span className="text-xs mt-1">Classes</span>
             </button>
           </div>
         )}
 
         {/* Page Content */}
-        <section className={`flex-1 p-6 bg-background ${isStudentPage ? 'pb-20 md:pb-6' : ''}`}>
+        <section className={`flex-1 p-6 bg-background ${isLoggedInPage ? 'pb-20 md:pb-6' : ''}`}>
           <Outlet />
         </section>
       </main>

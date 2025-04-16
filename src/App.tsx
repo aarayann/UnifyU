@@ -21,6 +21,10 @@ import Resources from "./pages/Resources";
 import AccountSettings from "./pages/AccountSettings"; 
 import CreateForum from "./pages/CreateForum";
 import { AuthProvider } from "@/context/AuthContext";
+import UpcomingClasses from "./pages/UpcomingClasses";
+import MeetSetup from "./pages/MeetSetup";
+import GradeAssignments from "./pages/GradeAssignments";
+import ArchivedForums from "./pages/ArchivedForums";
 
 // Define router outside of component to avoid recreating on each render
 const router = createBrowserRouter([
@@ -70,6 +74,10 @@ const router = createBrowserRouter([
         element: <DiscussionForums />,
       },
       {
+        path: "/archived-forums",
+        element: <ArchivedForums />,
+      },
+      {
         path: "/create-forum",
         element: <CreateForum />,
       },
@@ -84,6 +92,18 @@ const router = createBrowserRouter([
       {
         path: "/account-settings",
         element: <AccountSettings />,
+      },
+      {
+        path: "/upcoming-classes",
+        element: <UpcomingClasses />,
+      },
+      {
+        path: "/meet-setup",
+        element: <MeetSetup />,
+      },
+      {
+        path: "/grade-assignments",
+        element: <GradeAssignments />,
       },
     ],
   },
