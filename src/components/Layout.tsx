@@ -48,7 +48,7 @@ const Layout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const isStudentPage = studentPaths.includes(location.pathname);
-  const isFacultyPage = facultyPaths.includes(location.pathname) && !location.pathname.includes("/faculty-dashboard");
+  const isFacultyPage = facultyPaths.includes(location.pathname);
   const isLoggedInPage = isStudentPage || isFacultyPage;
 
   const navigateTo = (path: string) => () => {
