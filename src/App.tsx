@@ -45,6 +45,7 @@ const router = createBrowserRouter([
         path: "/faculties",
         element: <Faculties />,
       },
+      // Faculty dashboard gets its own layout in FacultyDashboard.tsx
       {
         path: "/faculty-dashboard",
         element: <FacultyDashboard />,
