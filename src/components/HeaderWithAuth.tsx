@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -6,8 +7,6 @@ import {
   NavigationMenuList, 
   NavigationMenuItem, 
   NavigationMenuLink,
-  NavigationMenuContent,
-  NavigationMenuTrigger
 } from "@/components/ui/navigation-menu";
 import { 
   DropdownMenu,
@@ -19,7 +18,6 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import DarkModeToggle from "./DarkModeToggle";
 import ProfileMenu from "./ProfileMenu";
-import { FileText, Download, BookOpen } from "lucide-react";
 import { supabase } from "@/lib/supabaseClient";
 
 const HeaderWithAuth = () => {
@@ -27,6 +25,7 @@ const HeaderWithAuth = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userType, setUserType] = useState<"student" | "faculty" | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -130,15 +129,6 @@ const HeaderWithAuth = () => {
         window.open("https://www.bennett.edu.in/campus-tour/", "_blank");
       }, 500);
     }, 1000);
-  };
-
-  const downloadSyllabus = () => {
-    const link = document.createElement('a');
-    link.href = '/BTechSyllabus.pdf';
-    link.download = 'BTechSyllabus.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
   };
 
   const navItemVariants = {
@@ -284,42 +274,23 @@ const HeaderWithAuth = () => {
                 </Link>
               </NavigationMenuItem>
               
-              <NavigationMenuItem className="relative">
-                <NavigationMenuTrigger
-                  className={cn(
-                    "group inline-flex h-10 w-max items-center justify-center rounded-md backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 relative overflow-hidden border border-transparent hover:border-gray-200 dark:hover:border-gray-700",
-                  )}
-                  aria-label="Resources Dropdown"
-                >
-                  <motion.div custom={3} variants={navItemVariants} initial="initial" animate="animate">
-                    <span className="relative z-10">Resources</span>
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-r from-[#E64833] to-[#244855] transition-opacity duration-300"></div>
+              <NavigationMenuItem>
+                <Link to="/resources">
+                  <motion.div custom={3} variants={navItemVariants} initial="initial" animate="animate" whileHover="hover">
+                    <NavigationMenuLink
+                      className={cn(
+                        "group inline-flex h-10 w-max items-center justify-center rounded-md backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 relative overflow-hidden border border-transparent hover:border-gray-200 dark:hover:border-gray-700",
+                        isActive("/resources") && "bg-accent text-accent-foreground border-gray-200 dark:border-gray-700 shadow-sm"
+                      )}
+                    >
+                      <span className="relative z-10">Resources</span>
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-r from-[#E64833] to-[#244855] transition-opacity duration-300"></div>
+                      {isActive("/resources") && (
+                        <motion.div className="absolute bottom-0 left-0 h-0.5 bg-[#E64833] w-full" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.3 }} />
+                      )}
+                    </NavigationMenuLink>
                   </motion.div>
-                </NavigationMenuTrigger>
-                <div className="absolute top-full left-0 ml-12 mt-1 z-50">
-                  <NavigationMenuContent className="min-w-[220px] bg-white dark:bg-gray-800 p-2 rounded-md shadow-lg border border-gray-200 dark:border-gray-700">
-                    <ul className="grid gap-1">
-                      <li>
-                        <a href="http://10.6.0.121/gdroombooking/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" aria-label="GD Room Booking">
-                          <FileText size={18} className="text-[#244855] dark:text-[#A8C0BF]" />
-                          <span>GD Room Booking</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" onClick={(e) => { e.preventDefault(); downloadSyllabus(); }} className="flex items-center gap-2 p-2 rounded-md bg-[#E64833]/10 dark:bg-[#D6402D]/10 hover:bg-[#E64833]/20 dark:hover:bg-[#D6402D]/20 text-[#E64833] dark:text-[#D6402D] font-medium transition-colors" aria-label="Download B.Tech Syllabus">
-                          <Download size={18} />
-                          <span>B. Tech Syllabus</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://bennett.refread.com/#/home" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" aria-label="E-Library (PYQs)">
-                          <BookOpen size={18} className="text-[#244855] dark:text-[#A8C0BF]" />
-                          <span>E-Library (PYQs)</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
-                </div>
+                </Link>
               </NavigationMenuItem>
               
               <NavigationMenuItem>
@@ -344,7 +315,7 @@ const HeaderWithAuth = () => {
           </NavigationMenu>
           
           <div className="md:hidden">
-            <DropdownMenu>
+            <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon" className="h-10 w-10">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-[1.2rem] w-[1.2rem]">
@@ -357,32 +328,31 @@ const HeaderWithAuth = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-[200px] bg-white dark:bg-[#1E3A47] p-2">
                 <DropdownMenuItem>
-                  <Link to="/" className="flex w-full">Home</Link>
+                  <Link to="/" className="flex w-full" onClick={() => setIsMenuOpen(false)}>Home</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/bennett" className="flex w-full">Bennett</Link>
+                  <Link to="/bennett" className="flex w-full" onClick={() => setIsMenuOpen(false)}>Bennett</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/faculties" className="flex w-full">Faculties</Link>
+                  <Link to="/faculties" className="flex w-full" onClick={() => setIsMenuOpen(false)}>Faculties</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/events" className="flex w-full">Events</Link>
+                  <Link to="/resources" className="flex w-full" onClick={() => setIsMenuOpen(false)}>Resources</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <a href="http://10.6.0.121/gdroombooking/" target="_blank" rel="noopener noreferrer" className="flex w-full">
-                    GD Room Booking
-                  </a>
+                  <Link to="/events" className="flex w-full" onClick={() => setIsMenuOpen(false)}>Events</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <a href="#" onClick={(e) => { e.preventDefault(); downloadSyllabus(); }} className="flex w-full">
-                    B. Tech Syllabus
-                  </a>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <a href="https://bennett.refread.com/#/home" target="_blank" rel="noopener noreferrer" className="flex w-full">
-                    E-Library (PYQs)
-                  </a>
-                </DropdownMenuItem>
+                {!isAuthenticated && (
+                  <DropdownMenuItem className="mt-2">
+                    <Link 
+                      to="/auth" 
+                      className="flex w-full bg-[#244855] text-white px-3 py-2 rounded-md font-medium text-center"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Login / Sign Up
+                    </Link>
+                  </DropdownMenuItem>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
