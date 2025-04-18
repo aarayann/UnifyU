@@ -170,7 +170,7 @@ const Bennett = () => {
               controls
               className="w-full h-full object-cover"
               >
-              <source src="public/Ben1.mp4" type="video/mp4" />
+              <source src="/Ben1.mp4" type="video/mp4" />
               Your browser does not support the video tag.
               </video>
               </AspectRatio>
@@ -208,7 +208,7 @@ const Bennett = () => {
               controls
               className="w-full h-full object-cover"
               >
-              <source src="public/Ben2.mp4" type="video/mp4" />
+              <source src="/Ben2.mp4" type="video/mp4" />
               Your browser does not support the video tag.
               </video>
               </AspectRatio>
