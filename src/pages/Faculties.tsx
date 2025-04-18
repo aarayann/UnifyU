@@ -14,7 +14,7 @@ const facultyData = [
     photo: "public\manish-raj310x310.png",
     expertise: "Artificial Intelligence & Machine Learning",
     seatingArea: "Room 307, M Block",
-    email: "john.smith@bennett.edu.in"
+    email: "manish.raj@bennett.edu.in"
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ const facultyData = [
     photo: "public\Divya-Singh.jpg",
     expertise: "Design & Analysis of Algorithms",
     seatingArea: "Room 307, M Block",
-    email: "emily.johnson@bennett.edu.in"
+    email: "divya.singh@bennett.edu.in"
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const facultyData = [
     photo: "public\GARIMA-JAISWAL.jpg",
     expertise: "Design, thinking & Innovation",
     seatingArea: "Room 307, M Block",
-    email: "michael.brown@bennett.edu.in"
+    email: "garima.jaiswal@bennett.edu.in"
   },
   {
     id: 4,
@@ -38,7 +38,7 @@ const facultyData = [
     photo: "public\Dr.-Ambrish-Kumar-1.webp",
     expertise: "Data Science & Analytics",
     seatingArea: "Room 307, M Block",
-    email: "sarah.davis@bennett.edu.in"
+    email: "ambrish.kumar@bennett.edu.in"
   },
   {
     id: 5,
@@ -46,7 +46,7 @@ const facultyData = [
     photo: "public\Dr.-Hardeo-Kumar-Thakur.jpg",
     expertise: "Design & Analysis of Algorithms",
     seatingArea: "Room 307, M Block",
-    email: "rajesh.kumar@bennett.edu.in"
+    email: "hardeo.thakur@bennett.edu.in"
   },
   {
     id: 6,
@@ -54,7 +54,7 @@ const facultyData = [
     photo: "public\Dr.-Sangeeta-Kumari.jpg",
     expertise: "Computer Networks",
     seatingArea: "Room 307, M Block",
-    email: "lisa.chen@bennett.edu.in"
+    email: "sangeeta.kumari@bennett.edu.in"
   },
   {
     id: 7,
@@ -62,7 +62,7 @@ const facultyData = [
     photo: "public\MD-Saquib-Jawed.webp",
     expertise: "Computer Networks",
     seatingArea: "Room 307, M Block",
-    email: "alex.thompson@bennett.edu.in"
+    email: "saquib.jawed@bennett.edu.in"
   },
   {
     id: 8,
@@ -70,7 +70,7 @@ const facultyData = [
     photo: "public\Mr.-Arvind-Mewada.webp",
     expertise: "Operating Systems",
     seatingArea: "Room 307, M Block",
-    email: "priya.sharma@bennett.edu.in"
+    email: "arvind.mewada@bennett.edu.in"
   }
 ];
 

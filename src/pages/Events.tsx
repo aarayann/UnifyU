@@ -19,7 +19,7 @@ const eventData = [
     time: "As per schedule",
     location: "Examination Centers",
     category: "Academic",
-    status: "Ongoing",
+    status: "Past",
     description: "Makeup exams for students who missed the mid-terms.",
     image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
   },
@@ -52,7 +52,7 @@ const eventData = [
     time: "4:00 PM - 8:00 PM",
     location: "Central Courtyard",
     category: "Cultural",
-    status: "Upcoming",
+    status: "Past",
     description: "Post-vacation welcome event for students.",
     image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
   },
@@ -63,7 +63,7 @@ const eventData = [
     time: "8:00 AM - 6:00 PM",
     location: "Sports Complex",
     category: "Sports",
-    status: "Upcoming",
+    status: "Past",
     description: "Annual inter-college sports competition.",
     image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
   },
@@ -98,7 +98,7 @@ const eventData = [
     time: "10:00 AM - 4:00 PM",
     location: "Room 203, Admin Building",
     category: "Administrative",
-    status: "Ongoing",
+    status: "Past",
     description: "Students can submit grievances about makeup exam results.",
     image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
   },
@@ -146,7 +146,7 @@ const eventData = [
     category: "Cultural",
     status: "Past",
     description: "Graduation day for 2023–24 batch.",
-    image: "https://images.unsplash.com/photo-1564025051269-88f3d6909ba9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+    image: "https://www.bennett.edu.in/wp-content/uploads/2024/12/Bennett-University-Convocation-2024.jpg"
   },
   {
     id: 13,
@@ -168,7 +168,7 @@ const eventData = [
     category: "Holiday",
     status: "Past",
     description: "University closed for festivities.",
-    image: "https://images.unsplash.com/photo-1593152057073-c41ff129a896?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+    image: "https://pbs.twimg.com/media/GbIa5t7WUAAjhMk.jpg"
   },
   {
     id: 15,
