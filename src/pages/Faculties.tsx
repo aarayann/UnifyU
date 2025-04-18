@@ -11,7 +11,7 @@ const facultyData = [
     id: 1,
     name: "Dr. Manish Raj",
     // Use a local image path for the photo
-    photo: "public\manish-raj310x310.png",
+    photo: "https://www.bennett.edu.in/wp-content/uploads/2020/08/manish-raj310x310.png",
     expertise: "Artificial Intelligence & Machine Learning",
     seatingArea: "Room 307, M Block",
     email: "manish.raj@bennett.edu.in"
@@ -19,7 +19,7 @@ const facultyData = [
   {
     id: 2,
     name: "Dr. Divya Singh",
-    photo: "public\Divya-Singh.jpg",
+    photo: "https://www.bennett.edu.in/wp-content/uploads/2022/08/Divya-Singh.jpg",
     expertise: "Design & Analysis of Algorithms",
     seatingArea: "Room 307, M Block",
     email: "divya.singh@bennett.edu.in"
@@ -27,7 +27,7 @@ const facultyData = [
   {
     id: 3,
     name: "Dr. Garima Jaiswal",
-    photo: "public\GARIMA-JAISWAL.jpg",
+    photo: "https://www.bennett.edu.in/wp-content/uploads/2022/08/GARIMA-JAISWAL.jpg",
     expertise: "Design, thinking & Innovation",
     seatingArea: "Room 307, M Block",
     email: "garima.jaiswal@bennett.edu.in"
@@ -35,7 +35,7 @@ const facultyData = [
   {
     id: 4,
     name: "Dr. Ambrish Kumar",
-    photo: "public\Dr.-Ambrish-Kumar-1.webp",
+    photo: "https://www.bennett.edu.in/wp-content/uploads/2023/07/Dr.-Ambrish-Kumar-1.jpg",
     expertise: "Data Science & Analytics",
     seatingArea: "Room 307, M Block",
     email: "ambrish.kumar@bennett.edu.in"
@@ -43,7 +43,7 @@ const facultyData = [
   {
     id: 5,
     name: "Dr. Hardeo Kumar Thakur",
-    photo: "public\Dr.-Hardeo-Kumar-Thakur.jpg",
+    photo: "https://www.bennett.edu.in/wp-content/uploads/2022/11/Dr.-Hardeo-Kumar-Thakur.jpg",
     expertise: "Design & Analysis of Algorithms",
     seatingArea: "Room 307, M Block",
     email: "hardeo.thakur@bennett.edu.in"
@@ -51,7 +51,7 @@ const facultyData = [
   {
     id: 6,
     name: "Dr. Sangeeta Kumari",
-    photo: "public\Dr.-Sangeeta-Kumari.jpg",
+    photo: "https://www.bennett.edu.in/wp-content/uploads/2022/12/Dr.-Sangeeta-Kumari.jpg",
     expertise: "Computer Networks",
     seatingArea: "Room 307, M Block",
     email: "sangeeta.kumari@bennett.edu.in"
@@ -59,7 +59,7 @@ const facultyData = [
   {
     id: 7,
     name: "Dr. Saquib Jawed",
-    photo: "public\MD-Saquib-Jawed.webp",
+    photo: "https://www.bennett.edu.in/wp-content/uploads/2024/07/MD-Saquib-Jawed.jpg",
     expertise: "Computer Networks",
     seatingArea: "Room 307, M Block",
     email: "saquib.jawed@bennett.edu.in"
@@ -67,7 +67,7 @@ const facultyData = [
   {
     id: 8,
     name: "Dr. Arvind Mewada",
-    photo: "public\Mr.-Arvind-Mewada.webp",
+    photo: "https://www.bennett.edu.in/wp-content/uploads/2023/10/Mr.-Arvind-Mewada.jpg",
     expertise: "Operating Systems",
     seatingArea: "Room 307, M Block",
     email: "arvind.mewada@bennett.edu.in"
