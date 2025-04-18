@@ -74,7 +74,18 @@ const facultyData = [
   }
 ];
 
-// // Faculty members list
+// Update the faculty interface to fix the build error
+interface Faculty {
+  id: number;
+  name: string;
+  photo: string;
+  expertise: string;
+  seatingArea: string;
+  email: string;
+  phone?: string; // Make phone optional to fix the build error
+}
+
+// Faculty members list
 // const facultyMembers = [
 //   {
 //     id: 5,
@@ -267,7 +278,7 @@ const Faculties = () => {
                       
                       <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
                         <Phone size={16} className="flex-shrink-0" />
-                        <a href={`tel:${faculty.phone}`} className="text-sm hover:text-[#E64833] dark:hover:text-[#D6602D]">
+                        <a href={`tel:${faculty.phone}`} className="text-sm hover:text-[#E64833] dark:hover:text-[#D6402D]">
                           {faculty.phone}
                         </a>
                       </div>

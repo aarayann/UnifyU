@@ -4,8 +4,9 @@ import HeaderWithAuth from "./HeaderWithAuth";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
 import BenTime from "./BenTime";
-import { Clock, BarChart3, MessageCircle, ClipboardCheck, PlusSquare, Video, BookOpen, Archive } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { useMediaQuery } from "@/hooks/use-mobile";
+import { Clock, BarChart3, MessageCircle, ClipboardCheck, PlusSquare, Video, BookOpen, Archive } from "lucide-react";
 
 const studentNav = [
   { path: "/attendance-records", label: "Attendance Records", icon: <ClipboardCheck /> },
@@ -33,8 +34,9 @@ const facultyNav = [
 const Layout = () => {
   const { userType } = useAuth();
   const navigate = useNavigate();
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
-  // Effects for scroll animations and BenTime styling (unchanged)
+  // Effects for scroll animations and BenTime styling
   useEffect(() => {
     const animateOnScroll = () => {
       const elements = document.querySelectorAll(".animate-on-scroll:not(.visible)");
@@ -92,8 +94,9 @@ const Layout = () => {
     <div className="flex flex-col min-h-screen">
       <HeaderWithAuth />
       <div className="flex flex-1">
-        {userType && (
-          <nav className="w-64 bg-gray-100 p-4 border-r">
+        {userType && !isMobile && (
+          <nav className="hidden md:block w-64 bg-gray-100 p-4 border-r">
+            {/* Sidebar navigation only shows on desktop when user is logged in */}
             <div className="space-y-4">
               {navItems.map((item) => (
                 <button
@@ -108,7 +111,7 @@ const Layout = () => {
             </div>
           </nav>
         )}
-        <main className="flex-1 p-8">
+        <main className={`flex-1 p-4 md:p-8 ${!userType || isMobile ? 'w-full' : ''}`}>
           <ScrollToTop />
           <BenTime />
           <Outlet />
